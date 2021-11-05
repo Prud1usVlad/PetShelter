@@ -1,0 +1,47 @@
+﻿<Window x:Class="PetShelter.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PetShelter.View"
+        mc:Ignorable="d"
+        Title="MainWindow" 
+        Height="450" 
+        Width="800"
+        DataContext="{Binding ViewModel}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <DataGrid Name="MainGrid" 
+                  AutoGenerateColumns="True"
+                  Grid.Row="1"
+                  ItemsSource="{Binding Animals}" 
+                  MouseDown="MainGrid_MouseDown" SelectionChanged="MainGrid_SelectionChanged">
+        </DataGrid>
+        <Menu HorizontalAlignment="Left" VerticalAlignment="Top">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Вийти"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Дані">
+                <MenuItem Header="Тварини"></MenuItem>
+                <MenuItem Header="Клієнти"></MenuItem>
+                <MenuItem Header="Договори"></MenuItem>
+                <MenuItem Header="Щеплення"></MenuItem>
+                <MenuItem Header="Вакцини"></MenuItem>
+                <MenuItem Header="Групи"></MenuItem>
+                <MenuItem Header="Доглядачі"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <ScrollViewer Grid.Column="1"
+                      Grid.Row="1">
+            <StackPanel x:Name="DetailsPanel"></StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

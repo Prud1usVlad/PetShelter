@@ -1,0 +1,892 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище PetShelterModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Animals">
+          <Key>
+            <PropertyRef Name="AnimalID" />
+          </Key>
+          <Property Name="AnimalID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sex" Type="nvarchar" MaxLength="50" />
+          <Property Name="AnimalKind" Type="nvarchar" MaxLength="50" />
+          <Property Name="Height" Type="int" />
+          <Property Name="Weight" Type="float" />
+          <Property Name="Color" Type="nvarchar" MaxLength="50" />
+          <Property Name="BirthDate" Type="date" />
+          <Property Name="RegistrationDate" Type="date" />
+          <Property Name="QuarantineDays" Type="int" />
+          <Property Name="RoomID" Type="int" />
+          <Property Name="GroupID" Type="int" />
+        </EntityType>
+        <EntityType Name="Caretakers">
+          <Key>
+            <PropertyRef Name="PassNum" />
+          </Key>
+          <Property Name="PassNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDCardNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="IDCardSeries" Type="nvarchar" MaxLength="50" />
+          <Property Name="SecondName" Type="nvarchar" MaxLength="50" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ThirdName" Type="nvarchar" MaxLength="50" />
+          <Property Name="EntryDate" Type="date" />
+          <Property Name="Shift" Type="nvarchar" MaxLength="50" />
+          <Property Name="MajorAnimalKind" Type="nvarchar" MaxLength="50" />
+          <Property Name="MedicalEducation" Type="nvarchar" MaxLength="50" />
+          <Property Name="RoomID" Type="int" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="ClientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDCardNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="IDCardSeries" Type="nvarchar" MaxLength="50" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SecondName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ThirdName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DateOfAdding" Type="date" />
+          <Property Name="Region" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="Street" Type="nvarchar" MaxLength="50" />
+          <Property Name="BuildingNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="FlatNum" Type="int" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Contracts">
+          <Key>
+            <PropertyRef Name="ContractNum" />
+          </Key>
+          <Property Name="ContractNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PassNum" Type="int" />
+          <Property Name="AnimalID" Type="int" />
+          <Property Name="SigningDate" Type="date" />
+          <Property Name="TerminationDate" Type="date" />
+          <Property Name="ClientID" Type="int" />
+          <Property Name="IDCardNum" Type="int" />
+        </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="GroupID" />
+          </Key>
+          <Property Name="GroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Priority" Type="int" Nullable="false" />
+          <Property Name="Readiness" Type="nvarchar" MaxLength="50" />
+          <Property Name="AdditionalCare" Type="nvarchar" MaxLength="255" />
+          <Property Name="Descriotion" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="InfoDepEmploees">
+          <Key>
+            <PropertyRef Name="PassNum" />
+          </Key>
+          <Property Name="PassNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDCardNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="IDCradSeries" Type="nvarchar" MaxLength="50" />
+          <Property Name="SecondName" Type="nvarchar" MaxLength="50" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ThridName" Type="nvarchar" MaxLength="50" />
+          <Property Name="EntryDate" Type="date" />
+          <Property Name="Employment" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Producers">
+          <Key>
+            <PropertyRef Name="ProducerID" />
+          </Key>
+          <Property Name="ProducerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Adress" Type="nvarchar" MaxLength="255" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Rooms">
+          <Key>
+            <PropertyRef Name="RoomID" />
+          </Key>
+          <Property Name="RoomID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaxAnimalAmount" Type="int" />
+        </EntityType>
+        <EntityType Name="States">
+          <Key>
+            <PropertyRef Name="StateID" />
+          </Key>
+          <Property Name="StateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="StateValues">
+          <Key>
+            <PropertyRef Name="StateValueID" />
+          </Key>
+          <Property Name="StateValueID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StateID" Type="int" />
+          <Property Name="AnimalID" Type="int" />
+          <Property Name="Value" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Vaccinations">
+          <Key>
+            <PropertyRef Name="VaccineID" />
+            <PropertyRef Name="AnimalID" />
+            <PropertyRef Name="VaccinationDate" />
+          </Key>
+          <Property Name="VaccineID" Type="int" Nullable="false" />
+          <Property Name="AnimalID" Type="int" Nullable="false" />
+          <Property Name="VaccinationDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vaccines">
+          <Key>
+            <PropertyRef Name="VaccineID" />
+          </Key>
+          <Property Name="VaccineID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VaccineName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ActiveSubstanceName" Type="nvarchar(max)" />
+          <Property Name="ActiveSubstanceLatinName" Type="nvarchar(max)" />
+          <Property Name="RevaccinationDogs" Type="int" />
+          <Property Name="RevaccinationRodents" Type="int" />
+          <Property Name="RevaccinationMeatEaters" Type="int" />
+          <Property Name="ProducerID" Type="int" />
+        </EntityType>
+        <Association Name="FK_Animals_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
+          <End Role="Animals" Type="Self.Animals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="Animals">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Animals_Rooms">
+          <End Role="Rooms" Type="Self.Rooms" Multiplicity="0..1" />
+          <End Role="Animals" Type="Self.Animals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rooms">
+              <PropertyRef Name="RoomID" />
+            </Principal>
+            <Dependent Role="Animals">
+              <PropertyRef Name="RoomID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Caretakers_Rooms">
+          <End Role="Rooms" Type="Self.Rooms" Multiplicity="0..1" />
+          <End Role="Caretakers" Type="Self.Caretakers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rooms">
+              <PropertyRef Name="RoomID" />
+            </Principal>
+            <Dependent Role="Caretakers">
+              <PropertyRef Name="RoomID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contracts_Animals">
+          <End Role="Animals" Type="Self.Animals" Multiplicity="0..1" />
+          <End Role="Contracts" Type="Self.Contracts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Animals">
+              <PropertyRef Name="AnimalID" />
+            </Principal>
+            <Dependent Role="Contracts">
+              <PropertyRef Name="AnimalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contracts_Clients">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="Contracts" Type="Self.Contracts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="Contracts">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contracts_InfoDepEmploees">
+          <End Role="InfoDepEmploees" Type="Self.InfoDepEmploees" Multiplicity="0..1" />
+          <End Role="Contracts" Type="Self.Contracts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InfoDepEmploees">
+              <PropertyRef Name="PassNum" />
+            </Principal>
+            <Dependent Role="Contracts">
+              <PropertyRef Name="PassNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StateValue_Animals">
+          <End Role="Animals" Type="Self.Animals" Multiplicity="0..1" />
+          <End Role="StateValues" Type="Self.StateValues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Animals">
+              <PropertyRef Name="AnimalID" />
+            </Principal>
+            <Dependent Role="StateValues">
+              <PropertyRef Name="AnimalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StateValue_States">
+          <End Role="States" Type="Self.States" Multiplicity="0..1" />
+          <End Role="StateValues" Type="Self.StateValues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="States">
+              <PropertyRef Name="StateID" />
+            </Principal>
+            <Dependent Role="StateValues">
+              <PropertyRef Name="StateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vaccinations_Animals">
+          <End Role="Animals" Type="Self.Animals" Multiplicity="1" />
+          <End Role="Vaccinations" Type="Self.Vaccinations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Animals">
+              <PropertyRef Name="AnimalID" />
+            </Principal>
+            <Dependent Role="Vaccinations">
+              <PropertyRef Name="AnimalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vaccinations_Vaccines">
+          <End Role="Vaccines" Type="Self.Vaccines" Multiplicity="1" />
+          <End Role="Vaccinations" Type="Self.Vaccinations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vaccines">
+              <PropertyRef Name="VaccineID" />
+            </Principal>
+            <Dependent Role="Vaccinations">
+              <PropertyRef Name="VaccineID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vaccines_Producers">
+          <End Role="Producers" Type="Self.Producers" Multiplicity="0..1" />
+          <End Role="Vaccines" Type="Self.Vaccines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producers">
+              <PropertyRef Name="ProducerID" />
+            </Principal>
+            <Dependent Role="Vaccines">
+              <PropertyRef Name="ProducerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище PetShelterModelContainer">
+          <EntitySet Name="Animals" EntityType="Self.Animals" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Caretakers" EntityType="Self.Caretakers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contracts" EntityType="Self.Contracts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InfoDepEmploees" EntityType="Self.InfoDepEmploees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producers" EntityType="Self.Producers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rooms" EntityType="Self.Rooms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="States" EntityType="Self.States" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StateValues" EntityType="Self.StateValues" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vaccinations" EntityType="Self.Vaccinations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vaccines" EntityType="Self.Vaccines" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Animals_Groups" Association="Self.FK_Animals_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Animals" EntitySet="Animals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Animals_Rooms" Association="Self.FK_Animals_Rooms">
+            <End Role="Rooms" EntitySet="Rooms" />
+            <End Role="Animals" EntitySet="Animals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Caretakers_Rooms" Association="Self.FK_Caretakers_Rooms">
+            <End Role="Rooms" EntitySet="Rooms" />
+            <End Role="Caretakers" EntitySet="Caretakers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contracts_Animals" Association="Self.FK_Contracts_Animals">
+            <End Role="Animals" EntitySet="Animals" />
+            <End Role="Contracts" EntitySet="Contracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contracts_Clients" Association="Self.FK_Contracts_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Contracts" EntitySet="Contracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contracts_InfoDepEmploees" Association="Self.FK_Contracts_InfoDepEmploees">
+            <End Role="InfoDepEmploees" EntitySet="InfoDepEmploees" />
+            <End Role="Contracts" EntitySet="Contracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StateValue_Animals" Association="Self.FK_StateValue_Animals">
+            <End Role="Animals" EntitySet="Animals" />
+            <End Role="StateValues" EntitySet="StateValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StateValue_States" Association="Self.FK_StateValue_States">
+            <End Role="States" EntitySet="States" />
+            <End Role="StateValues" EntitySet="StateValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vaccinations_Animals" Association="Self.FK_Vaccinations_Animals">
+            <End Role="Animals" EntitySet="Animals" />
+            <End Role="Vaccinations" EntitySet="Vaccinations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vaccinations_Vaccines" Association="Self.FK_Vaccinations_Vaccines">
+            <End Role="Vaccines" EntitySet="Vaccines" />
+            <End Role="Vaccinations" EntitySet="Vaccinations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vaccines_Producers" Association="Self.FK_Vaccines_Producers">
+            <End Role="Producers" EntitySet="Producers" />
+            <End Role="Vaccines" EntitySet="Vaccines" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PetShelterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Animals">
+          <Key>
+            <PropertyRef Name="AnimalID" />
+          </Key>
+          <Property Name="AnimalID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sex" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AnimalKind" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Height" Type="Int32" />
+          <Property Name="Weight" Type="Double" />
+          <Property Name="Color" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BirthDate" Type="DateTime" Precision="0" />
+          <Property Name="RegistrationDate" Type="DateTime" Precision="0" />
+          <Property Name="QuarantineDays" Type="Int32" />
+          <Property Name="RoomID" Type="Int32" />
+          <Property Name="GroupID" Type="Int32" />
+          <NavigationProperty Name="Groups" Relationship="Self.FK_Animals_Groups" FromRole="Animals" ToRole="Groups" />
+          <NavigationProperty Name="Rooms" Relationship="Self.FK_Animals_Rooms" FromRole="Animals" ToRole="Rooms" />
+          <NavigationProperty Name="Contracts" Relationship="Self.FK_Contracts_Animals" FromRole="Animals" ToRole="Contracts" />
+          <NavigationProperty Name="StateValues" Relationship="Self.FK_StateValue_Animals" FromRole="Animals" ToRole="StateValues" />
+          <NavigationProperty Name="Vaccinations" Relationship="Self.FK_Vaccinations_Animals" FromRole="Animals" ToRole="Vaccinations" />
+        </EntityType>
+        <EntityType Name="Caretakers">
+          <Key>
+            <PropertyRef Name="PassNum" />
+          </Key>
+          <Property Name="PassNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDCardNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDCardSeries" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SecondName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ThirdName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EntryDate" Type="DateTime" Precision="0" />
+          <Property Name="Shift" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MajorAnimalKind" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MedicalEducation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RoomID" Type="Int32" />
+          <NavigationProperty Name="Rooms" Relationship="Self.FK_Caretakers_Rooms" FromRole="Caretakers" ToRole="Rooms" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="ClientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDCardNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDCardSeries" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SecondName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ThirdName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfAdding" Type="DateTime" Precision="0" />
+          <Property Name="Region" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BuildingNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FlatNum" Type="Int32" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Contracts" Relationship="Self.FK_Contracts_Clients" FromRole="Clients" ToRole="Contracts" />
+        </EntityType>
+        <EntityType Name="Contracts">
+          <Key>
+            <PropertyRef Name="ContractNum" />
+          </Key>
+          <Property Name="ContractNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PassNum" Type="Int32" />
+          <Property Name="AnimalID" Type="Int32" />
+          <Property Name="SigningDate" Type="DateTime" Precision="0" />
+          <Property Name="TerminationDate" Type="DateTime" Precision="0" />
+          <Property Name="ClientID" Type="Int32" />
+          <Property Name="IDCardNum" Type="Int32" />
+          <NavigationProperty Name="Animals" Relationship="Self.FK_Contracts_Animals" FromRole="Contracts" ToRole="Animals" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK_Contracts_Clients" FromRole="Contracts" ToRole="Clients" />
+          <NavigationProperty Name="InfoDepEmploees" Relationship="Self.FK_Contracts_InfoDepEmploees" FromRole="Contracts" ToRole="InfoDepEmploees" />
+        </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="GroupID" />
+          </Key>
+          <Property Name="GroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Priority" Type="Int32" Nullable="false" />
+          <Property Name="Readiness" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AdditionalCare" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Descriotion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Animals" Relationship="Self.FK_Animals_Groups" FromRole="Groups" ToRole="Animals" />
+        </EntityType>
+        <EntityType Name="InfoDepEmploees">
+          <Key>
+            <PropertyRef Name="PassNum" />
+          </Key>
+          <Property Name="PassNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDCardNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDCradSeries" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SecondName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ThridName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EntryDate" Type="DateTime" Precision="0" />
+          <Property Name="Employment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Contracts" Relationship="Self.FK_Contracts_InfoDepEmploees" FromRole="InfoDepEmploees" ToRole="Contracts" />
+        </EntityType>
+        <EntityType Name="Producers">
+          <Key>
+            <PropertyRef Name="ProducerID" />
+          </Key>
+          <Property Name="ProducerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Adress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Vaccines" Relationship="Self.FK_Vaccines_Producers" FromRole="Producers" ToRole="Vaccines" />
+        </EntityType>
+        <EntityType Name="Rooms">
+          <Key>
+            <PropertyRef Name="RoomID" />
+          </Key>
+          <Property Name="RoomID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaxAnimalAmount" Type="Int32" />
+          <NavigationProperty Name="Animals" Relationship="Self.FK_Animals_Rooms" FromRole="Rooms" ToRole="Animals" />
+          <NavigationProperty Name="Caretakers" Relationship="Self.FK_Caretakers_Rooms" FromRole="Rooms" ToRole="Caretakers" />
+        </EntityType>
+        <EntityType Name="States">
+          <Key>
+            <PropertyRef Name="StateID" />
+          </Key>
+          <Property Name="StateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="StateValues" Relationship="Self.FK_StateValue_States" FromRole="States" ToRole="StateValues" />
+        </EntityType>
+        <EntityType Name="StateValues">
+          <Key>
+            <PropertyRef Name="StateValueID" />
+          </Key>
+          <Property Name="StateValueID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StateID" Type="Int32" />
+          <Property Name="AnimalID" Type="Int32" />
+          <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Animals" Relationship="Self.FK_StateValue_Animals" FromRole="StateValues" ToRole="Animals" />
+          <NavigationProperty Name="States" Relationship="Self.FK_StateValue_States" FromRole="StateValues" ToRole="States" />
+        </EntityType>
+        <EntityType Name="Vaccinations">
+          <Key>
+            <PropertyRef Name="VaccineID" />
+            <PropertyRef Name="AnimalID" />
+            <PropertyRef Name="VaccinationDate" />
+          </Key>
+          <Property Name="VaccineID" Type="Int32" Nullable="false" />
+          <Property Name="AnimalID" Type="Int32" Nullable="false" />
+          <Property Name="VaccinationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Animals" Relationship="Self.FK_Vaccinations_Animals" FromRole="Vaccinations" ToRole="Animals" />
+          <NavigationProperty Name="Vaccines" Relationship="Self.FK_Vaccinations_Vaccines" FromRole="Vaccinations" ToRole="Vaccines" />
+        </EntityType>
+        <EntityType Name="Vaccines">
+          <Key>
+            <PropertyRef Name="VaccineID" />
+          </Key>
+          <Property Name="VaccineID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VaccineName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ActiveSubstanceName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ActiveSubstanceLatinName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RevaccinationDogs" Type="Int32" />
+          <Property Name="RevaccinationRodents" Type="Int32" />
+          <Property Name="RevaccinationMeatEaters" Type="Int32" />
+          <Property Name="ProducerID" Type="Int32" />
+          <NavigationProperty Name="Producers" Relationship="Self.FK_Vaccines_Producers" FromRole="Vaccines" ToRole="Producers" />
+          <NavigationProperty Name="Vaccinations" Relationship="Self.FK_Vaccinations_Vaccines" FromRole="Vaccines" ToRole="Vaccinations" />
+        </EntityType>
+        <Association Name="FK_Animals_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
+          <End Role="Animals" Type="Self.Animals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="Animals">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Animals_Rooms">
+          <End Role="Rooms" Type="Self.Rooms" Multiplicity="0..1" />
+          <End Role="Animals" Type="Self.Animals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rooms">
+              <PropertyRef Name="RoomID" />
+            </Principal>
+            <Dependent Role="Animals">
+              <PropertyRef Name="RoomID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contracts_Animals">
+          <End Role="Animals" Type="Self.Animals" Multiplicity="0..1" />
+          <End Role="Contracts" Type="Self.Contracts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Animals">
+              <PropertyRef Name="AnimalID" />
+            </Principal>
+            <Dependent Role="Contracts">
+              <PropertyRef Name="AnimalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StateValue_Animals">
+          <End Role="Animals" Type="Self.Animals" Multiplicity="0..1" />
+          <End Role="StateValues" Type="Self.StateValues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Animals">
+              <PropertyRef Name="AnimalID" />
+            </Principal>
+            <Dependent Role="StateValues">
+              <PropertyRef Name="AnimalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vaccinations_Animals">
+          <End Role="Animals" Type="Self.Animals" Multiplicity="1" />
+          <End Role="Vaccinations" Type="Self.Vaccinations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Animals">
+              <PropertyRef Name="AnimalID" />
+            </Principal>
+            <Dependent Role="Vaccinations">
+              <PropertyRef Name="AnimalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Caretakers_Rooms">
+          <End Role="Rooms" Type="Self.Rooms" Multiplicity="0..1" />
+          <End Role="Caretakers" Type="Self.Caretakers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rooms">
+              <PropertyRef Name="RoomID" />
+            </Principal>
+            <Dependent Role="Caretakers">
+              <PropertyRef Name="RoomID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contracts_Clients">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="Contracts" Type="Self.Contracts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="Contracts">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contracts_InfoDepEmploees">
+          <End Role="InfoDepEmploees" Type="Self.InfoDepEmploees" Multiplicity="0..1" />
+          <End Role="Contracts" Type="Self.Contracts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InfoDepEmploees">
+              <PropertyRef Name="PassNum" />
+            </Principal>
+            <Dependent Role="Contracts">
+              <PropertyRef Name="PassNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vaccines_Producers">
+          <End Role="Producers" Type="Self.Producers" Multiplicity="0..1" />
+          <End Role="Vaccines" Type="Self.Vaccines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producers">
+              <PropertyRef Name="ProducerID" />
+            </Principal>
+            <Dependent Role="Vaccines">
+              <PropertyRef Name="ProducerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StateValue_States">
+          <End Role="States" Type="Self.States" Multiplicity="0..1" />
+          <End Role="StateValues" Type="Self.StateValues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="States">
+              <PropertyRef Name="StateID" />
+            </Principal>
+            <Dependent Role="StateValues">
+              <PropertyRef Name="StateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vaccinations_Vaccines">
+          <End Role="Vaccines" Type="Self.Vaccines" Multiplicity="1" />
+          <End Role="Vaccinations" Type="Self.Vaccinations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vaccines">
+              <PropertyRef Name="VaccineID" />
+            </Principal>
+            <Dependent Role="Vaccinations">
+              <PropertyRef Name="VaccineID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PetShelterEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Animals" EntityType="Self.Animals" />
+          <EntitySet Name="Caretakers" EntityType="Self.Caretakers" />
+          <EntitySet Name="Clients" EntityType="Self.Clients" />
+          <EntitySet Name="Contracts" EntityType="Self.Contracts" />
+          <EntitySet Name="Groups" EntityType="Self.Groups" />
+          <EntitySet Name="InfoDepEmploees" EntityType="Self.InfoDepEmploees" />
+          <EntitySet Name="Producers" EntityType="Self.Producers" />
+          <EntitySet Name="Rooms" EntityType="Self.Rooms" />
+          <EntitySet Name="States" EntityType="Self.States" />
+          <EntitySet Name="StateValues" EntityType="Self.StateValues" />
+          <EntitySet Name="Vaccinations" EntityType="Self.Vaccinations" />
+          <EntitySet Name="Vaccines" EntityType="Self.Vaccines" />
+          <AssociationSet Name="FK_Animals_Groups" Association="Self.FK_Animals_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Animals" EntitySet="Animals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Animals_Rooms" Association="Self.FK_Animals_Rooms">
+            <End Role="Rooms" EntitySet="Rooms" />
+            <End Role="Animals" EntitySet="Animals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contracts_Animals" Association="Self.FK_Contracts_Animals">
+            <End Role="Animals" EntitySet="Animals" />
+            <End Role="Contracts" EntitySet="Contracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StateValue_Animals" Association="Self.FK_StateValue_Animals">
+            <End Role="Animals" EntitySet="Animals" />
+            <End Role="StateValues" EntitySet="StateValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vaccinations_Animals" Association="Self.FK_Vaccinations_Animals">
+            <End Role="Animals" EntitySet="Animals" />
+            <End Role="Vaccinations" EntitySet="Vaccinations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Caretakers_Rooms" Association="Self.FK_Caretakers_Rooms">
+            <End Role="Rooms" EntitySet="Rooms" />
+            <End Role="Caretakers" EntitySet="Caretakers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contracts_Clients" Association="Self.FK_Contracts_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Contracts" EntitySet="Contracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contracts_InfoDepEmploees" Association="Self.FK_Contracts_InfoDepEmploees">
+            <End Role="InfoDepEmploees" EntitySet="InfoDepEmploees" />
+            <End Role="Contracts" EntitySet="Contracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vaccines_Producers" Association="Self.FK_Vaccines_Producers">
+            <End Role="Producers" EntitySet="Producers" />
+            <End Role="Vaccines" EntitySet="Vaccines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StateValue_States" Association="Self.FK_StateValue_States">
+            <End Role="States" EntitySet="States" />
+            <End Role="StateValues" EntitySet="StateValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vaccinations_Vaccines" Association="Self.FK_Vaccinations_Vaccines">
+            <End Role="Vaccines" EntitySet="Vaccines" />
+            <End Role="Vaccinations" EntitySet="Vaccinations" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище PetShelterModelContainer" CdmEntityContainer="PetShelterEntities">
+          <EntitySetMapping Name="Animals">
+            <EntityTypeMapping TypeName="PetShelterModel.Animals">
+              <MappingFragment StoreEntitySet="Animals">
+                <ScalarProperty Name="AnimalID" ColumnName="AnimalID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="AnimalKind" ColumnName="AnimalKind" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="QuarantineDays" ColumnName="QuarantineDays" />
+                <ScalarProperty Name="RoomID" ColumnName="RoomID" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Caretakers">
+            <EntityTypeMapping TypeName="PetShelterModel.Caretakers">
+              <MappingFragment StoreEntitySet="Caretakers">
+                <ScalarProperty Name="PassNum" ColumnName="PassNum" />
+                <ScalarProperty Name="IDCardNum" ColumnName="IDCardNum" />
+                <ScalarProperty Name="IDCardSeries" ColumnName="IDCardSeries" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ThirdName" ColumnName="ThirdName" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="Shift" ColumnName="Shift" />
+                <ScalarProperty Name="MajorAnimalKind" ColumnName="MajorAnimalKind" />
+                <ScalarProperty Name="MedicalEducation" ColumnName="MedicalEducation" />
+                <ScalarProperty Name="RoomID" ColumnName="RoomID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="PetShelterModel.Clients">
+              <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="IDCardNum" ColumnName="IDCardNum" />
+                <ScalarProperty Name="IDCardSeries" ColumnName="IDCardSeries" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="ThirdName" ColumnName="ThirdName" />
+                <ScalarProperty Name="DateOfAdding" ColumnName="DateOfAdding" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="BuildingNum" ColumnName="BuildingNum" />
+                <ScalarProperty Name="FlatNum" ColumnName="FlatNum" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contracts">
+            <EntityTypeMapping TypeName="PetShelterModel.Contracts">
+              <MappingFragment StoreEntitySet="Contracts">
+                <ScalarProperty Name="ContractNum" ColumnName="ContractNum" />
+                <ScalarProperty Name="PassNum" ColumnName="PassNum" />
+                <ScalarProperty Name="AnimalID" ColumnName="AnimalID" />
+                <ScalarProperty Name="SigningDate" ColumnName="SigningDate" />
+                <ScalarProperty Name="TerminationDate" ColumnName="TerminationDate" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="IDCardNum" ColumnName="IDCardNum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="PetShelterModel.Groups">
+              <MappingFragment StoreEntitySet="Groups">
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Readiness" ColumnName="Readiness" />
+                <ScalarProperty Name="AdditionalCare" ColumnName="AdditionalCare" />
+                <ScalarProperty Name="Descriotion" ColumnName="Descriotion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InfoDepEmploees">
+            <EntityTypeMapping TypeName="PetShelterModel.InfoDepEmploees">
+              <MappingFragment StoreEntitySet="InfoDepEmploees">
+                <ScalarProperty Name="PassNum" ColumnName="PassNum" />
+                <ScalarProperty Name="IDCardNum" ColumnName="IDCardNum" />
+                <ScalarProperty Name="IDCradSeries" ColumnName="IDCradSeries" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ThridName" ColumnName="ThridName" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="Employment" ColumnName="Employment" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producers">
+            <EntityTypeMapping TypeName="PetShelterModel.Producers">
+              <MappingFragment StoreEntitySet="Producers">
+                <ScalarProperty Name="ProducerID" ColumnName="ProducerID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rooms">
+            <EntityTypeMapping TypeName="PetShelterModel.Rooms">
+              <MappingFragment StoreEntitySet="Rooms">
+                <ScalarProperty Name="RoomID" ColumnName="RoomID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MaxAnimalAmount" ColumnName="MaxAnimalAmount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="PetShelterModel.States">
+              <MappingFragment StoreEntitySet="States">
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StateValues">
+            <EntityTypeMapping TypeName="PetShelterModel.StateValues">
+              <MappingFragment StoreEntitySet="StateValues">
+                <ScalarProperty Name="StateValueID" ColumnName="StateValueID" />
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="AnimalID" ColumnName="AnimalID" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vaccinations">
+            <EntityTypeMapping TypeName="PetShelterModel.Vaccinations">
+              <MappingFragment StoreEntitySet="Vaccinations">
+                <ScalarProperty Name="VaccineID" ColumnName="VaccineID" />
+                <ScalarProperty Name="AnimalID" ColumnName="AnimalID" />
+                <ScalarProperty Name="VaccinationDate" ColumnName="VaccinationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vaccines">
+            <EntityTypeMapping TypeName="PetShelterModel.Vaccines">
+              <MappingFragment StoreEntitySet="Vaccines">
+                <ScalarProperty Name="VaccineID" ColumnName="VaccineID" />
+                <ScalarProperty Name="VaccineName" ColumnName="VaccineName" />
+                <ScalarProperty Name="ActiveSubstanceName" ColumnName="ActiveSubstanceName" />
+                <ScalarProperty Name="ActiveSubstanceLatinName" ColumnName="ActiveSubstanceLatinName" />
+                <ScalarProperty Name="RevaccinationDogs" ColumnName="RevaccinationDogs" />
+                <ScalarProperty Name="RevaccinationRodents" ColumnName="RevaccinationRodents" />
+                <ScalarProperty Name="RevaccinationMeatEaters" ColumnName="RevaccinationMeatEaters" />
+                <ScalarProperty Name="ProducerID" ColumnName="ProducerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
