@@ -9,6 +9,7 @@ using System;
 using System.Reflection;
 using PetShelter.Model;
 using PetShelter.View;
+using System.Linq;
 
 namespace PetShelter.ViewModel
 {
@@ -102,26 +103,12 @@ namespace PetShelter.ViewModel
                         { item.ToString(), item.GetProperies()}
                     };
 
-                    foreach (DbEntity foregnItem in item.GetForegnEntities())
-                    {
-                        details.Add(foregnItem.ToString(), foregnItem.GetProperies());
-
-                        List<DbEntity> innerEntities = foregnItem.GetForegnEntities();
-                        if (innerEntities != null)
-                        {
-                            foreach (DbEntity inner in innerEntities)
-                            {
-                                details.Add(inner.ToString(), inner.GetProperies());
-                            }
-                        }
-                    }
+                    AddDetails(item, details);
 
                     ChosenItemDetails = details;
                 }));
             }
         }
-
-
 
         public MainViewModel()
         {
@@ -142,19 +129,35 @@ namespace PetShelter.ViewModel
             Animals = db.Animals.Local.ToBindingList();
 
             ChosenItemDetails = null;
-
-            //typesConnections = new Dictionary<Type, (Type WindowType, IEnumerable DataList)>
-            //{
-            //    { typeof(Animal), (typeof(AnimalWindow), Animals) },
-            //    { typeof(Emploee), (typeof(EmploeeWindow), Emploees) },
-
-            //};
         }
 
 
         private Type GetEntityType(IEnumerable list)
         {
             return list.GetType().GetInterface("IEnumerable`1").GetGenericArguments()[0];
+        }
+
+        private void AddDetails(DbEntity item, Dictionary<string, Dictionary<string, string>> details)
+        {
+            List<DbEntity> foregnEntities = item.GetForegnEntities();
+
+            if (foregnEntities == null)
+                return;
+
+            foreach (DbEntity foregnItem in foregnEntities)
+            {
+                string key = foregnItem.ToString();
+                int count = 1;
+                while (details.Keys.Contains(key + " №" + count))
+                {
+                    count++;
+                }
+                key += " №" + count;
+
+                details.Add(key, foregnItem.GetProperies());
+
+                AddDetails(foregnItem, details);
+            }
         }
 
     }

@@ -7,44 +7,26 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PetShelter.Model
+namespace PetShelter.Model 
 {
     using System;
     using System.Collections.Generic;
     using System.Reflection;
     
-    public partial class States : DbEntity
+    public partial class StateValue : DbEntity
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public States()
-        {
-            this.StateValues = new HashSet<StateValues>();
-        }
+        public int StateValueID { get; set; }
+        public Nullable<int> StateID { get; set; }
+        public Nullable<int> AnimalID { get; set; }
+        public string Value { get; set; }
+    
+        internal virtual Animal Animal { get; set; }
+        internal virtual State State { get; set; }
 
-        private int stateID;
-        private string name;
-
-        public int StateID
+        public override List<DbEntity> GetForegnEntities()
         {
-            get { return stateID; }
-            set
-            {
-                stateID = value;
-                OnPropertyChanged("StateID");
-            }
+            return new List<DbEntity> { State };
         }
-        public string Name
-        {
-            get { return name; }
-            set
-            {
-                name = value;
-                OnPropertyChanged("Name");
-            }
-        }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StateValues> StateValues { get; set; }
 
         public override Dictionary<string, string> GetProperies()
         {
@@ -60,7 +42,7 @@ namespace PetShelter.Model
 
         public override string ToString()
         {
-            return "Animal";
+            return "StateValue";
         }
     }
 }

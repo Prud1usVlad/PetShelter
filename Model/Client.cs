@@ -12,21 +12,30 @@ namespace PetShelter.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Producers
+    public partial class Client
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Producers()
+        public Client()
         {
-            this.Vaccines = new HashSet<Vaccines>();
+            this.Contracts = new HashSet<Contract>();
         }
     
-        public int ProducerID { get; set; }
-        public string Title { get; set; }
-        public string Adress { get; set; }
+        public int ClientID { get; set; }
+        public string IDCardNum { get; set; }
+        public string IDCardSeries { get; set; }
+        public string FirstName { get; set; }
+        public string SecondName { get; set; }
+        public string ThirdName { get; set; }
+        public Nullable<System.DateTime> DateOfAdding { get; set; }
+        public string Region { get; set; }
+        public string City { get; set; }
+        public string Street { get; set; }
+        public string BuildingNum { get; set; }
+        public Nullable<int> FlatNum { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Vaccines> Vaccines { get; set; }
+        public virtual ICollection<Contract> Contracts { get; set; }
     }
 }

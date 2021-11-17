@@ -12,19 +12,18 @@ namespace PetShelter.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class StateValues
+    public partial class Contract
     {
-        private int stateValueID;
-        private Nullable<int> stateID;
-        private Nullable<int> animalID;
-        private string value;
-
-        public int StateValueID { get; set; }
-        public Nullable<int> StateID { get; set; }
+        public int ContractNum { get; set; }
+        public Nullable<int> PassNum { get; set; }
         public Nullable<int> AnimalID { get; set; }
-        public string Value { get; set; }
+        public Nullable<System.DateTime> SigningDate { get; set; }
+        public Nullable<System.DateTime> TerminationDate { get; set; }
+        public Nullable<int> ClientID { get; set; }
+        public Nullable<int> IDCardNum { get; set; }
     
-        public virtual Animals Animals { get; set; }
-        public virtual States States { get; set; }
+        public virtual Animal Animal { get; set; }
+        public virtual Client Client { get; set; }
+        public virtual InfoDepEmploee InfoDepEmploee { get; set; }
     }
 }

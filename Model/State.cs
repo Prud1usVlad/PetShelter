@@ -11,31 +11,42 @@ namespace PetShelter.Model
 {
     using System;
     using System.Collections.Generic;
+    using System.Reflection;
     
-    public partial class Clients
+    public partial class State : DbEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Clients()
+        public State()
         {
-            this.Contracts = new HashSet<Contracts>();
+            this.StateValues = new HashSet<StateValue>();
         }
     
-        public int ClientID { get; set; }
-        public string IDCardNum { get; set; }
-        public string IDCardSeries { get; set; }
-        public string FirstName { get; set; }
-        public string SecondName { get; set; }
-        public string ThirdName { get; set; }
-        public Nullable<System.DateTime> DateOfAdding { get; set; }
-        public string Region { get; set; }
-        public string City { get; set; }
-        public string Street { get; set; }
-        public string BuildingNum { get; set; }
-        public Nullable<int> FlatNum { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
+        public int StateID { get; set; }
+        public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Contracts> Contracts { get; set; }
+        internal virtual ICollection<StateValue> StateValues { get; set; }
+
+        public override List<DbEntity> GetForegnEntities()
+        {
+            return null;
+        }
+
+        public override Dictionary<string, string> GetProperies()
+        {
+            var res = new Dictionary<string, string>();
+
+            foreach (PropertyInfo prop in GetType().GetProperties())
+            {
+                res.Add(prop.Name, (prop.GetValue(this) ?? "-").ToString());
+            }
+
+            return res;
+        }
+
+        public override string ToString()
+        {
+            return "State";
+        }
     }
 }

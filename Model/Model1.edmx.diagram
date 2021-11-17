@@ -4,27 +4,30 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9cc5788aae1241a587e7c0661c4ad5aa" Name="Diagram1">
-        <EntityTypeShape EntityType="PetShelterModel.Animals" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="PetShelterModel.Caretakers" Width="1.5" PointX="3" PointY="11.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="PetShelterModel.Clients" Width="1.5" PointX="3" PointY="15.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="PetShelterModel.Contracts" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="PetShelterModel.Groups" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PetShelterModel.InfoDepEmploees" Width="1.5" PointX="3" PointY="20.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="PetShelterModel.Producers" Width="1.5" PointX="3.75" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PetShelterModel.Rooms" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PetShelterModel.States" Width="1.5" PointX="6" PointY="11" IsExpanded="true" />
-        <EntityTypeShape EntityType="PetShelterModel.StateValues" Width="1.5" PointX="8.25" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PetShelterModel.Vaccinations" Width="1.5" PointX="8.25" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PetShelterModel.Vaccines" Width="1.5" PointX="6" PointY="1.375" IsExpanded="true" />
+      <Diagram DiagramId="af219677b2e847298ce23b9855974df0" Name="Diagram1">
+        <EntityTypeShape EntityType="PetShelterModel.Animal" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PetShelterModel.Caretaker" Width="1.5" PointX="6" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PetShelterModel.Client" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PetShelterModel.Contract" Width="1.5" PointX="8.25" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PetShelterModel.Emploee" Width="1.5" PointX="3.75" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PetShelterModel.Group" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PetShelterModel.InfoDepEmploee" Width="1.5" PointX="6" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PetShelterModel.Producer" Width="1.5" PointX="0.75" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PetShelterModel.Room" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PetShelterModel.State" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PetShelterModel.StateValue" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PetShelterModel.Vaccination" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PetShelterModel.Vaccine" Width="1.5" PointX="3" PointY="19.125" IsExpanded="true" />
         <AssociationConnector Association="PetShelterModel.FK_Animals_Groups" ManuallyRouted="false" />
         <AssociationConnector Association="PetShelterModel.FK_Animals_Rooms" ManuallyRouted="false" />
         <AssociationConnector Association="PetShelterModel.FK_Contracts_Animals" ManuallyRouted="false" />
         <AssociationConnector Association="PetShelterModel.FK_StateValue_Animals" ManuallyRouted="false" />
         <AssociationConnector Association="PetShelterModel.FK_Vaccinations_Animals" ManuallyRouted="false" />
+        <AssociationConnector Association="PetShelterModel.FK_Caretakers_Emploees" ManuallyRouted="false" />
         <AssociationConnector Association="PetShelterModel.FK_Caretakers_Rooms" ManuallyRouted="false" />
         <AssociationConnector Association="PetShelterModel.FK_Contracts_Clients" ManuallyRouted="false" />
         <AssociationConnector Association="PetShelterModel.FK_Contracts_InfoDepEmploees" ManuallyRouted="false" />
+        <AssociationConnector Association="PetShelterModel.FK_InfoDepEmploees_Emploees" ManuallyRouted="false" />
         <AssociationConnector Association="PetShelterModel.FK_Vaccines_Producers" ManuallyRouted="false" />
         <AssociationConnector Association="PetShelterModel.FK_StateValue_States" ManuallyRouted="false" />
         <AssociationConnector Association="PetShelterModel.FK_Vaccinations_Vaccines" ManuallyRouted="false" />

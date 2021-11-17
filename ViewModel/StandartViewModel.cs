@@ -11,19 +11,20 @@ namespace PetShelter.ViewModel
 {
     public class StandartVievModel : INotifyPropertyChanged
     {
-        private IEnumerable<Animals> animals;
-        private IEnumerable<Caretakers> caretakers;
-        private IEnumerable<Clients> clients;
-        private IEnumerable<Contracts> contracts;
-        private IEnumerable<InfoDepEmploees> infoDepEmploees;
-        private IEnumerable<Rooms> rooms;
-        private IEnumerable<Vaccinations> vaccinations;
-        private IEnumerable<Vaccines> vaccines;
-        private IEnumerable<Groups> groups;
-        private IEnumerable<States> states;
-        private IEnumerable<StateValues> stateValues;
+        private IEnumerable<Animal> animals;
+        private IEnumerable<Caretaker> caretakers;
+        private IEnumerable<Client> clients;
+        private IEnumerable<Contract> contracts;
+        private IEnumerable<Emploee> emploees;
+        private IEnumerable<InfoDepEmploee> infoDepEmploees;
+        private IEnumerable<Room> rooms;
+        private IEnumerable<Vaccination> vaccinations;
+        private IEnumerable<Vaccine> vaccines;
+        private IEnumerable<Group> groups;
+        private IEnumerable<State> states;
+        private IEnumerable<StateValue> stateValues;
 
-        public IEnumerable<Animals> Animals
+        public IEnumerable<Animal> Animals
         {
             get { return animals; }
             set
@@ -33,7 +34,7 @@ namespace PetShelter.ViewModel
             }
         }
 
-        public IEnumerable<Caretakers> Caretakers
+        public IEnumerable<Caretaker> Caretakers
         {
             get { return caretakers; }
             set
@@ -43,7 +44,7 @@ namespace PetShelter.ViewModel
             }
         }
 
-        public IEnumerable<Clients> Clients
+        public IEnumerable<Client> Clients
         {
             get { return clients; }
             set
@@ -53,7 +54,7 @@ namespace PetShelter.ViewModel
             }
         }
 
-        public IEnumerable<Contracts> Contracts
+        public IEnumerable<Contract> Contracts
         {
             get { return contracts; }
             set
@@ -63,7 +64,17 @@ namespace PetShelter.ViewModel
             }
         }
 
-        public IEnumerable<Rooms> Rooms
+        public IEnumerable<Emploee> Emploees
+        {
+            get { return emploees; }
+            set
+            {
+                emploees = value;
+                OnPropertyChanged("Emploees");
+            }
+        }
+
+        public IEnumerable<Room> Rooms
         {
             get { return rooms; }
             set
@@ -73,7 +84,7 @@ namespace PetShelter.ViewModel
             }
         }
 
-        public IEnumerable<Vaccinations> Vaccinations
+        public IEnumerable<Vaccination> Vaccinations
         {
             get { return vaccinations; }
             set
@@ -83,7 +94,7 @@ namespace PetShelter.ViewModel
             }
         }
 
-        public IEnumerable<Vaccines> Vaccines
+        public IEnumerable<Vaccine> Vaccines
         {
             get { return vaccines; }
             set
@@ -93,7 +104,7 @@ namespace PetShelter.ViewModel
             }
         }
 
-        public IEnumerable<InfoDepEmploees> InfoDepEmploees
+        public IEnumerable<InfoDepEmploee> InfoDepEmploees
         {
             get { return infoDepEmploees; }
             set
@@ -103,7 +114,7 @@ namespace PetShelter.ViewModel
             }
         }
 
-        public IEnumerable<Groups> Groups
+        public IEnumerable<Group> Groups
         {
             get { return groups; }
             set
@@ -113,7 +124,7 @@ namespace PetShelter.ViewModel
             }
         }
 
-        public IEnumerable<States> States
+        public IEnumerable<State> States
         {
             get { return states; }
             set
@@ -123,7 +134,7 @@ namespace PetShelter.ViewModel
             }
         }
 
-        public IEnumerable<StateValues> StateValues
+        public IEnumerable<StateValue> StateValues
         {
             get { return stateValues; }
             set

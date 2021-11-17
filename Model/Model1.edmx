@@ -27,12 +27,6 @@
             <PropertyRef Name="PassNum" />
           </Key>
           <Property Name="PassNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IDCardNum" Type="nvarchar" MaxLength="50" />
-          <Property Name="IDCardSeries" Type="nvarchar" MaxLength="50" />
-          <Property Name="SecondName" Type="nvarchar" MaxLength="50" />
-          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
-          <Property Name="ThirdName" Type="nvarchar" MaxLength="50" />
-          <Property Name="EntryDate" Type="date" />
           <Property Name="Shift" Type="nvarchar" MaxLength="50" />
           <Property Name="MajorAnimalKind" Type="nvarchar" MaxLength="50" />
           <Property Name="MedicalEducation" Type="nvarchar" MaxLength="50" />
@@ -69,6 +63,19 @@
           <Property Name="ClientID" Type="int" />
           <Property Name="IDCardNum" Type="int" />
         </EntityType>
+        <EntityType Name="Emploees">
+          <Key>
+            <PropertyRef Name="PassNum" />
+          </Key>
+          <Property Name="PassNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDCardNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="IDCardSeries" Type="nvarchar" MaxLength="50" />
+          <Property Name="SecondName" Type="nvarchar" MaxLength="50" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ThirdName" Type="nvarchar(max)" />
+          <Property Name="EntryDate" Type="datetime" />
+          <Property Name="Profession" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Groups">
           <Key>
             <PropertyRef Name="GroupID" />
@@ -77,19 +84,13 @@
           <Property Name="Priority" Type="int" Nullable="false" />
           <Property Name="Readiness" Type="nvarchar" MaxLength="50" />
           <Property Name="AdditionalCare" Type="nvarchar" MaxLength="255" />
-          <Property Name="Descriotion" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="InfoDepEmploees">
           <Key>
             <PropertyRef Name="PassNum" />
           </Key>
           <Property Name="PassNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IDCardNum" Type="nvarchar" MaxLength="50" />
-          <Property Name="IDCradSeries" Type="nvarchar" MaxLength="50" />
-          <Property Name="SecondName" Type="nvarchar" MaxLength="50" />
-          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
-          <Property Name="ThridName" Type="nvarchar" MaxLength="50" />
-          <Property Name="EntryDate" Type="date" />
           <Property Name="Employment" Type="nvarchar" MaxLength="50" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
           <Property Name="Phone" Type="nvarchar" MaxLength="50" />
@@ -175,6 +176,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Caretakers_Emploees">
+          <End Role="Emploees" Type="Self.Emploees" Multiplicity="1" />
+          <End Role="Caretakers" Type="Self.Caretakers" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Emploees">
+              <PropertyRef Name="PassNum" />
+            </Principal>
+            <Dependent Role="Caretakers">
+              <PropertyRef Name="PassNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Caretakers_Rooms">
           <End Role="Rooms" Type="Self.Rooms" Multiplicity="0..1" />
           <End Role="Caretakers" Type="Self.Caretakers" Multiplicity="*" />
@@ -219,6 +232,18 @@
               <PropertyRef Name="PassNum" />
             </Principal>
             <Dependent Role="Contracts">
+              <PropertyRef Name="PassNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InfoDepEmploees_Emploees">
+          <End Role="Emploees" Type="Self.Emploees" Multiplicity="1" />
+          <End Role="InfoDepEmploees" Type="Self.InfoDepEmploees" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Emploees">
+              <PropertyRef Name="PassNum" />
+            </Principal>
+            <Dependent Role="InfoDepEmploees">
               <PropertyRef Name="PassNum" />
             </Dependent>
           </ReferentialConstraint>
@@ -288,6 +313,7 @@
           <EntitySet Name="Caretakers" EntityType="Self.Caretakers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contracts" EntityType="Self.Contracts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Emploees" EntityType="Self.Emploees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InfoDepEmploees" EntityType="Self.InfoDepEmploees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Producers" EntityType="Self.Producers" Schema="dbo" store:Type="Tables" />
@@ -304,6 +330,10 @@
             <End Role="Rooms" EntitySet="Rooms" />
             <End Role="Animals" EntitySet="Animals" />
           </AssociationSet>
+          <AssociationSet Name="FK_Caretakers_Emploees" Association="Self.FK_Caretakers_Emploees">
+            <End Role="Emploees" EntitySet="Emploees" />
+            <End Role="Caretakers" EntitySet="Caretakers" />
+          </AssociationSet>
           <AssociationSet Name="FK_Caretakers_Rooms" Association="Self.FK_Caretakers_Rooms">
             <End Role="Rooms" EntitySet="Rooms" />
             <End Role="Caretakers" EntitySet="Caretakers" />
@@ -319,6 +349,10 @@
           <AssociationSet Name="FK_Contracts_InfoDepEmploees" Association="Self.FK_Contracts_InfoDepEmploees">
             <End Role="InfoDepEmploees" EntitySet="InfoDepEmploees" />
             <End Role="Contracts" EntitySet="Contracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InfoDepEmploees_Emploees" Association="Self.FK_InfoDepEmploees_Emploees">
+            <End Role="Emploees" EntitySet="Emploees" />
+            <End Role="InfoDepEmploees" EntitySet="InfoDepEmploees" />
           </AssociationSet>
           <AssociationSet Name="FK_StateValue_Animals" Association="Self.FK_StateValue_Animals">
             <End Role="Animals" EntitySet="Animals" />
@@ -346,7 +380,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PetShelterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Animals">
+        <EntityType Name="Animal">
           <Key>
             <PropertyRef Name="AnimalID" />
           </Key>
@@ -362,30 +396,25 @@
           <Property Name="QuarantineDays" Type="Int32" />
           <Property Name="RoomID" Type="Int32" />
           <Property Name="GroupID" Type="Int32" />
-          <NavigationProperty Name="Groups" Relationship="Self.FK_Animals_Groups" FromRole="Animals" ToRole="Groups" />
-          <NavigationProperty Name="Rooms" Relationship="Self.FK_Animals_Rooms" FromRole="Animals" ToRole="Rooms" />
+          <NavigationProperty Name="Group" Relationship="Self.FK_Animals_Groups" FromRole="Animals" ToRole="Groups" />
+          <NavigationProperty Name="Room" Relationship="Self.FK_Animals_Rooms" FromRole="Animals" ToRole="Rooms" />
           <NavigationProperty Name="Contracts" Relationship="Self.FK_Contracts_Animals" FromRole="Animals" ToRole="Contracts" />
           <NavigationProperty Name="StateValues" Relationship="Self.FK_StateValue_Animals" FromRole="Animals" ToRole="StateValues" />
           <NavigationProperty Name="Vaccinations" Relationship="Self.FK_Vaccinations_Animals" FromRole="Animals" ToRole="Vaccinations" />
         </EntityType>
-        <EntityType Name="Caretakers">
+        <EntityType Name="Caretaker">
           <Key>
             <PropertyRef Name="PassNum" />
           </Key>
           <Property Name="PassNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IDCardNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IDCardSeries" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SecondName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ThirdName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EntryDate" Type="DateTime" Precision="0" />
           <Property Name="Shift" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MajorAnimalKind" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MedicalEducation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="RoomID" Type="Int32" />
-          <NavigationProperty Name="Rooms" Relationship="Self.FK_Caretakers_Rooms" FromRole="Caretakers" ToRole="Rooms" />
+          <NavigationProperty Name="Emploee" Relationship="Self.FK_Caretakers_Emploees" FromRole="Caretakers" ToRole="Emploees" />
+          <NavigationProperty Name="Room" Relationship="Self.FK_Caretakers_Rooms" FromRole="Caretakers" ToRole="Rooms" />
         </EntityType>
-        <EntityType Name="Clients">
+        <EntityType Name="Client">
           <Key>
             <PropertyRef Name="ClientID" />
           </Key>
@@ -405,7 +434,7 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Contracts" Relationship="Self.FK_Contracts_Clients" FromRole="Clients" ToRole="Contracts" />
         </EntityType>
-        <EntityType Name="Contracts">
+        <EntityType Name="Contract">
           <Key>
             <PropertyRef Name="ContractNum" />
           </Key>
@@ -416,11 +445,26 @@
           <Property Name="TerminationDate" Type="DateTime" Precision="0" />
           <Property Name="ClientID" Type="Int32" />
           <Property Name="IDCardNum" Type="Int32" />
-          <NavigationProperty Name="Animals" Relationship="Self.FK_Contracts_Animals" FromRole="Contracts" ToRole="Animals" />
-          <NavigationProperty Name="Clients" Relationship="Self.FK_Contracts_Clients" FromRole="Contracts" ToRole="Clients" />
-          <NavigationProperty Name="InfoDepEmploees" Relationship="Self.FK_Contracts_InfoDepEmploees" FromRole="Contracts" ToRole="InfoDepEmploees" />
+          <NavigationProperty Name="Animal" Relationship="Self.FK_Contracts_Animals" FromRole="Contracts" ToRole="Animals" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Contracts_Clients" FromRole="Contracts" ToRole="Clients" />
+          <NavigationProperty Name="InfoDepEmploee" Relationship="Self.FK_Contracts_InfoDepEmploees" FromRole="Contracts" ToRole="InfoDepEmploees" />
         </EntityType>
-        <EntityType Name="Groups">
+        <EntityType Name="Emploee">
+          <Key>
+            <PropertyRef Name="PassNum" />
+          </Key>
+          <Property Name="PassNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDCardNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDCardSeries" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SecondName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ThirdName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EntryDate" Type="DateTime" Precision="3" />
+          <Property Name="Profession" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Caretaker" Relationship="Self.FK_Caretakers_Emploees" FromRole="Emploees" ToRole="Caretakers" />
+          <NavigationProperty Name="InfoDepEmploee" Relationship="Self.FK_InfoDepEmploees_Emploees" FromRole="Emploees" ToRole="InfoDepEmploees" />
+        </EntityType>
+        <EntityType Name="Group">
           <Key>
             <PropertyRef Name="GroupID" />
           </Key>
@@ -428,26 +472,21 @@
           <Property Name="Priority" Type="Int32" Nullable="false" />
           <Property Name="Readiness" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AdditionalCare" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Descriotion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Animals" Relationship="Self.FK_Animals_Groups" FromRole="Groups" ToRole="Animals" />
         </EntityType>
-        <EntityType Name="InfoDepEmploees">
+        <EntityType Name="InfoDepEmploee">
           <Key>
             <PropertyRef Name="PassNum" />
           </Key>
           <Property Name="PassNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IDCardNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IDCradSeries" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SecondName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ThridName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EntryDate" Type="DateTime" Precision="0" />
           <Property Name="Employment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Contracts" Relationship="Self.FK_Contracts_InfoDepEmploees" FromRole="InfoDepEmploees" ToRole="Contracts" />
+          <NavigationProperty Name="Emploee" Relationship="Self.FK_InfoDepEmploees_Emploees" FromRole="InfoDepEmploees" ToRole="Emploees" />
         </EntityType>
-        <EntityType Name="Producers">
+        <EntityType Name="Producer">
           <Key>
             <PropertyRef Name="ProducerID" />
           </Key>
@@ -458,7 +497,7 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Vaccines" Relationship="Self.FK_Vaccines_Producers" FromRole="Producers" ToRole="Vaccines" />
         </EntityType>
-        <EntityType Name="Rooms">
+        <EntityType Name="Room">
           <Key>
             <PropertyRef Name="RoomID" />
           </Key>
@@ -468,7 +507,7 @@
           <NavigationProperty Name="Animals" Relationship="Self.FK_Animals_Rooms" FromRole="Rooms" ToRole="Animals" />
           <NavigationProperty Name="Caretakers" Relationship="Self.FK_Caretakers_Rooms" FromRole="Rooms" ToRole="Caretakers" />
         </EntityType>
-        <EntityType Name="States">
+        <EntityType Name="State">
           <Key>
             <PropertyRef Name="StateID" />
           </Key>
@@ -476,7 +515,7 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="StateValues" Relationship="Self.FK_StateValue_States" FromRole="States" ToRole="StateValues" />
         </EntityType>
-        <EntityType Name="StateValues">
+        <EntityType Name="StateValue">
           <Key>
             <PropertyRef Name="StateValueID" />
           </Key>
@@ -484,10 +523,10 @@
           <Property Name="StateID" Type="Int32" />
           <Property Name="AnimalID" Type="Int32" />
           <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Animals" Relationship="Self.FK_StateValue_Animals" FromRole="StateValues" ToRole="Animals" />
-          <NavigationProperty Name="States" Relationship="Self.FK_StateValue_States" FromRole="StateValues" ToRole="States" />
+          <NavigationProperty Name="Animal" Relationship="Self.FK_StateValue_Animals" FromRole="StateValues" ToRole="Animals" />
+          <NavigationProperty Name="State" Relationship="Self.FK_StateValue_States" FromRole="StateValues" ToRole="States" />
         </EntityType>
-        <EntityType Name="Vaccinations">
+        <EntityType Name="Vaccination">
           <Key>
             <PropertyRef Name="VaccineID" />
             <PropertyRef Name="AnimalID" />
@@ -496,10 +535,10 @@
           <Property Name="VaccineID" Type="Int32" Nullable="false" />
           <Property Name="AnimalID" Type="Int32" Nullable="false" />
           <Property Name="VaccinationDate" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Animals" Relationship="Self.FK_Vaccinations_Animals" FromRole="Vaccinations" ToRole="Animals" />
-          <NavigationProperty Name="Vaccines" Relationship="Self.FK_Vaccinations_Vaccines" FromRole="Vaccinations" ToRole="Vaccines" />
+          <NavigationProperty Name="Animal" Relationship="Self.FK_Vaccinations_Animals" FromRole="Vaccinations" ToRole="Animals" />
+          <NavigationProperty Name="Vaccine" Relationship="Self.FK_Vaccinations_Vaccines" FromRole="Vaccinations" ToRole="Vaccines" />
         </EntityType>
-        <EntityType Name="Vaccines">
+        <EntityType Name="Vaccine">
           <Key>
             <PropertyRef Name="VaccineID" />
           </Key>
@@ -511,12 +550,12 @@
           <Property Name="RevaccinationRodents" Type="Int32" />
           <Property Name="RevaccinationMeatEaters" Type="Int32" />
           <Property Name="ProducerID" Type="Int32" />
-          <NavigationProperty Name="Producers" Relationship="Self.FK_Vaccines_Producers" FromRole="Vaccines" ToRole="Producers" />
+          <NavigationProperty Name="Producer" Relationship="Self.FK_Vaccines_Producers" FromRole="Vaccines" ToRole="Producers" />
           <NavigationProperty Name="Vaccinations" Relationship="Self.FK_Vaccinations_Vaccines" FromRole="Vaccines" ToRole="Vaccinations" />
         </EntityType>
         <Association Name="FK_Animals_Groups">
-          <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
-          <End Role="Animals" Type="Self.Animals" Multiplicity="*" />
+          <End Role="Groups" Type="Self.Group" Multiplicity="0..1" />
+          <End Role="Animals" Type="Self.Animal" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Groups">
               <PropertyRef Name="GroupID" />
@@ -527,8 +566,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Animals_Rooms">
-          <End Role="Rooms" Type="Self.Rooms" Multiplicity="0..1" />
-          <End Role="Animals" Type="Self.Animals" Multiplicity="*" />
+          <End Role="Rooms" Type="Self.Room" Multiplicity="0..1" />
+          <End Role="Animals" Type="Self.Animal" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Rooms">
               <PropertyRef Name="RoomID" />
@@ -539,8 +578,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Contracts_Animals">
-          <End Role="Animals" Type="Self.Animals" Multiplicity="0..1" />
-          <End Role="Contracts" Type="Self.Contracts" Multiplicity="*" />
+          <End Role="Animals" Type="Self.Animal" Multiplicity="0..1" />
+          <End Role="Contracts" Type="Self.Contract" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Animals">
               <PropertyRef Name="AnimalID" />
@@ -551,8 +590,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_StateValue_Animals">
-          <End Role="Animals" Type="Self.Animals" Multiplicity="0..1" />
-          <End Role="StateValues" Type="Self.StateValues" Multiplicity="*" />
+          <End Role="Animals" Type="Self.Animal" Multiplicity="0..1" />
+          <End Role="StateValues" Type="Self.StateValue" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Animals">
               <PropertyRef Name="AnimalID" />
@@ -563,8 +602,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Vaccinations_Animals">
-          <End Role="Animals" Type="Self.Animals" Multiplicity="1" />
-          <End Role="Vaccinations" Type="Self.Vaccinations" Multiplicity="*" />
+          <End Role="Animals" Type="Self.Animal" Multiplicity="1" />
+          <End Role="Vaccinations" Type="Self.Vaccination" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Animals">
               <PropertyRef Name="AnimalID" />
@@ -574,9 +613,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Caretakers_Emploees">
+          <End Role="Emploees" Type="Self.Emploee" Multiplicity="1" />
+          <End Role="Caretakers" Type="Self.Caretaker" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Emploees">
+              <PropertyRef Name="PassNum" />
+            </Principal>
+            <Dependent Role="Caretakers">
+              <PropertyRef Name="PassNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Caretakers_Rooms">
-          <End Role="Rooms" Type="Self.Rooms" Multiplicity="0..1" />
-          <End Role="Caretakers" Type="Self.Caretakers" Multiplicity="*" />
+          <End Role="Rooms" Type="Self.Room" Multiplicity="0..1" />
+          <End Role="Caretakers" Type="Self.Caretaker" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Rooms">
               <PropertyRef Name="RoomID" />
@@ -587,8 +638,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Contracts_Clients">
-          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
-          <End Role="Contracts" Type="Self.Contracts" Multiplicity="*" />
+          <End Role="Clients" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Contracts" Type="Self.Contract" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Clients">
               <PropertyRef Name="ClientID" />
@@ -599,8 +650,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Contracts_InfoDepEmploees">
-          <End Role="InfoDepEmploees" Type="Self.InfoDepEmploees" Multiplicity="0..1" />
-          <End Role="Contracts" Type="Self.Contracts" Multiplicity="*" />
+          <End Role="InfoDepEmploees" Type="Self.InfoDepEmploee" Multiplicity="0..1" />
+          <End Role="Contracts" Type="Self.Contract" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="InfoDepEmploees">
               <PropertyRef Name="PassNum" />
@@ -610,9 +661,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_InfoDepEmploees_Emploees">
+          <End Role="Emploees" Type="Self.Emploee" Multiplicity="1" />
+          <End Role="InfoDepEmploees" Type="Self.InfoDepEmploee" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Emploees">
+              <PropertyRef Name="PassNum" />
+            </Principal>
+            <Dependent Role="InfoDepEmploees">
+              <PropertyRef Name="PassNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Vaccines_Producers">
-          <End Role="Producers" Type="Self.Producers" Multiplicity="0..1" />
-          <End Role="Vaccines" Type="Self.Vaccines" Multiplicity="*" />
+          <End Role="Producers" Type="Self.Producer" Multiplicity="0..1" />
+          <End Role="Vaccines" Type="Self.Vaccine" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Producers">
               <PropertyRef Name="ProducerID" />
@@ -623,8 +686,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_StateValue_States">
-          <End Role="States" Type="Self.States" Multiplicity="0..1" />
-          <End Role="StateValues" Type="Self.StateValues" Multiplicity="*" />
+          <End Role="States" Type="Self.State" Multiplicity="0..1" />
+          <End Role="StateValues" Type="Self.StateValue" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="States">
               <PropertyRef Name="StateID" />
@@ -635,8 +698,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Vaccinations_Vaccines">
-          <End Role="Vaccines" Type="Self.Vaccines" Multiplicity="1" />
-          <End Role="Vaccinations" Type="Self.Vaccinations" Multiplicity="*" />
+          <End Role="Vaccines" Type="Self.Vaccine" Multiplicity="1" />
+          <End Role="Vaccinations" Type="Self.Vaccination" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Vaccines">
               <PropertyRef Name="VaccineID" />
@@ -647,18 +710,19 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="PetShelterEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Animals" EntityType="Self.Animals" />
-          <EntitySet Name="Caretakers" EntityType="Self.Caretakers" />
-          <EntitySet Name="Clients" EntityType="Self.Clients" />
-          <EntitySet Name="Contracts" EntityType="Self.Contracts" />
-          <EntitySet Name="Groups" EntityType="Self.Groups" />
-          <EntitySet Name="InfoDepEmploees" EntityType="Self.InfoDepEmploees" />
-          <EntitySet Name="Producers" EntityType="Self.Producers" />
-          <EntitySet Name="Rooms" EntityType="Self.Rooms" />
-          <EntitySet Name="States" EntityType="Self.States" />
-          <EntitySet Name="StateValues" EntityType="Self.StateValues" />
-          <EntitySet Name="Vaccinations" EntityType="Self.Vaccinations" />
-          <EntitySet Name="Vaccines" EntityType="Self.Vaccines" />
+          <EntitySet Name="Animals" EntityType="Self.Animal" />
+          <EntitySet Name="Caretakers" EntityType="Self.Caretaker" />
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="Contracts" EntityType="Self.Contract" />
+          <EntitySet Name="Emploees" EntityType="Self.Emploee" />
+          <EntitySet Name="Groups" EntityType="Self.Group" />
+          <EntitySet Name="InfoDepEmploees" EntityType="Self.InfoDepEmploee" />
+          <EntitySet Name="Producers" EntityType="Self.Producer" />
+          <EntitySet Name="Rooms" EntityType="Self.Room" />
+          <EntitySet Name="States" EntityType="Self.State" />
+          <EntitySet Name="StateValues" EntityType="Self.StateValue" />
+          <EntitySet Name="Vaccinations" EntityType="Self.Vaccination" />
+          <EntitySet Name="Vaccines" EntityType="Self.Vaccine" />
           <AssociationSet Name="FK_Animals_Groups" Association="Self.FK_Animals_Groups">
             <End Role="Groups" EntitySet="Groups" />
             <End Role="Animals" EntitySet="Animals" />
@@ -679,6 +743,10 @@
             <End Role="Animals" EntitySet="Animals" />
             <End Role="Vaccinations" EntitySet="Vaccinations" />
           </AssociationSet>
+          <AssociationSet Name="FK_Caretakers_Emploees" Association="Self.FK_Caretakers_Emploees">
+            <End Role="Emploees" EntitySet="Emploees" />
+            <End Role="Caretakers" EntitySet="Caretakers" />
+          </AssociationSet>
           <AssociationSet Name="FK_Caretakers_Rooms" Association="Self.FK_Caretakers_Rooms">
             <End Role="Rooms" EntitySet="Rooms" />
             <End Role="Caretakers" EntitySet="Caretakers" />
@@ -690,6 +758,10 @@
           <AssociationSet Name="FK_Contracts_InfoDepEmploees" Association="Self.FK_Contracts_InfoDepEmploees">
             <End Role="InfoDepEmploees" EntitySet="InfoDepEmploees" />
             <End Role="Contracts" EntitySet="Contracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InfoDepEmploees_Emploees" Association="Self.FK_InfoDepEmploees_Emploees">
+            <End Role="Emploees" EntitySet="Emploees" />
+            <End Role="InfoDepEmploees" EntitySet="InfoDepEmploees" />
           </AssociationSet>
           <AssociationSet Name="FK_Vaccines_Producers" Association="Self.FK_Vaccines_Producers">
             <End Role="Producers" EntitySet="Producers" />
@@ -711,7 +783,7 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище PetShelterModelContainer" CdmEntityContainer="PetShelterEntities">
           <EntitySetMapping Name="Animals">
-            <EntityTypeMapping TypeName="PetShelterModel.Animals">
+            <EntityTypeMapping TypeName="PetShelterModel.Animal">
               <MappingFragment StoreEntitySet="Animals">
                 <ScalarProperty Name="AnimalID" ColumnName="AnimalID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -729,15 +801,9 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Caretakers">
-            <EntityTypeMapping TypeName="PetShelterModel.Caretakers">
+            <EntityTypeMapping TypeName="PetShelterModel.Caretaker">
               <MappingFragment StoreEntitySet="Caretakers">
                 <ScalarProperty Name="PassNum" ColumnName="PassNum" />
-                <ScalarProperty Name="IDCardNum" ColumnName="IDCardNum" />
-                <ScalarProperty Name="IDCardSeries" ColumnName="IDCardSeries" />
-                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="ThirdName" ColumnName="ThirdName" />
-                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
                 <ScalarProperty Name="Shift" ColumnName="Shift" />
                 <ScalarProperty Name="MajorAnimalKind" ColumnName="MajorAnimalKind" />
                 <ScalarProperty Name="MedicalEducation" ColumnName="MedicalEducation" />
@@ -746,7 +812,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Clients">
-            <EntityTypeMapping TypeName="PetShelterModel.Clients">
+            <EntityTypeMapping TypeName="PetShelterModel.Client">
               <MappingFragment StoreEntitySet="Clients">
                 <ScalarProperty Name="ClientID" ColumnName="ClientID" />
                 <ScalarProperty Name="IDCardNum" ColumnName="IDCardNum" />
@@ -766,7 +832,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Contracts">
-            <EntityTypeMapping TypeName="PetShelterModel.Contracts">
+            <EntityTypeMapping TypeName="PetShelterModel.Contract">
               <MappingFragment StoreEntitySet="Contracts">
                 <ScalarProperty Name="ContractNum" ColumnName="ContractNum" />
                 <ScalarProperty Name="PassNum" ColumnName="PassNum" />
@@ -778,27 +844,35 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Emploees">
+            <EntityTypeMapping TypeName="PetShelterModel.Emploee">
+              <MappingFragment StoreEntitySet="Emploees">
+                <ScalarProperty Name="PassNum" ColumnName="PassNum" />
+                <ScalarProperty Name="IDCardNum" ColumnName="IDCardNum" />
+                <ScalarProperty Name="IDCardSeries" ColumnName="IDCardSeries" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ThirdName" ColumnName="ThirdName" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="Profession" ColumnName="Profession" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Groups">
-            <EntityTypeMapping TypeName="PetShelterModel.Groups">
+            <EntityTypeMapping TypeName="PetShelterModel.Group">
               <MappingFragment StoreEntitySet="Groups">
                 <ScalarProperty Name="GroupID" ColumnName="GroupID" />
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
                 <ScalarProperty Name="Readiness" ColumnName="Readiness" />
                 <ScalarProperty Name="AdditionalCare" ColumnName="AdditionalCare" />
-                <ScalarProperty Name="Descriotion" ColumnName="Descriotion" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="InfoDepEmploees">
-            <EntityTypeMapping TypeName="PetShelterModel.InfoDepEmploees">
+            <EntityTypeMapping TypeName="PetShelterModel.InfoDepEmploee">
               <MappingFragment StoreEntitySet="InfoDepEmploees">
                 <ScalarProperty Name="PassNum" ColumnName="PassNum" />
-                <ScalarProperty Name="IDCardNum" ColumnName="IDCardNum" />
-                <ScalarProperty Name="IDCradSeries" ColumnName="IDCradSeries" />
-                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="ThridName" ColumnName="ThridName" />
-                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
                 <ScalarProperty Name="Employment" ColumnName="Employment" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
@@ -806,7 +880,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Producers">
-            <EntityTypeMapping TypeName="PetShelterModel.Producers">
+            <EntityTypeMapping TypeName="PetShelterModel.Producer">
               <MappingFragment StoreEntitySet="Producers">
                 <ScalarProperty Name="ProducerID" ColumnName="ProducerID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -817,7 +891,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Rooms">
-            <EntityTypeMapping TypeName="PetShelterModel.Rooms">
+            <EntityTypeMapping TypeName="PetShelterModel.Room">
               <MappingFragment StoreEntitySet="Rooms">
                 <ScalarProperty Name="RoomID" ColumnName="RoomID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -826,7 +900,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="States">
-            <EntityTypeMapping TypeName="PetShelterModel.States">
+            <EntityTypeMapping TypeName="PetShelterModel.State">
               <MappingFragment StoreEntitySet="States">
                 <ScalarProperty Name="StateID" ColumnName="StateID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -834,7 +908,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="StateValues">
-            <EntityTypeMapping TypeName="PetShelterModel.StateValues">
+            <EntityTypeMapping TypeName="PetShelterModel.StateValue">
               <MappingFragment StoreEntitySet="StateValues">
                 <ScalarProperty Name="StateValueID" ColumnName="StateValueID" />
                 <ScalarProperty Name="StateID" ColumnName="StateID" />
@@ -844,7 +918,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Vaccinations">
-            <EntityTypeMapping TypeName="PetShelterModel.Vaccinations">
+            <EntityTypeMapping TypeName="PetShelterModel.Vaccination">
               <MappingFragment StoreEntitySet="Vaccinations">
                 <ScalarProperty Name="VaccineID" ColumnName="VaccineID" />
                 <ScalarProperty Name="AnimalID" ColumnName="AnimalID" />
@@ -853,7 +927,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Vaccines">
-            <EntityTypeMapping TypeName="PetShelterModel.Vaccines">
+            <EntityTypeMapping TypeName="PetShelterModel.Vaccine">
               <MappingFragment StoreEntitySet="Vaccines">
                 <ScalarProperty Name="VaccineID" ColumnName="VaccineID" />
                 <ScalarProperty Name="VaccineName" ColumnName="VaccineName" />
@@ -880,7 +954,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />

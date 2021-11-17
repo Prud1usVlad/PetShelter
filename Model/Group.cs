@@ -12,26 +12,21 @@ namespace PetShelter.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class InfoDepEmploees
+    public partial class Group
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public InfoDepEmploees()
+        public Group()
         {
-            this.Contracts = new HashSet<Contracts>();
+            this.Animals = new HashSet<Animal>();
         }
     
-        public int PassNum { get; set; }
-        public string IDCardNum { get; set; }
-        public string IDCradSeries { get; set; }
-        public string SecondName { get; set; }
-        public string FirstName { get; set; }
-        public string ThridName { get; set; }
-        public Nullable<System.DateTime> EntryDate { get; set; }
-        public string Employment { get; set; }
-        public string Email { get; set; }
-        public string Phone { get; set; }
+        public int GroupID { get; set; }
+        public int Priority { get; set; }
+        public string Readiness { get; set; }
+        public string AdditionalCare { get; set; }
+        public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Contracts> Contracts { get; set; }
+        public virtual ICollection<Animal> Animals { get; set; }
     }
 }

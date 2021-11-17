@@ -12,8 +12,7 @@ namespace PetShelter.Model
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Data.Entity.ModelConfiguration;
-
+    
     public partial class DataContext : DbContext
     {
         public DataContext()
@@ -23,22 +22,29 @@ namespace PetShelter.Model
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Animal>()
+               .HasMany(a => a.StateValues)
+               .WithOptional(s => s.Animal)
+               .HasForeignKey(s => s.AnimalID);
 
-            modelBuilder.Entity<Animals>()
-                .HasMany(a => a.StateValues)
+            modelBuilder.Entity<StateValue>()
+                .HasOptional(s => s.State)
+                .WithMany(s => s.StateValues)
+                .HasForeignKey(s => s.StateID);
         }
-
-        public virtual DbSet<Animals> Animals { get; set; }
-        public virtual DbSet<Caretakers> Caretakers { get; set; }
-        public virtual DbSet<Clients> Clients { get; set; }
-        public virtual DbSet<Contracts> Contracts { get; set; }
-        public virtual DbSet<Groups> Groups { get; set; }
-        public virtual DbSet<InfoDepEmploees> InfoDepEmploees { get; set; }
-        public virtual DbSet<Producers> Producers { get; set; }
-        public virtual DbSet<Rooms> Rooms { get; set; }
-        public virtual DbSet<States> States { get; set; }
-        public virtual DbSet<StateValues> StateValues { get; set; }
-        public virtual DbSet<Vaccinations> Vaccinations { get; set; }
-        public virtual DbSet<Vaccines> Vaccines { get; set; }
+    
+        public virtual DbSet<Animal> Animals { get; set; }
+        public virtual DbSet<Caretaker> Caretakers { get; set; }
+        public virtual DbSet<Client> Clients { get; set; }
+        public virtual DbSet<Contract> Contracts { get; set; }
+        public virtual DbSet<Emploee> Emploees { get; set; }
+        public virtual DbSet<Group> Groups { get; set; }
+        public virtual DbSet<InfoDepEmploee> InfoDepEmploees { get; set; }
+        public virtual DbSet<Producer> Producers { get; set; }
+        public virtual DbSet<Room> Rooms { get; set; }
+        public virtual DbSet<State> States { get; set; }
+        public virtual DbSet<StateValue> StateValues { get; set; }
+        public virtual DbSet<Vaccination> Vaccinations { get; set; }
+        public virtual DbSet<Vaccine> Vaccines { get; set; }
     }
 }

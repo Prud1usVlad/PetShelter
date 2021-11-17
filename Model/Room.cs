@@ -12,25 +12,22 @@ namespace PetShelter.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Vaccines
+    public partial class Room
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Vaccines()
+        public Room()
         {
-            this.Vaccinations = new HashSet<Vaccinations>();
+            this.Animals = new HashSet<Animal>();
+            this.Caretakers = new HashSet<Caretaker>();
         }
     
-        public int VaccineID { get; set; }
-        public string VaccineName { get; set; }
-        public string ActiveSubstanceName { get; set; }
-        public string ActiveSubstanceLatinName { get; set; }
-        public Nullable<int> RevaccinationDogs { get; set; }
-        public Nullable<int> RevaccinationRodents { get; set; }
-        public Nullable<int> RevaccinationMeatEaters { get; set; }
-        public Nullable<int> ProducerID { get; set; }
+        public int RoomID { get; set; }
+        public string Name { get; set; }
+        public Nullable<int> MaxAnimalAmount { get; set; }
     
-        public virtual Producers Producers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Vaccinations> Vaccinations { get; set; }
+        public virtual ICollection<Animal> Animals { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Caretaker> Caretakers { get; set; }
     }
 }
