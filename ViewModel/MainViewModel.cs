@@ -114,17 +114,10 @@ namespace PetShelter.ViewModel
         {
             db = new DataContext();
             db.Animals.Load();
-            db.Caretakers.Load();
-            db.Clients.Load();
-            db.Contracts.Load();
             db.Groups.Load();
-            db.InfoDepEmploees.Load();
-            db.Producers.Load();
             db.Rooms.Load();
             db.States.Load();
             db.StateValues.Load();
-            db.Vaccinations.Load();
-            db.Vaccines.Load();
 
             Animals = db.Animals.Local.ToBindingList();
 

@@ -11,8 +11,9 @@ namespace PetShelter.Model
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Room
+    using System.Reflection;
+
+    public partial class Room : DbEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Room()
@@ -20,14 +21,59 @@ namespace PetShelter.Model
             this.Animals = new HashSet<Animal>();
             this.Caretakers = new HashSet<Caretaker>();
         }
-    
-        public int RoomID { get; set; }
-        public string Name { get; set; }
-        public Nullable<int> MaxAnimalAmount { get; set; }
-    
+
+        private string name;
+        private Nullable<int> maxAnimalAmount;
+        private int roomID;
+
+        public int RoomID
+        {
+            get { return roomID; }
+            set
+            {
+                roomID = value;
+                OnPropertyChanged("RoomID");
+            }
+        }
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                name = value;
+                OnPropertyChanged("Name");
+            }
+        }
+        public Nullable<int> MaxAnimalAmount
+        {
+            get { return maxAnimalAmount; }
+            set
+            {
+                maxAnimalAmount = value;
+                OnPropertyChanged("MaxAnimalAmount");
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Animal> Animals { get; set; }
+        internal virtual ICollection<Animal> Animals { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Caretaker> Caretakers { get; set; }
+        internal virtual ICollection<Caretaker> Caretakers { get; set; }
+
+        public override Dictionary<string, string> GetProperies()
+        {
+            var res = new Dictionary<string, string>();
+
+            foreach (PropertyInfo prop in GetType().GetProperties())
+            {
+                res.Add(prop.Name, (prop.GetValue(this) ?? "-").ToString());
+            }
+
+            return res;
+        }
+
+        public override string ToString()
+        {
+            return "Кімната";
+        }
     }
 }

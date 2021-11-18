@@ -12,7 +12,9 @@ namespace PetShelter.Model
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class Animal : DbEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,20 +24,131 @@ namespace PetShelter.Model
             this.StateValues = new HashSet<StateValue>();
             this.Vaccinations = new HashSet<Vaccination>();
         }
-    
-        public int AnimalID { get; set; }
-        public string Name { get; set; }
-        public string Sex { get; set; }
-        public string AnimalKind { get; set; }
-        public Nullable<int> Height { get; set; }
-        public Nullable<double> Weight { get; set; }
-        public string Color { get; set; }
-        public Nullable<System.DateTime> BirthDate { get; set; }
-        public Nullable<System.DateTime> RegistrationDate { get; set; }
-        public Nullable<int> QuarantineDays { get; set; }
-        public Nullable<int> RoomID { get; set; }
-        public Nullable<int> GroupID { get; set; }
-    
+
+        private int animalID;
+        private string name;
+        private string sex;
+        private string animalKind;
+        private Nullable<int> height;
+        private Nullable<double> weight;
+        private string color;
+        private Nullable<System.DateTime> birthDate;
+        private Nullable<System.DateTime> registrationDate;
+        private Nullable<int> quarantineDays;
+        private Nullable<int> roomID;
+        private Nullable<int> groupID;
+
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int AnimalID
+        {
+            get { return animalID; }
+            set
+            {
+                animalID = value;
+                OnPropertyChanged("AnimalID");
+            }
+        }
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                name = value;
+                OnPropertyChanged("Name");
+            }
+        }
+        public string Sex
+        {
+            get { return sex; }
+            set
+            {
+                sex = value;
+                OnPropertyChanged("Sex");
+            }
+        }
+        public string AnimalKind
+        {
+            get { return animalKind; }
+            set
+            {
+                animalKind = value;
+                OnPropertyChanged("AnimalKind");
+            }
+        }
+        public Nullable<int> Height
+        {
+            get { return height; }
+            set
+            {
+                height = value;
+                OnPropertyChanged("Height");
+            }
+        }
+        public Nullable<double> Weight
+        {
+            get { return weight; }
+            set
+            {
+                weight = value;
+                OnPropertyChanged("Weight");
+            }
+        }
+        public string Color
+        {
+            get { return color; }
+            set
+            {
+                color = value;
+                OnPropertyChanged("Color");
+            }
+        }
+        public Nullable<System.DateTime> BirthDate
+        {
+            get { return birthDate; }
+            set
+            {
+                birthDate = value;
+                OnPropertyChanged("PassNum");
+            }
+        }
+        public Nullable<System.DateTime> RegistrationDate
+        {
+            get { return registrationDate; }
+            set
+            {
+                registrationDate = value;
+                OnPropertyChanged("RegistrationDate");
+            }
+        }
+        public Nullable<int> QuarantineDays
+        {
+            get { return quarantineDays; }
+            set
+            {
+                quarantineDays = value;
+                OnPropertyChanged("QuarantineDays");
+            }
+        }
+        public Nullable<int> RoomID
+        {
+            get { return roomID; }
+            set
+            {
+                roomID = value;
+                OnPropertyChanged("RoomID");
+            }
+        }
+        public Nullable<int> GroupID
+        {
+            get { return groupID; }
+            set
+            {
+                groupID = value;
+                OnPropertyChanged("GroupID");
+            }
+        }
+
         internal virtual Group Group { get; set; }
         internal virtual Room Room { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -54,6 +167,9 @@ namespace PetShelter.Model
                 res.Add(val);
             }
 
+            res.Add(Group);
+            res.Add(Room);
+
             return res;
         }
 
@@ -71,7 +187,7 @@ namespace PetShelter.Model
 
         public override string ToString()
         {
-            return "Animal";
+            return "Тварина";
         }
     }
 }

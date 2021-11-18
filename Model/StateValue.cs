@@ -15,17 +15,55 @@ namespace PetShelter.Model
     
     public partial class StateValue : DbEntity
     {
-        public int StateValueID { get; set; }
-        public Nullable<int> StateID { get; set; }
-        public Nullable<int> AnimalID { get; set; }
-        public string Value { get; set; }
+        private int stateValueID;
+        private Nullable<int> stateID;
+        private Nullable<int> animalID;
+        private string value;
+
+
+        public int StateValueID
+        {
+            get { return stateValueID; }
+            set
+            {
+                stateValueID = value;
+                OnPropertyChanged("StateValueID");
+            }
+        }
+        public Nullable<int> StateID 
+        {
+            get { return stateID; }
+            set
+            {
+                stateID = value;
+                OnPropertyChanged("StateID ");
+            }
+        }
+        public Nullable<int> AnimalID 
+        {
+            get { return animalID; }
+            set
+            {
+                animalID = value;
+                OnPropertyChanged("AnimalID");
+            }
+        }
+        public string Value 
+        {
+            get { return value; }
+            set
+            {
+                this.value = value;
+                OnPropertyChanged("Value");
+            }
+        }
     
         internal virtual Animal Animal { get; set; }
         internal virtual State State { get; set; }
 
         public override List<DbEntity> GetForegnEntities()
         {
-            return new List<DbEntity> { State };
+            return null;
         }
 
         public override Dictionary<string, string> GetProperies()
@@ -42,7 +80,17 @@ namespace PetShelter.Model
 
         public override string ToString()
         {
-            return "StateValue";
+            string value = State.Name;
+            value.Trim();
+
+            if (value.EndsWith("стан"))
+            {
+                return value + " тварини";
+            }
+            else
+            {
+                return value;
+            }
         }
     }
 }

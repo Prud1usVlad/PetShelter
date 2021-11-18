@@ -11,8 +11,9 @@ namespace PetShelter.Model
 {
     using System;
     using System.Collections.Generic;
+    using System.Reflection;
     
-    public partial class Group
+    public partial class Group : DbEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Group()
@@ -20,13 +21,76 @@ namespace PetShelter.Model
             this.Animals = new HashSet<Animal>();
         }
     
-        public int GroupID { get; set; }
-        public int Priority { get; set; }
-        public string Readiness { get; set; }
-        public string AdditionalCare { get; set; }
-        public string Description { get; set; }
-    
+        private int groupID;
+        private int priority;
+        private string readiness;
+        private string additionalCare;
+        private string description;
+
+        public int GroupID
+        {
+            get { return groupID; }
+            set
+            {
+                groupID = value;
+                OnPropertyChanged("GroupID");
+            }
+        }
+        public int Priority 
+        {
+            get { return priority; }
+            set
+            {
+                priority = value;
+                OnPropertyChanged("Priority");
+            }
+        }
+        public string Readiness 
+        {
+            get { return readiness; }
+            set
+            {
+                readiness = value;
+                OnPropertyChanged("Readiness");
+            }
+        }
+        public string AdditionalCare 
+        {
+            get { return additionalCare; }
+            set
+            {
+                additionalCare = value;
+                OnPropertyChanged("AdditionalCare");
+            }
+        }
+        public string Description 
+        {
+            get { return description; }
+            set
+            {
+                description = value;
+                OnPropertyChanged("Description");
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Animal> Animals { get; set; }
+        internal virtual ICollection<Animal> Animals { get; set; }
+
+        public override Dictionary<string, string> GetProperies()
+        {
+            var res = new Dictionary<string, string>();
+
+            foreach (PropertyInfo prop in GetType().GetProperties())
+            {
+                res.Add(prop.Name, (prop.GetValue(this) ?? "-").ToString());
+            }
+
+            return res;
+        }
+
+        public override string ToString()
+        {
+            return "Група";
+        }
     }
 }

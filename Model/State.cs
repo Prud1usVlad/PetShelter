@@ -12,7 +12,7 @@ namespace PetShelter.Model
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    
+
     public partial class State : DbEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,10 +20,29 @@ namespace PetShelter.Model
         {
             this.StateValues = new HashSet<StateValue>();
         }
-    
-        public int StateID { get; set; }
-        public string Name { get; set; }
-    
+
+        private int stateID;
+        private string name;
+
+        public int StateID
+        {
+            get { return stateID; }
+            set
+            {
+                stateID = value;
+                OnPropertyChanged("StateID");
+            }
+        }
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                name = value;
+                OnPropertyChanged("Name");
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         internal virtual ICollection<StateValue> StateValues { get; set; }
 
@@ -46,7 +65,7 @@ namespace PetShelter.Model
 
         public override string ToString()
         {
-            return "State";
+            return "Стан";
         }
     }
 }
