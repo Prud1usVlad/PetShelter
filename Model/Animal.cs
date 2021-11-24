@@ -14,6 +14,7 @@ namespace PetShelter.Model
     using System.Reflection;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using PetShelter.View.EditWindows;
 
     public partial class Animal : DbEntity
     {
@@ -149,6 +150,9 @@ namespace PetShelter.Model
             }
         }
 
+        internal override int Identifier => animalID; 
+        internal override Type WindowType => typeof(AnimalEditWindow);
+
         internal virtual Group Group { get; set; }
         internal virtual Room Room { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -188,6 +192,16 @@ namespace PetShelter.Model
         public override string ToString()
         {
             return "Тварина";
+        }
+
+        public override void CopyProperties(DbEntity toCopy)
+        {
+            var animal = toCopy as Animal;
+
+            foreach (PropertyInfo prop in GetType().GetProperties())
+            {
+                prop.SetValue(this, prop.GetValue(animal));
+            }
         }
     }
 }

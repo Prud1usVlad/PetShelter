@@ -9,11 +9,12 @@ using System;
 using System.Reflection;
 using PetShelter.Model;
 using PetShelter.View;
+using PetShelter.View.EditWindows;
 using System.Linq;
 
 namespace PetShelter.ViewModel
 {
-    public class MainViewModel : StandartVievModel
+    public partial class Main_VM : StandartViewModel
     {
         private DataContext db;
         private RelayCommand addCommand;
@@ -21,8 +22,6 @@ namespace PetShelter.ViewModel
         private RelayCommand deleteCommand;
         private RelayCommand copyCommand;
         private RelayCommand showDetailsCommand;
-
-        public Dictionary<Type, (Type WindowType, IEnumerable DataList)> typesConnections;
 
         public Dictionary<string, Dictionary<string, string>> ChosenItemDetails { get; set; }
 
@@ -33,10 +32,16 @@ namespace PetShelter.ViewModel
                 return addCommand ??
                     (addCommand = new RelayCommand((dataSource) =>
                     {
-                        //ConstructorInfo[] constructors = GetEntityType(dataSource as IEnumerable).GetConstructors();
-                        //IStandartEntity entity = constructors[0].Invoke(null) as IStandartEntity;
+                        ConstructorInfo[] constructors = GetEntityType(dataSource as IEnumerable).GetConstructors();
+                        DbEntity entity = constructors[0].Invoke(null) as DbEntity;
+                        IEditWindow window = entity.WindowType.GetConstructors()[1].Invoke(new[] { entity }) as IEditWindow;
 
-                        //entity.AddToDb(db);
+                        if ((window as Window).ShowDialog() == true)
+                        {
+                            entity = Copy(window.Entity);
+                            db.GetDBSet(entity).Add(entity);
+                            db.SaveChanges();
+                        }
                     }));
             }
         }
@@ -50,8 +55,16 @@ namespace PetShelter.ViewModel
                     {
                         if (selected == null)
                             return;
-                        //IStandartEntity item = selected as IStandartEntity;
-                        //item.UpdateDb(db);
+
+                        DbEntity entity = selected as DbEntity;
+                        IEditWindow window = entity.WindowType.GetConstructors()[1].Invoke(new[] { Copy(entity) }) as IEditWindow;
+
+                        if ((window as Window).ShowDialog() == true)
+                        {
+                            entity.CopyProperties(window.Entity);
+                            db.Entry(entity).State = EntityState.Modified;
+                            db.SaveChanges();
+                        }
                     }));
             }
         }
@@ -66,8 +79,14 @@ namespace PetShelter.ViewModel
                         if (selected == null)
                             return;
 
-                        //IStandartEntity item = selected as IStandartEntity;
-                        //item.DeleteFromDb(db);
+                        MessageBoxResult result = MessageBox.Show("Ви дійсно хочете видалити елемент?", "Видалення", MessageBoxButton.YesNo);
+                        if (result == MessageBoxResult.No)
+                            return;
+
+                        DbEntity item = selected as DbEntity;
+
+                        db.GetDBSet(item).Remove(item);
+                        db.SaveChanges();
                     }));
             }
         }
@@ -110,7 +129,7 @@ namespace PetShelter.ViewModel
             }
         }
 
-        public MainViewModel()
+        public Main_VM()
         {
             db = new DataContext();
             db.Animals.Load();
@@ -120,6 +139,7 @@ namespace PetShelter.ViewModel
             db.StateValues.Load();
 
             Animals = db.Animals.Local.ToBindingList();
+            Rooms = db.Rooms.Local.ToBindingList();
 
             ChosenItemDetails = null;
         }
@@ -137,8 +157,12 @@ namespace PetShelter.ViewModel
             if (foregnEntities == null)
                 return;
 
+
             foreach (DbEntity foregnItem in foregnEntities)
             {
+                if (foregnItem == null)
+                    continue;
+
                 string key = foregnItem.ToString();
                 int count = 1;
                 while (details.Keys.Contains(key + " №" + count))

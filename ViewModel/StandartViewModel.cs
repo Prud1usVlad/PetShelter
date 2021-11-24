@@ -9,7 +9,7 @@ using PetShelter.Model;
 
 namespace PetShelter.ViewModel
 {
-    public class StandartVievModel : INotifyPropertyChanged
+    public class StandartViewModel : INotifyPropertyChanged
     {
         private IEnumerable<Animal> animals;
         private IEnumerable<Caretaker> caretakers;

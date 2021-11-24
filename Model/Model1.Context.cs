@@ -12,6 +12,7 @@ namespace PetShelter.Model
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Reflection;
     
     public partial class DataContext : DbContext
     {
@@ -26,6 +27,11 @@ namespace PetShelter.Model
                .HasMany(a => a.StateValues)
                .WithOptional(s => s.Animal)
                .HasForeignKey(s => s.AnimalID);
+
+            modelBuilder.Entity<Animal>()
+                .HasOptional(a => a.Room)
+                .WithMany(r => r.Animals)
+                .HasForeignKey(a => a.RoomID);
 
             modelBuilder.Entity<StateValue>()
                 .HasOptional(s => s.State)
@@ -46,5 +52,40 @@ namespace PetShelter.Model
         public virtual DbSet<StateValue> StateValues { get; set; }
         public virtual DbSet<Vaccination> Vaccinations { get; set; }
         public virtual DbSet<Vaccine> Vaccines { get; set; }
+
+        public DbSet GetDBSet(DbEntity item)
+        {
+            switch (item.GetType().Name) 
+            {
+                case "Animal":
+                    return Animals;
+                case "Caretaker":
+                    return Caretakers;
+                case "Client":
+                    return Clients;
+                case "Contract":
+                    return Contracts;
+                case "Emploee":
+                    return Emploees;
+                case "Group":
+                    return Groups;
+                case "InfoDepEmploee":
+                    return InfoDepEmploees;
+                case "Producer":
+                    return Producers;
+                case "Room":
+                    return Rooms;
+                case "State":
+                    return States;
+                case "StateValue":
+                    return StateValues;
+                case "Vaccination":
+                    return Vaccinations;
+                case "Vaccine":
+                    return Vaccines;
+            }
+
+            return null;
+        }
     }
 }

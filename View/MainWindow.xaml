@@ -19,12 +19,42 @@
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
-        <DataGrid Name="MainGrid" 
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="7*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <DataGrid Name="MainGrid" 
                   AutoGenerateColumns="True"
-                  Grid.Row="1"
                   ItemsSource="{Binding Animals}" 
                   MouseDown="MainGrid_MouseDown" SelectionChanged="MainGrid_SelectionChanged">
-        </DataGrid>
+            </DataGrid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Content="Додати"
+                        Width="100"
+                        Height="30"
+                        Command="{Binding AddCommand}"
+                        CommandParameter="{Binding ElementName=MainGrid, Path=ItemsSource}"/>
+                <Button Content="Редагувати"
+                        Width="100"
+                        Height="30"
+                        Grid.Column="1"
+                        Command="{Binding EditCommand}"
+                        CommandParameter="{Binding ElementName=MainGrid, Path=SelectedItem}"/>
+                <Button Content="Видалити"
+                        Width="100"
+                        Height="30"
+                        Grid.Column="2"
+                        Command="{Binding DeleteCommand}"
+                        CommandParameter="{Binding ElementName=MainGrid, Path=SelectedItem}"/>
+
+            </Grid>
+        </Grid>
         <Menu HorizontalAlignment="Left" VerticalAlignment="Top">
             <MenuItem Header="Файл">
                 <MenuItem Header="Вийти"></MenuItem>

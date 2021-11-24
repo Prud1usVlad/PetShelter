@@ -25,12 +25,12 @@ namespace PetShelter.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainViewModel ViewModel { get; set; }
+        public Main_VM ViewModel { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
-            ViewModel = new MainViewModel();
+            ViewModel = new Main_VM();
             DataContext = ViewModel;
         }
 
