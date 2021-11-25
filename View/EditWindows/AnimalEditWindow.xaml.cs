@@ -34,22 +34,12 @@ namespace PetShelter.View.EditWindows
         {
             InitializeComponent();
             ViewModel = new AnimalEdit_VM(entity as Animal);
-            DataContext = ViewModel;
-        }
 
-        public void SetRoomItems() 
-        {
-            var res = new List<ComboBoxItem>();
-
-            foreach (Room room in ViewModel.Rooms)
+            if (ViewModel.Animal.AnimalID == 0)
             {
-                var textBlock = new ComboBoxItem();
-                textBlock.Content = room.Name;
-
-                res.Add(textBlock);
+                AddStateValue.IsEnabled = false;
             }
-
-            RoomsItems = res;
+            DataContext = ViewModel;
         }
 
         private void Accept_Click(object sender, RoutedEventArgs e)
@@ -59,6 +49,8 @@ namespace PetShelter.View.EditWindows
             var s = SexCheckbox.SelectedItem as ComboBoxItem;
             animal.RoomID = r == null ? 300001 : r.RoomID;
             animal.Sex = s == null ? "Не вибрано" : s.Content.ToString();
+
+            ViewModel.SaveStateValues.Execute(null);
 
             DialogResult = true;
         }

@@ -92,5 +92,10 @@ namespace PetShelter.Model
         {
             return $"{RoomID} {Name}";
         }
+
+        public override List<string> GetFilterableProperties()
+        {
+            return new List<string> { "Name", "Null", "Null" };
+        }
     }
 }

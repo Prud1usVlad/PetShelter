@@ -98,11 +98,13 @@ namespace PetShelter.View
                 AddButton.IsEnabled = true;
                 DeleteButton.IsEnabled = true;
                 EditButton.IsEnabled = true;
+                FiltreButton.IsEnabled = true;
             } else
             {
                 AddButton.IsEnabled = false;
                 DeleteButton.IsEnabled = false;
                 EditButton.IsEnabled = false;
+                FiltreButton.IsEnabled = false;
             }
 
         }
@@ -127,6 +129,12 @@ namespace PetShelter.View
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.SearchCommand.Execute(SearchInput.Text);
+        }
+
+        private void FiltreButton_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.FiltreCommand.Execute(null);
+
         }
     }
 }

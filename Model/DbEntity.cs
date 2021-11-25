@@ -38,5 +38,12 @@ namespace PetShelter.Model
         {
             return "empty";
         }
+
+        public virtual List<string> GetFilterableProperties()
+        {
+            return null;
+        }
+
+
     }
 }

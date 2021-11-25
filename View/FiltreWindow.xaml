@@ -1,0 +1,53 @@
+﻿<Window x:Class="PetShelter.View.FiltreWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PetShelter.View"
+        mc:Ignorable="d"
+        Title="FiltreWindow" Height="450" Width="800">
+    <ScrollViewer>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Label Name="ColumnLabel1"
+                   Content="Text"
+                   FontSize="20"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"></Label>
+            <Label Name="ColumnLabel2"
+                   Content="Text"
+                   FontSize="20"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Grid.Column="1"></Label>
+            <Label Name="ColumnLabel3"
+                   Content="Text"
+                   FontSize="20"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Grid.Column="2"></Label>
+            <StackPanel Name="StackPanel1"
+                        Grid.Row="1"
+                        Grid.Column="0"></StackPanel>
+            <StackPanel Name="StackPanel2"
+                        Grid.Row="1"
+                        Grid.Column="1"></StackPanel>
+            <StackPanel Name="StackPanel3"
+                        Grid.Row="1"
+                        Grid.Column="2"></StackPanel>
+            <Button Name="FiltreButton"
+                    Grid.Column="1"
+                    Grid.Row="2"
+                    Margin="60, 7" Click="FiltreButton_Click">Фільтрувати</Button>
+        </Grid>
+    </ScrollViewer>
+</Window>

@@ -19,6 +19,8 @@ namespace PetShelter.ViewModel.EditWindowsVM
     {
         private DataContext db;
         private int sex;
+        private RelayCommand addStateValueCommand;
+        private RelayCommand saveStateValues;
 
         public Animal Animal { get; set; }
         public int RoomIndex
@@ -29,21 +31,63 @@ namespace PetShelter.ViewModel.EditWindowsVM
         public int SexIndex
         {
             get { return sex; }
-            set 
-            { 
+            set
+            {
                 sex = value;
-                Animal.Sex = value == 0 ? "Жіноча" : "Чоловіча"; 
+                Animal.Sex = value == 0 ? "Жіноча" : "Чоловіча";
             }
         }
+        public List<StateValue> NewStateValues { get; set; }
+
+        public RelayCommand AddStateValueCommand
+        {
+            get
+            {
+                return addStateValueCommand ??
+                    (addStateValueCommand = new RelayCommand(o => 
+                    {
+                        var newItem = new StateValue();
+                        newItem.AnimalID = Animal.AnimalID;
+
+                        var window = new StateValueEditWindow(newItem);
+
+                        if (window.ShowDialog() == true)
+                        {
+                            NewStateValues.Add(window.ViewModel.StateValue);
+                        }
+                    }));
+            }
+        }
+
+        public RelayCommand SaveStateValues
+        {
+            get
+            {
+                return saveStateValues ??
+                    (saveStateValues = new RelayCommand((o) => 
+                    {
+                        foreach (StateValue stateValue in NewStateValues)
+                        {
+                            db.StateValues.Local.Add(stateValue);
+                        }
+
+                        db.SaveChanges();
+                    }));
+            }
+        }
+
         public AnimalEdit_VM(Animal a)
         {
             Animal = a;
             db = new DataContext();
             db.Rooms.Load();
+            db.StateValues.Load();
 
             Rooms = db.Rooms.Local.ToBindingList();
 
             sex = Animal.Sex == "Жіноча" ? 0 : Animal.Sex == "Чоловіча" ? 1 : -1;
+
+            NewStateValues = new List<StateValue>();
         }
     }
 }

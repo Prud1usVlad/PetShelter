@@ -57,8 +57,10 @@
                         Grid.ColumnSpan="2"
                         Margin="25, 30, 45, 5" 
                         Click="SortButton_Click">Сортувати</Button>
-                <Button Grid.Column="2"
-                        Margin="12">Фільтрація</Button>
+                <Button Name="FiltreButton"
+                        Grid.Column="2"
+                        Margin="12" 
+                        Click="FiltreButton_Click">Фільтрація</Button>
                 <TextBox Name="SearchInput"
                          Height="20"
                          Grid.Column="3"

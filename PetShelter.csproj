@@ -85,6 +85,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\FiltreWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -148,6 +152,9 @@
     <Compile Include="View\EditWindows\IEditWindow.cs" />
     <Compile Include="View\EditWindows\StateValueEditWindow.xaml.cs">
       <DependentUpon>StateValueEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FiltreWindow.xaml.cs">
+      <DependentUpon>FiltreWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

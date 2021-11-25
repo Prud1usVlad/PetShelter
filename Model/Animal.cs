@@ -208,5 +208,10 @@ namespace PetShelter.Model
         {
             return Name + " " + animalID;
         }
+
+        public override List<string> GetFilterableProperties()
+        {
+            return new List<string> { "AnimalKind", "GroupID", "RoomID" };
+        }
     }
 }

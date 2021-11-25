@@ -37,7 +37,7 @@ namespace PetShelter.Model
             set
             {
                 stateID = value;
-                OnPropertyChanged("StateID ");
+                OnPropertyChanged("StateID");
             }
         }
         public Nullable<int> AnimalID 
@@ -64,6 +64,21 @@ namespace PetShelter.Model
 
         internal virtual Animal Animal { get; set; }
         internal virtual State State { get; set; }
+
+        public StateValue()
+        {
+
+        }
+
+        //public StateValue(DbEntity entity)
+        //{
+        //    var toCopy = entity as StateValue;
+
+        //    foreach (PropertyInfo prop in typeof(StateValue).GetProperties())
+        //    {
+        //        prop.SetValue(this, prop.GetValue(toCopy));
+        //    }
+        //}
 
         public override List<DbEntity> GetForegnEntities()
         {
@@ -110,6 +125,11 @@ namespace PetShelter.Model
         public override string GetSearchString()
         {
             return $"{StateValueID} {Value}";
+        }
+
+        public override List<string> GetFilterableProperties()
+        {
+            return new List<string> { "AnimalID", "StateID", "Value" };
         }
     }
 }

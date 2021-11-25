@@ -25,6 +25,7 @@ namespace PetShelter.ViewModel
         private RelayCommand showDetailsCommand;
         private RelayCommand sortCommand;
         private RelayCommand searchCommand;
+        private RelayCommand filtreCommand;
 
 
         private IEnumerable<DbEntity> itemSource;
@@ -72,6 +73,11 @@ namespace PetShelter.ViewModel
                             db.GetDBSet(entity).Add(entity);
                             db.SaveChanges();
                         }
+
+                        if (entity is Animal)
+                        {
+                            StateValues = db.StateValues.Local.ToBindingList();
+                        }
                     }));
             }
         }
@@ -93,8 +99,15 @@ namespace PetShelter.ViewModel
                         {
                             entity.CopyProperties(window.Entity);
                             db.Entry(entity).State = EntityState.Modified;
-                            db.SaveChanges();
                         }
+
+                        if (entity is Animal)
+                        {
+                            db.StateValues.Load();
+                            StateValues = db.StateValues.Local.ToBindingList();
+                        }
+
+                        db.SaveChanges();
                     }));
             }
         }
@@ -143,7 +156,7 @@ namespace PetShelter.ViewModel
             {
                 return showDetailsCommand ?? (showDetailsCommand = new RelayCommand((selected) =>
                 {
-                    if (selected == null)
+                    if (selected == null || selected as DbEntity == null)
                         return;
 
                     var item = selected as DbEntity;
@@ -189,7 +202,7 @@ namespace PetShelter.ViewModel
                 return searchCommand ??
                     (searchCommand = new RelayCommand((input) => 
                     {
-                        var newItemSource = new List<DbEntity>();
+                        var newItemSource = new BindingList<DbEntity>();
 
                         foreach (DbEntity entity in ItemSource)
                         {
@@ -199,23 +212,46 @@ namespace PetShelter.ViewModel
                             }
                         }
 
-                        switch (itemSource.First().GetType().Name)
+                        SetNewDataGridSource(newItemSource);
+
+                    }));
+            }
+        }
+
+        public RelayCommand FiltreCommand
+        {
+            get
+            {
+                return filtreCommand ??
+                    (filtreCommand = new RelayCommand((o) => 
+                    {
+                        var wind = new FiltreWindow(ItemSource);
+
+                        if (wind.ShowDialog() == true)
                         {
-                            case "Animal":
-                                DataGridSource = newItemSource.Select(e => e as Animal);
-                                break;
-                            case "Group":
-                                DataGridSource = newItemSource.Select(e => e as Group);
-                                break;
-                            case "Room":
-                                DataGridSource = newItemSource.Select(e => e as Room);
-                                break;
-                            case "State":
-                                DataGridSource = newItemSource.Select(e => e as State);
-                                break;
-                            case "StateValue":
-                                DataGridSource = newItemSource.Select(e => e as StateValue);
-                                break;
+                            Dictionary<string, List<string>> data = wind.ChosenCheckBoxes;
+                            List<string> PropNames = new List<string> { data.Keys.ElementAt(0), data.Keys.ElementAt(1), data.Keys.ElementAt(2) };
+                            PropertyInfo prop1 = ItemSource.First().GetType().GetProperty(PropNames[0]);
+                            PropertyInfo prop2 = ItemSource.First().GetType().GetProperty(PropNames[1]);
+                            PropertyInfo prop3 = ItemSource.First().GetType().GetProperty(PropNames[2]);
+
+                            var newItemSource = new BindingList<DbEntity>();
+
+                            foreach (DbEntity entity in ItemSource)
+                            {
+                                object val1 = prop1 == null ? "not_compare" : prop1.GetValue(entity) ?? "";
+                                object val2 = prop2 == null ? "not_compare" : prop2.GetValue(entity) ?? "";
+                                object val3 = prop3 == null ? "not_compare" : prop3.GetValue(entity) ?? "";
+
+                                if ((val1.ToString() == "not_compare" || data[PropNames[0]].Contains(val1.ToString().Trim())) &&
+                                    (val1.ToString() == "not_compare" || data[PropNames[1]].Contains(val2.ToString().Trim())) &&
+                                    (val1.ToString() == "not_compare" || data[PropNames[2]].Contains(val3.ToString().Trim())))
+                                {
+                                    newItemSource.Add(entity);
+                                }
+                            }
+
+                            SetNewDataGridSource(newItemSource);
                         }
 
                     }));
@@ -282,5 +318,89 @@ namespace PetShelter.ViewModel
             }
         }
 
+        private void SetNewDataGridSource(BindingList<DbEntity> newItemSource)
+        {
+            switch (itemSource.First().GetType().Name)
+            {
+                case "Animal":
+                    DataGridSource = newItemSource.Select(e => e as Animal);
+                    break;
+                case "Group":
+                    DataGridSource = newItemSource.Select(e => e as Group);
+                    break;
+                case "Room":
+                    DataGridSource = newItemSource.Select(e => e as Room);
+                    break;
+                case "State":
+                    DataGridSource = newItemSource.Select(e => e as State);
+                    break;
+                case "StateValue":
+                    DataGridSource = newItemSource.Select(e => e as StateValue);
+                    break;
+            }
+        }
+
+        private void ChooseGroup(Animal animal)
+        {
+            IEnumerable<StateValue> stateValues = animal.StateValues;
+
+            int phisycalPoints = stateValues.Where(sv => sv.StateID == 2).Count();
+            int psychicalPoints = stateValues.Where(sv => sv.StateID == 1).Count();
+            int socialPoints = stateValues.Where(sv => sv.StateID == 3).Count();
+            int placePoints = StateValues.Where(sv => sv.StateID == 4).Count();
+            int relapsePoints = StateValues.Where(sv => sv.StateID == 5).Count();
+            int groupID = 2;
+
+            if (psychicalPoints == 0 && socialPoints == 0 && phisycalPoints == 0
+                && placePoints == 0 && relapsePoints == 0)
+            {
+                groupID = 1;
+            }
+            else if (psychicalPoints == 0 && socialPoints == 0 && phisycalPoints == 1
+                && placePoints == 0 && relapsePoints == 0)
+            {
+                groupID = 2;
+            }
+            else if (phisycalPoints > 2 || ((DateTime.Now - animal.BirthDate).GetValueOrDefault().TotalDays > 2555)
+                && placePoints == 0 && relapsePoints < 1)
+            {
+                groupID = 3;
+            }
+            else if (psychicalPoints < 1 && socialPoints < 1 && phisycalPoints > 2
+                && placePoints == 0 && relapsePoints < 1)
+            {
+                groupID = 4;
+            }
+            else if (psychicalPoints < 1 && socialPoints < 1 && phisycalPoints > 2
+                && placePoints > 0 && relapsePoints < 1)
+            {
+                groupID = 5;
+            }
+            else if (psychicalPoints == 0 && socialPoints == 0 && phisycalPoints == 0
+                && placePoints == 0 && relapsePoints == 0 
+                && (DateTime.Now - animal.RegistrationDate).GetValueOrDefault().TotalDays > 365)
+            {
+                groupID = 6;
+            }
+            else if ((psychicalPoints > 0 || socialPoints > 0) && phisycalPoints < 1
+                           && placePoints < 1 && relapsePoints < 1)
+            {
+                groupID = 7;
+            }
+            else if (psychicalPoints < 1 && socialPoints < 1 && phisycalPoints < 1
+                && placePoints == 0 && relapsePoints > 0)
+            {
+                groupID = 8;
+            }
+            else if (psychicalPoints == 0 && socialPoints == 0 && phisycalPoints == 0
+                && placePoints > 0 && relapsePoints == 0)
+            {
+                groupID = 8;
+            }
+
+            animal.GroupID = groupID;
+
+        }
+        
     }
 }
