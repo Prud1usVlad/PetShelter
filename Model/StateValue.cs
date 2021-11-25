@@ -12,6 +12,7 @@ namespace PetShelter.Model
     using System;
     using System.Collections.Generic;
     using System.Reflection;
+    using PetShelter.View.EditWindows;
     
     public partial class StateValue : DbEntity
     {
@@ -57,13 +58,16 @@ namespace PetShelter.Model
                 OnPropertyChanged("Value");
             }
         }
-    
+
+        internal override int Identifier => StateValueID;
+        internal override Type WindowType => typeof(StateValueEditWindow);
+
         internal virtual Animal Animal { get; set; }
         internal virtual State State { get; set; }
 
         public override List<DbEntity> GetForegnEntities()
         {
-            return null;
+            return new List<DbEntity> { Animal, State};
         }
 
         public override Dictionary<string, string> GetProperies()
@@ -76,6 +80,16 @@ namespace PetShelter.Model
             }
 
             return res;
+        }
+
+        public override void CopyProperties(DbEntity toCopy)
+        {
+            var item = toCopy as StateValue;
+
+            foreach (PropertyInfo prop in GetType().GetProperties())
+            {
+                prop.SetValue(this, prop.GetValue(toCopy));
+            }
         }
 
         public override string ToString()
@@ -91,6 +105,11 @@ namespace PetShelter.Model
             {
                 return value;
             }
+        }
+
+        public override string GetSearchString()
+        {
+            return $"{StateValueID} {Value}";
         }
     }
 }

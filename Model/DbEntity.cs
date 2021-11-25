@@ -33,5 +33,10 @@ namespace PetShelter.Model
         {
             return;
         }
+
+        public virtual string GetSearchString()
+        {
+            return "empty";
+        }
     }
 }

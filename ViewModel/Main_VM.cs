@@ -10,6 +10,7 @@ using System.Reflection;
 using PetShelter.Model;
 using PetShelter.View;
 using PetShelter.View.EditWindows;
+using PetShelter.ViewModel.Settings;
 using System.Linq;
 
 namespace PetShelter.ViewModel
@@ -22,6 +23,35 @@ namespace PetShelter.ViewModel
         private RelayCommand deleteCommand;
         private RelayCommand copyCommand;
         private RelayCommand showDetailsCommand;
+        private RelayCommand sortCommand;
+        private RelayCommand searchCommand;
+
+
+        private IEnumerable<DbEntity> itemSource;
+        private IEnumerable<DbEntity> dataGridSource;
+        private List<string> sourceProperties;
+
+        public IEnumerable<DbEntity> ItemSource 
+        { 
+            get { return itemSource; }
+            set
+            {
+                itemSource = value;
+                SourceProperties = value.First().GetProperies().Keys.ToList();
+                DataGridSource = value;
+                OnPropertyChanged("ItemSource");
+            }
+        }
+
+        public IEnumerable<DbEntity> DataGridSource
+        {
+            get { return dataGridSource; }
+            set
+            {
+                dataGridSource = value;
+                OnPropertyChanged("DataGridSource");
+            }
+        }
 
         public Dictionary<string, Dictionary<string, string>> ChosenItemDetails { get; set; }
 
@@ -122,10 +152,83 @@ namespace PetShelter.ViewModel
                         { item.ToString(), item.GetProperies()}
                     };
 
-                    AddDetails(item, details);
+                    AddDetails(item, details, item.GetType());
 
                     ChosenItemDetails = details;
                 }));
+            }
+        }
+
+        public RelayCommand SortCommand
+        {
+            get
+            {
+                return sortCommand ??
+                    (sortCommand = new RelayCommand((settings) =>
+                    {
+                        var sett = settings as SortSettings;
+
+                        PropertyInfo prop = itemSource.First().GetType().GetProperty(sett.Criterion);
+
+                        if (sett.SortAsc == true)
+                        {
+                            DataGridSource = DataGridSource.OrderBy(o => prop.GetValue(o));
+                        }
+                        else
+                        {
+                            DataGridSource = DataGridSource.OrderByDescending(o => prop.GetValue(o));
+                        }
+                    }));
+            }
+        }
+
+        public RelayCommand SearchCommand
+        {
+            get
+            {
+                return searchCommand ??
+                    (searchCommand = new RelayCommand((input) => 
+                    {
+                        var newItemSource = new List<DbEntity>();
+
+                        foreach (DbEntity entity in ItemSource)
+                        {
+                            if (entity.GetSearchString().ToLower().Contains(input.ToString().ToLower()))
+                            {
+                                newItemSource.Add(entity);
+                            }
+                        }
+
+                        switch (itemSource.First().GetType().Name)
+                        {
+                            case "Animal":
+                                DataGridSource = newItemSource.Select(e => e as Animal);
+                                break;
+                            case "Group":
+                                DataGridSource = newItemSource.Select(e => e as Group);
+                                break;
+                            case "Room":
+                                DataGridSource = newItemSource.Select(e => e as Room);
+                                break;
+                            case "State":
+                                DataGridSource = newItemSource.Select(e => e as State);
+                                break;
+                            case "StateValue":
+                                DataGridSource = newItemSource.Select(e => e as StateValue);
+                                break;
+                        }
+
+                    }));
+            }
+        }
+
+        public List<string> SourceProperties 
+        { 
+            get { return sourceProperties; } 
+            set
+            {
+                sourceProperties = value;
+                OnPropertyChanged("SourceProperties");
             }
         }
 
@@ -140,8 +243,12 @@ namespace PetShelter.ViewModel
 
             Animals = db.Animals.Local.ToBindingList();
             Rooms = db.Rooms.Local.ToBindingList();
+            Groups = db.Groups.Local.ToBindingList();
+            States = db.States.Local.ToBindingList();
+            StateValues = db.StateValues.Local.ToBindingList();
 
             ChosenItemDetails = null;
+            ItemSource = Animals;
         }
 
 
@@ -150,17 +257,17 @@ namespace PetShelter.ViewModel
             return list.GetType().GetInterface("IEnumerable`1").GetGenericArguments()[0];
         }
 
-        private void AddDetails(DbEntity item, Dictionary<string, Dictionary<string, string>> details)
+        private void AddDetails(DbEntity item, Dictionary<string, Dictionary<string, string>> details, Type forbidden)
         {
             List<DbEntity> foregnEntities = item.GetForegnEntities();
 
-            if (foregnEntities == null)
+            if (foregnEntities == null || details.Count > 50)
                 return;
 
 
             foreach (DbEntity foregnItem in foregnEntities)
             {
-                if (foregnItem == null)
+                if (foregnItem == null || foregnItem.GetType() == forbidden)
                     continue;
 
                 string key = foregnItem.ToString();
@@ -172,8 +279,6 @@ namespace PetShelter.ViewModel
                 key += " №" + count;
 
                 details.Add(key, foregnItem.GetProperies());
-
-                AddDetails(foregnItem, details);
             }
         }
 

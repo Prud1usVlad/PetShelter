@@ -81,6 +81,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\EditWindows\StateValueEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -133,13 +137,18 @@
     </Compile>
     <Compile Include="ViewModel\CopyFunctions.cs" />
     <Compile Include="ViewModel\EditWindowsVM\AnimalEdit_VM.cs" />
+    <Compile Include="ViewModel\EditWindowsVM\StateValue_VM.cs" />
     <Compile Include="ViewModel\Main_VM.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
+    <Compile Include="ViewModel\Settings\SortSettings.cs" />
     <Compile Include="ViewModel\StandartViewModel.cs" />
     <Compile Include="View\EditWindows\AnimalEditWindow.xaml.cs">
       <DependentUpon>AnimalEditWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EditWindows\IEditWindow.cs" />
+    <Compile Include="View\EditWindows\StateValueEditWindow.xaml.cs">
+      <DependentUpon>StateValueEditWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

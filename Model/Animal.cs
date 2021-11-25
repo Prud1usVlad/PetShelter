@@ -191,7 +191,7 @@ namespace PetShelter.Model
 
         public override string ToString()
         {
-            return "Тварина";
+            return $"{AnimalKind} {Name}";
         }
 
         public override void CopyProperties(DbEntity toCopy)
@@ -202,6 +202,11 @@ namespace PetShelter.Model
             {
                 prop.SetValue(this, prop.GetValue(animal));
             }
+        }
+
+        public override string GetSearchString()
+        {
+            return Name + " " + animalID;
         }
     }
 }

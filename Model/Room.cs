@@ -71,9 +71,26 @@ namespace PetShelter.Model
             return res;
         }
 
+        public override List<DbEntity> GetForegnEntities()
+        {
+            var res = new List<DbEntity>();
+
+            foreach(Animal entity in Animals)
+            {
+                res.Add(entity);
+            }
+
+            return res;
+        }
+
         public override string ToString()
         {
             return "Кімната";
+        }
+
+        public override string GetSearchString()
+        {
+            return $"{RoomID} {Name}";
         }
     }
 }

@@ -18,6 +18,8 @@ namespace PetShelter.ViewModel
             {
                 case "Animal":
                     return CopyAnimal(toCopy);
+                case "StateValue":
+                    return CopyStateValue(toCopy);
                 default:
                     return new DbEntity();
             }
@@ -35,6 +37,20 @@ namespace PetShelter.ViewModel
             }
 
             res.Room = Rooms.Where(r => r.RoomID == res.RoomID).FirstOrDefault();
+            return res;
+        }
+
+        private DbEntity CopyStateValue(DbEntity toCopy)
+        {
+            var res = new StateValue();
+
+            foreach (PropertyInfo prop in typeof(StateValue).GetProperties())
+            {
+                prop.SetValue(res, prop.GetValue(toCopy));
+            }
+
+            res.Animal = Animals.Where(a => a.AnimalID == res.AnimalID).FirstOrDefault();
+            res.State = States.Where(s => s.StateID == res.AnimalID).FirstOrDefault();
             return res;
         }
 

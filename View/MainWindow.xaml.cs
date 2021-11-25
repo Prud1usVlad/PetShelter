@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PetShelter.Model;
 using PetShelter.ViewModel;
+using PetShelter.ViewModel.Settings;
 using System.Data.Entity;
 using System.Collections;
 using System.Reflection;
@@ -62,16 +63,70 @@ namespace PetShelter.View
             }
         }
 
-        private void MainGrid_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            
-        }
-
         private void MainGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ViewModel.ShowDetailsCommand.Execute(MainGrid.SelectedItem);
 
             ShowDetails();
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            string header = (sender as MenuItem).Header.ToString();
+
+            switch (header)
+            {
+                case "Тварини":
+                    ViewModel.ItemSource = ViewModel.Animals;
+                    break;
+                case "Кімнати":
+                    ViewModel.ItemSource = ViewModel.Rooms;
+                    break;
+                case "Стани":
+                    ViewModel.ItemSource = ViewModel.States;
+                    break;
+                case "Стани тварин":
+                    ViewModel.ItemSource = ViewModel.StateValues;
+                    break;
+                case "Групи":
+                    ViewModel.ItemSource = ViewModel.Groups;
+                    break;
+            }
+
+            if (header == "Тварини" || header == "Стани тварин")
+            {
+                AddButton.IsEnabled = true;
+                DeleteButton.IsEnabled = true;
+                EditButton.IsEnabled = true;
+            } else
+            {
+                AddButton.IsEnabled = false;
+                DeleteButton.IsEnabled = false;
+                EditButton.IsEnabled = false;
+            }
+
+        }
+
+        private void MainGrid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void SortButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SortCriteria.SelectedItem == null)
+            {
+                MessageBox.Show("Для сортування оберіть критерій сортування", "Неповнота данних");
+                return;
+            }
+
+            ViewModel.SortCommand.Execute(new SortSettings(SortCriteria.SelectedItem.ToString(),
+                SortCriteria.SelectedIndex , SortTypeCheckBox.IsChecked));
+        }
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.SearchCommand.Execute(SearchInput.Text);
         }
     }
 }

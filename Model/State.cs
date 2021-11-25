@@ -67,5 +67,10 @@ namespace PetShelter.Model
         {
             return "Стан";
         }
+
+        public override string GetSearchString()
+        {
+            return $"{StateID} {Name}";
+        }
     }
 }

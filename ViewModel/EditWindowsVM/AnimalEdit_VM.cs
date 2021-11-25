@@ -20,7 +20,6 @@ namespace PetShelter.ViewModel.EditWindowsVM
         private DataContext db;
         private int sex;
 
-
         public Animal Animal { get; set; }
         public int RoomIndex
         {
