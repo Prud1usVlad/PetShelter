@@ -23,6 +23,7 @@ namespace PetShelter.ViewModel
         private IEnumerable<Group> groups;
         private IEnumerable<State> states;
         private IEnumerable<StateValue> stateValues;
+        private IEnumerable<Producer> producers;
 
         public IEnumerable<Animal> Animals
         {
@@ -141,6 +142,16 @@ namespace PetShelter.ViewModel
             {
                 stateValues = value;
                 OnPropertyChanged("StateValues");
+            }
+        }
+
+        public IEnumerable<Producer> Producers
+        {
+            get { return producers; }
+            set
+            {
+                producers = value;
+                OnPropertyChanged("Producers");
             }
         }
 

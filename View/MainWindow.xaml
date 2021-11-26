@@ -27,22 +27,23 @@
             </Grid.RowDefinitions>
             <Grid Background="#FFE5DDD3">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="75*"/>
+                    <ColumnDefinition Width="36*"/>
+                    <ColumnDefinition Width="111*"/>
+                    <ColumnDefinition Width="110*"/>
+                    <ColumnDefinition Width="111*"/>
+                    <ColumnDefinition Width="111*"/>
                 </Grid.ColumnDefinitions>
                 <ComboBox Name="SortCriteria"
-                          Margin="25, 5, 25, 35 "
+                          Margin="25,5,25.4,35"
                           Grid.Column="0"
-                          Grid.ColumnSpan="2"
+                          Grid.ColumnSpan="3"
                           Height="20"
                           ItemsSource="{Binding SourceProperties}"></ComboBox>
                 <CheckBox Name="SortTypeCheckBox"
-                             Grid.Column="1" 
+                             Grid.Column="2" 
                              HorizontalAlignment="Right"
-                             Margin="60,35,24,10">
+                             Margin="0,35,24.4,10">
                     <CheckBox.ToolTip>
                         <ToolTip Placement="Relative"
                                  Background="White"
@@ -54,23 +55,23 @@
                     </CheckBox.ToolTip>
                 </CheckBox>
                 <Button Height="20"
-                        Grid.ColumnSpan="2"
-                        Margin="25, 30, 45, 5" 
+                        Grid.ColumnSpan="3"
+                        Margin="25,32,45.4,8" 
                         Click="SortButton_Click">Сортувати</Button>
                 <Button Name="FiltreButton"
-                        Grid.Column="2"
-                        Margin="12" 
+                        Grid.Column="3"
+                        Margin="11.6,12,11.8,12" 
                         Click="FiltreButton_Click">Фільтрація</Button>
                 <TextBox Name="SearchInput"
                          Height="20"
-                         Grid.Column="3"
+                         Grid.Column="4"
                          Grid.ColumnSpan="2"
-                         Margin="25, 5, 25, 35"></TextBox>
+                         Margin="25.2,5,24.2,35"></TextBox>
                 <Button Height="20"
-                        Grid.Column="3"
+                        Grid.Column="4"
                         Grid.ColumnSpan="2"
-                        Margin="25, 30, 25, 5" Click="SearchButton_Click">Пошук</Button>
-                
+                        Margin="25.2,32,25.2,8" Click="SearchButton_Click">Пошук</Button>
+
             </Grid>
             <DataGrid Name="MainGrid" 
                       AutoGenerateColumns="True"
@@ -122,7 +123,16 @@
                           Click="MenuItem_Click"></MenuItem>
                 <MenuItem Header="Групи" 
                           Click="MenuItem_Click"></MenuItem>
+                <MenuItem Header="Договори" 
+                          Click="MenuItem_Click"></MenuItem>
             </MenuItem>
+            <MenuItem Header="Документи">
+                <MenuItem Header="Договір"
+                          Click="ContractClick"></MenuItem>
+                <MenuItem Header="Інформаційна картка"
+                          Click="InfoCardClick"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Статистика" Click="StatClick"></MenuItem>
         </Menu>
         <ScrollViewer Grid.Column="1"
                       Grid.Row="1">

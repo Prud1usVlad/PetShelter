@@ -105,6 +105,7 @@ namespace PetShelter.ViewModel
                         {
                             db.StateValues.Load();
                             StateValues = db.StateValues.Local.ToBindingList();
+                            ChooseGroup(entity as Animal);
                         }
 
                         db.SaveChanges();
@@ -127,7 +128,12 @@ namespace PetShelter.ViewModel
                             return;
 
                         DbEntity item = selected as DbEntity;
-
+                        if (item is Animal)
+                        {
+                            var a = item as Animal;
+                            while(a.StateValues.Count > 0)
+                                db.StateValues.Remove(a.StateValues.First());
+                        }
                         db.GetDBSet(item).Remove(item);
                         db.SaveChanges();
                     }));
@@ -276,12 +282,20 @@ namespace PetShelter.ViewModel
             db.Rooms.Load();
             db.States.Load();
             db.StateValues.Load();
+            db.Contracts.Load();
+            db.Clients.Load();
+            db.InfoDepEmploees.Load();
+            db.Emploees.Load();
 
             Animals = db.Animals.Local.ToBindingList();
             Rooms = db.Rooms.Local.ToBindingList();
             Groups = db.Groups.Local.ToBindingList();
             States = db.States.Local.ToBindingList();
+            Contracts = db.Contracts.Local.ToBindingList();
+            Clients = db.Clients.Local.ToBindingList();
+            InfoDepEmploees = db.InfoDepEmploees.Local.ToBindingList();
             StateValues = db.StateValues.Local.ToBindingList();
+            Emploees = db.Emploees.Local.ToBindingList();
 
             ChosenItemDetails = null;
             ItemSource = Animals;
@@ -347,8 +361,8 @@ namespace PetShelter.ViewModel
             int phisycalPoints = stateValues.Where(sv => sv.StateID == 2).Count();
             int psychicalPoints = stateValues.Where(sv => sv.StateID == 1).Count();
             int socialPoints = stateValues.Where(sv => sv.StateID == 3).Count();
-            int placePoints = StateValues.Where(sv => sv.StateID == 4).Count();
-            int relapsePoints = StateValues.Where(sv => sv.StateID == 5).Count();
+            int placePoints = stateValues.Where(sv => sv.StateID == 4).Count();
+            int relapsePoints = stateValues.Where(sv => sv.StateID == 5).Count();
             int groupID = 2;
 
             if (psychicalPoints == 0 && socialPoints == 0 && phisycalPoints == 0
@@ -361,18 +375,18 @@ namespace PetShelter.ViewModel
             {
                 groupID = 2;
             }
-            else if (phisycalPoints > 2 || ((DateTime.Now - animal.BirthDate).GetValueOrDefault().TotalDays > 2555)
-                && placePoints == 0 && relapsePoints < 1)
+            else if (phisycalPoints >= 2 || ((DateTime.Now - animal.BirthDate).GetValueOrDefault().TotalDays > 2555)
+                && placePoints == 0 && relapsePoints <= 1)
             {
                 groupID = 3;
             }
-            else if (psychicalPoints < 1 && socialPoints < 1 && phisycalPoints > 2
-                && placePoints == 0 && relapsePoints < 1)
+            else if (psychicalPoints <= 1 && socialPoints <= 1 && phisycalPoints >= 2
+                && placePoints == 0 && relapsePoints <= 1)
             {
                 groupID = 4;
             }
-            else if (psychicalPoints < 1 && socialPoints < 1 && phisycalPoints > 2
-                && placePoints > 0 && relapsePoints < 1)
+            else if (psychicalPoints <= 1 && socialPoints <= 1 && phisycalPoints >= 2
+                && placePoints > 0 && relapsePoints <= 1)
             {
                 groupID = 5;
             }
@@ -382,12 +396,12 @@ namespace PetShelter.ViewModel
             {
                 groupID = 6;
             }
-            else if ((psychicalPoints > 0 || socialPoints > 0) && phisycalPoints < 1
-                           && placePoints < 1 && relapsePoints < 1)
+            else if ((psychicalPoints > 0 || socialPoints > 0) && phisycalPoints <= 1
+                           && placePoints <= 1 && relapsePoints <= 1)
             {
                 groupID = 7;
             }
-            else if (psychicalPoints < 1 && socialPoints < 1 && phisycalPoints < 1
+            else if (psychicalPoints <= 1 && socialPoints <= 1 && phisycalPoints <= 1
                 && placePoints == 0 && relapsePoints > 0)
             {
                 groupID = 8;

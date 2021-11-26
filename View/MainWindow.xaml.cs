@@ -91,6 +91,9 @@ namespace PetShelter.View
                 case "Групи":
                     ViewModel.ItemSource = ViewModel.Groups;
                     break;
+                case "Договори":
+                    ViewModel.ItemSource = ViewModel.Contracts;
+                    break;
             }
 
             if (header == "Тварини" || header == "Стани тварин")
@@ -135,6 +138,45 @@ namespace PetShelter.View
         {
             ViewModel.FiltreCommand.Execute(null);
 
+        }
+
+        private void ContractClick(object sender, RoutedEventArgs e)
+        {
+            if (MainGrid.SelectedItem is Contract)
+            {
+                var d = new DocumentsCreation();
+                var c = MainGrid.SelectedItem as Contract;
+
+                d.GenerateContract(c, ViewModel.Animals.Where(a => a.AnimalID == c.AnimalID).First(),
+                    ViewModel.Clients.Where(cl => cl.ClientID == c.ClientID).First(),
+                    ViewModel.InfoDepEmploees.Where(em => em.PassNum == c.PassNum).First(),
+                    ViewModel.Emploees.Where(emp => emp.PassNum == c.PassNum).First());
+            }
+            else
+            {
+                MessageBox.Show("Для формування договогу перейдіть до таблиці договорів та оберіть потрібний", "Підказка");
+            }
+        }
+
+        private void InfoCardClick(object sender, RoutedEventArgs e)
+        {
+            if (MainGrid.SelectedItem is Animal)
+            {
+                var d = new DocumentsCreation();
+                var a = MainGrid.SelectedItem as Animal;
+
+                d.GenerateInfoCard(a);
+            }
+            else
+            {
+                MessageBox.Show("Для формування інформаційної картки перейдіть до таблиці тварин та оберіть потрібну", "Підказка");
+            }
+        }
+
+        private void StatClick(object sender, RoutedEventArgs e)
+        {
+            var wind = new Statistics();
+            wind.ShowDialog();
         }
     }
 }

@@ -26,7 +26,8 @@ namespace PetShelter.Model
             modelBuilder.Entity<Animal>()
                .HasMany(a => a.StateValues)
                .WithOptional(s => s.Animal)
-               .HasForeignKey(s => s.AnimalID);
+               .HasForeignKey(s => s.AnimalID)
+               .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Animal>()
                 .HasOptional(a => a.Room)

@@ -11,8 +11,9 @@ namespace PetShelter.Model
 {
     using System;
     using System.Collections.Generic;
+    using System.Reflection;
     
-    public partial class Contract
+    public partial class Contract : DbEntity
     {
         public int ContractNum { get; set; }
         public Nullable<int> PassNum { get; set; }
@@ -22,8 +23,20 @@ namespace PetShelter.Model
         public Nullable<int> ClientID { get; set; }
         public Nullable<int> IDCardNum { get; set; }
     
-        public virtual Animal Animal { get; set; }
-        public virtual Client Client { get; set; }
-        public virtual InfoDepEmploee InfoDepEmploee { get; set; }
+        internal virtual Animal Animal { get; set; }
+        internal virtual Client Client { get; set; }
+        internal virtual InfoDepEmploee InfoDepEmploee { get; set; }
+
+        public override Dictionary<string, string> GetProperies()
+        {
+            var res = new Dictionary<string, string>();
+
+            foreach (PropertyInfo prop in GetType().GetProperties())
+            {
+                res.Add(prop.Name, (prop.GetValue(this) ?? "-").ToString());
+            }
+
+            return res;
+        }
     }
 }
