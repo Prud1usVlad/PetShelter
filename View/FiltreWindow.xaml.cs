@@ -46,8 +46,8 @@ namespace PetShelter.View
             data = new Dictionary<string, List<string>> 
             {
                 { prop1 == null ? "Немає доступних" : prop1.Name, new List<string>() },
-                { prop2 == null ? "Немає доступних " : prop2.Name, new List<string>() },
-                { prop3 == null ? "Немає доступних  " : prop3.Name, new List<string>() },
+                { prop2 == null ? "Немає доступних" : prop2.Name, new List<string>() },
+                { prop3 == null ? "Немає доступних" : prop3.Name, new List<string>() },
             };
 
             foreach (DbEntity entity in Entities)

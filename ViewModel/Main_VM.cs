@@ -231,34 +231,8 @@ namespace PetShelter.ViewModel
                 return filtreCommand ??
                     (filtreCommand = new RelayCommand((o) => 
                     {
-                        var wind = new FiltreWindow(ItemSource);
-
-                        if (wind.ShowDialog() == true)
-                        {
-                            Dictionary<string, List<string>> data = wind.ChosenCheckBoxes;
-                            List<string> PropNames = new List<string> { data.Keys.ElementAt(0), data.Keys.ElementAt(1), data.Keys.ElementAt(2) };
-                            PropertyInfo prop1 = ItemSource.First().GetType().GetProperty(PropNames[0]);
-                            PropertyInfo prop2 = ItemSource.First().GetType().GetProperty(PropNames[1]);
-                            PropertyInfo prop3 = ItemSource.First().GetType().GetProperty(PropNames[2]);
-
-                            var newItemSource = new BindingList<DbEntity>();
-
-                            foreach (DbEntity entity in ItemSource)
-                            {
-                                object val1 = prop1 == null ? "not_compare" : prop1.GetValue(entity) ?? "";
-                                object val2 = prop2 == null ? "not_compare" : prop2.GetValue(entity) ?? "";
-                                object val3 = prop3 == null ? "not_compare" : prop3.GetValue(entity) ?? "";
-
-                                if ((val1.ToString() == "not_compare" || data[PropNames[0]].Contains(val1.ToString().Trim())) &&
-                                    (val1.ToString() == "not_compare" || data[PropNames[1]].Contains(val2.ToString().Trim())) &&
-                                    (val1.ToString() == "not_compare" || data[PropNames[2]].Contains(val3.ToString().Trim())))
-                                {
-                                    newItemSource.Add(entity);
-                                }
-                            }
-
-                            SetNewDataGridSource(newItemSource);
-                        }
+                        var filtre = new Filtration(itemSource, this);
+                        filtre.StartFiltring();
 
                     }));
             }
@@ -332,7 +306,7 @@ namespace PetShelter.ViewModel
             }
         }
 
-        private void SetNewDataGridSource(BindingList<DbEntity> newItemSource)
+        public void SetNewDataGridSource(IEnumerable<DbEntity> newItemSource)
         {
             switch (itemSource.First().GetType().Name)
             {
