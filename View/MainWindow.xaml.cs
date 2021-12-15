@@ -102,7 +102,15 @@ namespace PetShelter.View
                 DeleteButton.IsEnabled = true;
                 EditButton.IsEnabled = true;
                 FiltreButton.IsEnabled = true;
-            } else
+            } 
+            else if (header == "Групи")
+            {
+                AddButton.IsEnabled = false;
+                DeleteButton.IsEnabled = false;
+                EditButton.IsEnabled = false;
+                FiltreButton.IsEnabled = true;
+            }
+            else
             {
                 AddButton.IsEnabled = false;
                 DeleteButton.IsEnabled = false;
