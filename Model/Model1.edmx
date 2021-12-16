@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище PetShelterModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище PetShelterModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Animals">
           <Key>
             <PropertyRef Name="AnimalID" />
@@ -72,7 +72,7 @@
           <Property Name="IDCardSeries" Type="nvarchar" MaxLength="50" />
           <Property Name="SecondName" Type="nvarchar" MaxLength="50" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
-          <Property Name="ThirdName" Type="nvarchar(max)" />
+          <Property Name="ThirdName" Type="nvarchar" MaxLength="50" />
           <Property Name="EntryDate" Type="datetime" />
           <Property Name="Profession" Type="nvarchar" MaxLength="50" />
         </EntityType>
@@ -128,6 +128,14 @@
           <Property Name="StateID" Type="int" />
           <Property Name="AnimalID" Type="int" />
           <Property Name="Value" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Login" />
+          </Key>
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Role" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Vaccinations">
           <Key>
@@ -201,7 +209,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Contracts_Animals">
-          <End Role="Animals" Type="Self.Animals" Multiplicity="0..1" />
+          <End Role="Animals" Type="Self.Animals" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Contracts" Type="Self.Contracts" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Animals">
@@ -213,7 +223,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Contracts_Clients">
-          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Contracts" Type="Self.Contracts" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Clients">
@@ -249,7 +261,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_StateValue_Animals">
-          <End Role="Animals" Type="Self.Animals" Multiplicity="0..1" />
+          <End Role="Animals" Type="Self.Animals" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="StateValues" Type="Self.StateValues" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Animals">
@@ -273,7 +287,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Vaccinations_Animals">
-          <End Role="Animals" Type="Self.Animals" Multiplicity="1" />
+          <End Role="Animals" Type="Self.Animals" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Vaccinations" Type="Self.Vaccinations" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Animals">
@@ -285,7 +301,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Vaccinations_Vaccines">
-          <End Role="Vaccines" Type="Self.Vaccines" Multiplicity="1" />
+          <End Role="Vaccines" Type="Self.Vaccines" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Vaccinations" Type="Self.Vaccinations" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Vaccines">
@@ -320,6 +338,7 @@
           <EntitySet Name="Rooms" EntityType="Self.Rooms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="States" EntityType="Self.States" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StateValues" EntityType="Self.StateValues" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vaccinations" EntityType="Self.Vaccinations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vaccines" EntityType="Self.Vaccines" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Animals_Groups" Association="Self.FK_Animals_Groups">
@@ -375,8 +394,7 @@
             <End Role="Vaccines" EntitySet="Vaccines" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PetShelterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -458,7 +476,7 @@
           <Property Name="IDCardSeries" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SecondName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ThirdName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ThirdName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EntryDate" Type="DateTime" Precision="3" />
           <Property Name="Profession" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Caretaker" Relationship="Self.FK_Caretakers_Emploees" FromRole="Emploees" ToRole="Caretakers" />
@@ -787,7 +805,16 @@
             <End Role="Vaccines" EntitySet="Vaccines" />
             <End Role="Vaccinations" EntitySet="Vaccinations" />
           </AssociationSet>
+          <EntitySet Name="Users" EntityType="PetShelterModel.User" />
         </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Login" />
+          </Key>
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -949,6 +976,15 @@
                 <ScalarProperty Name="RevaccinationRodents" ColumnName="RevaccinationRodents" />
                 <ScalarProperty Name="RevaccinationMeatEaters" ColumnName="RevaccinationMeatEaters" />
                 <ScalarProperty Name="ProducerID" ColumnName="ProducerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="PetShelterModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

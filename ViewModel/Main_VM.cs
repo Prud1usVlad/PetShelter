@@ -260,6 +260,10 @@ namespace PetShelter.ViewModel
             db.Clients.Load();
             db.InfoDepEmploees.Load();
             db.Emploees.Load();
+            db.Caretakers.Load();
+            db.Producers.Load();
+            db.Vaccinations.Load();
+            db.Vaccines.Load();
 
             Animals = db.Animals.Local.ToBindingList();
             Rooms = db.Rooms.Local.ToBindingList();
@@ -270,6 +274,12 @@ namespace PetShelter.ViewModel
             InfoDepEmploees = db.InfoDepEmploees.Local.ToBindingList();
             StateValues = db.StateValues.Local.ToBindingList();
             Emploees = db.Emploees.Local.ToBindingList();
+            Caretakers = db.Caretakers.Local.ToBindingList();
+            Producers = db.Producers.Local.ToBindingList();
+            Vaccinations = db.Vaccinations.Local.ToBindingList();
+            Vaccines = db.Vaccines.Local.ToBindingList();
+
+
 
             ChosenItemDetails = null;
             ItemSource = Animals;

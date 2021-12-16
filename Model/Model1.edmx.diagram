@@ -31,6 +31,7 @@
         <AssociationConnector Association="PetShelterModel.FK_Vaccines_Producers" ManuallyRouted="false" />
         <AssociationConnector Association="PetShelterModel.FK_StateValue_States" ManuallyRouted="false" />
         <AssociationConnector Association="PetShelterModel.FK_Vaccinations_Vaccines" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PetShelterModel.User" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
