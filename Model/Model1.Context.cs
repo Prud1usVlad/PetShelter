@@ -13,14 +13,14 @@ namespace PetShelter.Model
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     using System.Reflection;
-    
+
     public partial class DataContext : DbContext
     {
         public DataContext()
             : base("name=PetShelterEntities")
         {
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Animal>()
@@ -39,7 +39,7 @@ namespace PetShelter.Model
                 .WithMany(s => s.StateValues)
                 .HasForeignKey(s => s.StateID);
         }
-    
+
         public virtual DbSet<Animal> Animals { get; set; }
         public virtual DbSet<Caretaker> Caretakers { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
@@ -56,7 +56,7 @@ namespace PetShelter.Model
 
         public DbSet GetDBSet(DbEntity item)
         {
-            switch (item.GetType().Name) 
+            switch (item.GetType().Name)
             {
                 case "Animal":
                     return Animals;

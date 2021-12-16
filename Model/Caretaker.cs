@@ -11,16 +11,97 @@ namespace PetShelter.Model
 {
     using System;
     using System.Collections.Generic;
+    using System.Reflection;
     
-    public partial class Caretaker
+    public partial class Caretaker : DbEntity
     {
-        public int PassNum { get; set; }
-        public string Shift { get; set; }
-        public string MajorAnimalKind { get; set; }
-        public string MedicalEducation { get; set; }
-        public Nullable<int> RoomID { get; set; }
-    
+        private int passNum;
+        private string shift;
+        private string majorAnimalKind;
+        private string medicalEducation;
+        private Nullable<int> roomID;
+
+        public int PassNum
+        {
+            get { return passNum; }
+            set
+            {
+                passNum = value;
+                OnPropertyChanged("PassNum");
+            }
+        }
+        public string Shift {
+            get { return shift; }
+            set
+            {
+                shift = value;
+                OnPropertyChanged("Shift");
+            }
+        }
+        public string MajorAnimalKind {
+            get { return majorAnimalKind; }
+            set
+            {
+                majorAnimalKind = value;
+                OnPropertyChanged("MajorAnimalKind");
+            }
+        }
+        public string MedicalEducation {
+            get { return medicalEducation; }
+            set
+            {
+                medicalEducation = value;
+                OnPropertyChanged("MedicalEducation");
+            }
+        }
+        public Nullable<int> RoomID {
+            get { return roomID; }
+            set
+            {
+                roomID = value;
+                OnPropertyChanged("RoomID");
+            }
+        }
+
         public virtual Emploee Emploee { get; set; }
         public virtual Room Room { get; set; }
+
+        public override List<DbEntity> GetForegnEntities()
+        {
+            return new List<DbEntity> { Emploee, Room };
+        }
+
+        public override Dictionary<string, string> GetProperies()
+        {
+            var res = new Dictionary<string, string>();
+
+            foreach (PropertyInfo prop in GetType().GetProperties())
+            {
+                res.Add(prop.Name, (prop.GetValue(this) ?? "-").ToString());
+            }
+
+            return res;
+        }
+
+        public override void CopyProperties(DbEntity toCopy)
+        {
+            var item = toCopy as Caretaker;
+
+            foreach (PropertyInfo prop in GetType().GetProperties())
+            {
+                prop.SetValue(this, prop.GetValue(toCopy));
+            }
+        }
+
+        public override string ToString()
+        {
+            return "Доглядач";
+        }
+
+        public override string GetSearchString()
+        {
+            return $"{Shift} {medicalEducation} {roomID} {majorAnimalKind} {passNum}";
+        }
+
     }
 }

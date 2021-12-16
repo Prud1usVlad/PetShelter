@@ -128,12 +128,12 @@ namespace PetShelter.ViewModel
                             return;
 
                         DbEntity item = selected as DbEntity;
-                        if (item is Animal)
-                        {
-                            var a = item as Animal;
-                            while(a.StateValues.Count > 0)
-                                db.StateValues.Remove(a.StateValues.First());
-                        }
+                        //if (item is Animal)
+                        //{
+                        //    var a = item as Animal;
+                        //    while(a.StateValues.Count > 0)
+                        //        db.StateValues.Remove(a.StateValues.First());
+                        //}
                         db.GetDBSet(item).Remove(item);
                         db.SaveChanges();
                     }));

@@ -590,7 +590,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_StateValue_Animals">
-          <End Role="Animals" Type="Self.Animal" Multiplicity="0..1" />
+          <End Role="Animals" Type="Self.Animal" Multiplicity="0..1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="StateValues" Type="Self.StateValue" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Animals">
@@ -602,7 +604,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Vaccinations_Animals">
-          <End Role="Animals" Type="Self.Animal" Multiplicity="1" />
+          <End Role="Animals" Type="Self.Animal" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Vaccinations" Type="Self.Vaccination" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Animals">
@@ -614,7 +618,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Caretakers_Emploees">
-          <End Role="Emploees" Type="Self.Emploee" Multiplicity="1" />
+          <End Role="Emploees" Type="Self.Emploee" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Caretakers" Type="Self.Caretaker" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Emploees">
@@ -662,7 +668,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_InfoDepEmploees_Emploees">
-          <End Role="Emploees" Type="Self.Emploee" Multiplicity="1" />
+          <End Role="Emploees" Type="Self.Emploee" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="InfoDepEmploees" Type="Self.InfoDepEmploee" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Emploees">
@@ -686,7 +694,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_StateValue_States">
-          <End Role="States" Type="Self.State" Multiplicity="0..1" />
+          <End Role="States" Type="Self.State" Multiplicity="0..1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="StateValues" Type="Self.StateValue" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="States">
@@ -698,7 +708,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Vaccinations_Vaccines">
-          <End Role="Vaccines" Type="Self.Vaccine" Multiplicity="1" />
+          <End Role="Vaccines" Type="Self.Vaccine" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Vaccinations" Type="Self.Vaccination" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Vaccines">

@@ -12,7 +12,7 @@ namespace PetShelter.Model
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    
+
     public partial class Group : DbEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,7 +20,7 @@ namespace PetShelter.Model
         {
             this.Animals = new HashSet<Animal>();
         }
-    
+
         private int groupID;
         private int priority;
         private string readiness;
@@ -36,7 +36,7 @@ namespace PetShelter.Model
                 OnPropertyChanged("GroupID");
             }
         }
-        public int Priority 
+        public int Priority
         {
             get { return priority; }
             set
@@ -45,7 +45,7 @@ namespace PetShelter.Model
                 OnPropertyChanged("Priority");
             }
         }
-        public string Readiness 
+        public string Readiness
         {
             get { return readiness; }
             set
@@ -54,7 +54,7 @@ namespace PetShelter.Model
                 OnPropertyChanged("Readiness");
             }
         }
-        public string AdditionalCare 
+        public string AdditionalCare
         {
             get { return additionalCare; }
             set
@@ -63,7 +63,7 @@ namespace PetShelter.Model
                 OnPropertyChanged("AdditionalCare");
             }
         }
-        public string Description 
+        public string Description
         {
             get { return description; }
             set

@@ -7,13 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PetShelter.Model 
+namespace PetShelter.Model
 {
     using System;
     using System.Collections.Generic;
     using System.Reflection;
     using PetShelter.View.EditWindows;
-    
+
     public partial class StateValue : DbEntity
     {
         private int stateValueID;
@@ -31,7 +31,7 @@ namespace PetShelter.Model
                 OnPropertyChanged("StateValueID");
             }
         }
-        public Nullable<int> StateID 
+        public Nullable<int> StateID
         {
             get { return stateID; }
             set
@@ -40,7 +40,7 @@ namespace PetShelter.Model
                 OnPropertyChanged("StateID");
             }
         }
-        public Nullable<int> AnimalID 
+        public Nullable<int> AnimalID
         {
             get { return animalID; }
             set
@@ -49,7 +49,7 @@ namespace PetShelter.Model
                 OnPropertyChanged("AnimalID");
             }
         }
-        public string Value 
+        public string Value
         {
             get { return value; }
             set
@@ -70,19 +70,9 @@ namespace PetShelter.Model
 
         }
 
-        //public StateValue(DbEntity entity)
-        //{
-        //    var toCopy = entity as StateValue;
-
-        //    foreach (PropertyInfo prop in typeof(StateValue).GetProperties())
-        //    {
-        //        prop.SetValue(this, prop.GetValue(toCopy));
-        //    }
-        //}
-
         public override List<DbEntity> GetForegnEntities()
         {
-            return new List<DbEntity> { Animal, State};
+            return new List<DbEntity> { Animal, State };
         }
 
         public override Dictionary<string, string> GetProperies()

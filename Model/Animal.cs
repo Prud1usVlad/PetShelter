@@ -150,7 +150,7 @@ namespace PetShelter.Model
             }
         }
 
-        internal override int Identifier => animalID; 
+        internal override int Identifier => animalID;
         internal override Type WindowType => typeof(AnimalEditWindow);
 
         internal virtual Group Group { get; set; }
@@ -173,6 +173,18 @@ namespace PetShelter.Model
 
             res.Add(Group);
             res.Add(Room);
+
+            foreach (Vaccination val in Vaccinations)
+            {
+                res.Add(val);
+                res.Add(val.Vaccine);
+            }
+
+            foreach (Contract val in Contracts)
+            {
+                res.Add(val);
+            }
+
 
             return res;
         }

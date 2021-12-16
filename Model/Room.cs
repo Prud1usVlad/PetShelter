@@ -75,7 +75,7 @@ namespace PetShelter.Model
         {
             var res = new List<DbEntity>();
 
-            foreach(Animal entity in Animals)
+            foreach (Animal entity in Animals)
             {
                 res.Add(entity);
             }

@@ -79,6 +79,9 @@
     <Compile Include="Model\DbEntity.cs" />
     <Compile Include="ViewModel\Filtration.cs" />
     <Compile Include="ViewModel\Statistics_VM.cs" />
+    <Compile Include="View\EditWindows\ClientEditWindow.xaml.cs">
+      <DependentUpon>ClientEditWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\FiltreWindows\Animal_filtre.xaml.cs">
       <DependentUpon>Animal_filtre.xaml</DependentUpon>
     </Compile>
@@ -92,6 +95,10 @@
       <DependentUpon>Statistics.xaml</DependentUpon>
     </Compile>
     <Page Include="View\EditWindows\AnimalEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditWindows\ClientEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

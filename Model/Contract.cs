@@ -15,17 +15,80 @@ namespace PetShelter.Model
     
     public partial class Contract : DbEntity
     {
-        public int ContractNum { get; set; }
-        public Nullable<int> PassNum { get; set; }
-        public Nullable<int> AnimalID { get; set; }
-        public Nullable<System.DateTime> SigningDate { get; set; }
-        public Nullable<System.DateTime> TerminationDate { get; set; }
-        public Nullable<int> ClientID { get; set; }
-        public Nullable<int> IDCardNum { get; set; }
-    
+        private int contractNum;
+        private Nullable<int> passNum;
+        private Nullable<int> animalID;
+        private Nullable<System.DateTime> signingDate;
+        private Nullable<System.DateTime> terminationDate;
+        private Nullable<int> clientID;
+        private Nullable<int> iDCardNum;
+
+        public int ContractNum
+        {
+            get { return contractNum; }
+            set
+            {
+                contractNum = value;
+                OnPropertyChanged("ContractNum");
+            }
+        }
+        public Nullable<int> PassNum {
+            get { return passNum; }
+            set
+            {
+                passNum = value;
+                OnPropertyChanged("PassNum");
+            }
+        }
+        public Nullable<int> AnimalID {
+            get { return animalID; }
+            set
+            {
+                animalID = value;
+                OnPropertyChanged("AnimalID");
+            }
+        }
+        public Nullable<System.DateTime> SigningDate {
+            get { return signingDate; }
+            set
+            {
+                signingDate = value;
+                OnPropertyChanged("SigningDate");
+            }
+        }
+        public Nullable<System.DateTime> TerminationDate {
+            get { return terminationDate; }
+            set
+            {
+                terminationDate = value;
+                OnPropertyChanged("TerminationDate");
+            }
+        }
+        public Nullable<int> ClientID {
+            get { return clientID; }
+            set
+            {
+                clientID = value;
+                OnPropertyChanged("ClientID");
+            }
+        }
+        public Nullable<int> IDCardNum {
+            get { return iDCardNum; }
+            set
+            {
+                iDCardNum = value;
+                OnPropertyChanged("IDCardNum");
+            }
+        }
+
         internal virtual Animal Animal { get; set; }
         internal virtual Client Client { get; set; }
         internal virtual InfoDepEmploee InfoDepEmploee { get; set; }
+
+        public override List<DbEntity> GetForegnEntities()
+        {
+            return new List<DbEntity> { Animal, Client, InfoDepEmploee };
+        }
 
         public override Dictionary<string, string> GetProperies()
         {
@@ -38,5 +101,27 @@ namespace PetShelter.Model
 
             return res;
         }
+
+        public override string ToString()
+        {
+            return $"Договір №{contractNum}";
+        }
+
+        public override void CopyProperties(DbEntity toCopy)
+        {
+            var item = toCopy as Contract;
+
+            foreach (PropertyInfo prop in GetType().GetProperties())
+            {
+                prop.SetValue(this, prop.GetValue(item));
+            }
+        }
+
+        public override string GetSearchString()
+        {
+            return contractNum + " " + animalID + " " + passNum + " " + clientID;
+        }
+
     }
 }
+
