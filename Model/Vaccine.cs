@@ -12,7 +12,7 @@ namespace PetShelter.Model
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    
+
     public partial class Vaccine : DbEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -39,7 +39,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("VaccineID");
             }
         }
-        public string VaccineName {
+        public string VaccineName
+        {
             get { return vaccineName; }
             set
             {
@@ -47,7 +48,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("VaccineName");
             }
         }
-        public string ActiveSubstanceName {
+        public string ActiveSubstanceName
+        {
             get { return activeSubstanceName; }
             set
             {
@@ -55,7 +57,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("ActiveSubstanceName");
             }
         }
-        public string ActiveSubstanceLatinName {
+        public string ActiveSubstanceLatinName
+        {
             get { return activeSubstanceLatinName; }
             set
             {
@@ -63,7 +66,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("ActiveSubstanceLatinName");
             }
         }
-        public Nullable<int> RevaccinationDogs {
+        public Nullable<int> RevaccinationDogs
+        {
             get { return revaccinationDogs; }
             set
             {
@@ -71,7 +75,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("RevaccinationDogs");
             }
         }
-        public Nullable<int> RevaccinationRodents {
+        public Nullable<int> RevaccinationRodents
+        {
             get { return revaccinationRodents; }
             set
             {
@@ -79,7 +84,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("RevaccinationRodents");
             }
         }
-        public Nullable<int> RevaccinationMeatEaters {
+        public Nullable<int> RevaccinationMeatEaters
+        {
             get { return revaccinationMeatEaters; }
             set
             {
@@ -87,7 +93,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("RevaccinationMeatEaters");
             }
         }
-        public Nullable<int> ProducerID {
+        public Nullable<int> ProducerID
+        {
             get { return producerID; }
             set
             {

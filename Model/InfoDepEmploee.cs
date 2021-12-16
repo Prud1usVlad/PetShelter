@@ -12,7 +12,7 @@ namespace PetShelter.Model
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    
+
     public partial class InfoDepEmploee : DbEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -35,7 +35,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("PassNum");
             }
         }
-        public string Employment {
+        public string Employment
+        {
             get { return employment; }
             set
             {
@@ -43,7 +44,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("Employment");
             }
         }
-        public string Email {
+        public string Email
+        {
             get { return email; }
             set
             {
@@ -51,7 +53,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("Email");
             }
         }
-        public string Phone {
+        public string Phone
+        {
             get { return phone; }
             set
             {

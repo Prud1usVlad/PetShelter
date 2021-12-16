@@ -12,7 +12,7 @@ namespace PetShelter.Model
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    
+
     public partial class Client : DbEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -45,7 +45,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("ClientID");
             }
         }
-        public string IDCardNum {
+        public string IDCardNum
+        {
             get { return iDCardNum; }
             set
             {
@@ -53,7 +54,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("IDCardNum");
             }
         }
-        public string IDCardSeries {
+        public string IDCardSeries
+        {
             get { return iDCardSeries; }
             set
             {
@@ -61,7 +63,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("IDCardSeries");
             }
         }
-        public string FirstName {
+        public string FirstName
+        {
             get { return firstName; }
             set
             {
@@ -69,7 +72,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("FirstName");
             }
         }
-        public string SecondName {
+        public string SecondName
+        {
             get { return secondName; }
             set
             {
@@ -77,7 +81,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("SecondName");
             }
         }
-        public string ThirdName {
+        public string ThirdName
+        {
             get { return thirdName; }
             set
             {
@@ -85,7 +90,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("ThirdName");
             }
         }
-        public Nullable<System.DateTime> DateOfAdding {
+        public Nullable<System.DateTime> DateOfAdding
+        {
             get { return dateOfAdding; }
             set
             {
@@ -93,7 +99,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("DateOfAdding");
             }
         }
-        public string Region {
+        public string Region
+        {
             get { return region; }
             set
             {
@@ -101,7 +108,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("Region");
             }
         }
-        public string City {
+        public string City
+        {
             get { return city; }
             set
             {
@@ -109,7 +117,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("City");
             }
         }
-        public string Street {
+        public string Street
+        {
             get { return street; }
             set
             {
@@ -117,7 +126,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("Street");
             }
         }
-        public string BuildingNum {
+        public string BuildingNum
+        {
             get { return buildingNum; }
             set
             {
@@ -125,7 +135,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("BuildingNum");
             }
         }
-        public Nullable<int> FlatNum {
+        public Nullable<int> FlatNum
+        {
             get { return flatNum; }
             set
             {
@@ -133,7 +144,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("FlatNum");
             }
         }
-        public string Phone {
+        public string Phone
+        {
             get { return phone; }
             set
             {
@@ -141,7 +153,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("Phone");
             }
         }
-        public string Email {
+        public string Email
+        {
             get { return email; }
             set
             {

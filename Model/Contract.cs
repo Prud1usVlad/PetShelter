@@ -12,7 +12,7 @@ namespace PetShelter.Model
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    
+
     public partial class Contract : DbEntity
     {
         private int contractNum;
@@ -32,7 +32,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("ContractNum");
             }
         }
-        public Nullable<int> PassNum {
+        public Nullable<int> PassNum
+        {
             get { return passNum; }
             set
             {
@@ -40,7 +41,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("PassNum");
             }
         }
-        public Nullable<int> AnimalID {
+        public Nullable<int> AnimalID
+        {
             get { return animalID; }
             set
             {
@@ -48,7 +50,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("AnimalID");
             }
         }
-        public Nullable<System.DateTime> SigningDate {
+        public Nullable<System.DateTime> SigningDate
+        {
             get { return signingDate; }
             set
             {
@@ -56,7 +59,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("SigningDate");
             }
         }
-        public Nullable<System.DateTime> TerminationDate {
+        public Nullable<System.DateTime> TerminationDate
+        {
             get { return terminationDate; }
             set
             {
@@ -64,7 +68,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("TerminationDate");
             }
         }
-        public Nullable<int> ClientID {
+        public Nullable<int> ClientID
+        {
             get { return clientID; }
             set
             {
@@ -72,7 +77,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("ClientID");
             }
         }
-        public Nullable<int> IDCardNum {
+        public Nullable<int> IDCardNum
+        {
             get { return iDCardNum; }
             set
             {
@@ -124,4 +130,3 @@ namespace PetShelter.Model
 
     }
 }
-

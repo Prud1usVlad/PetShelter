@@ -12,7 +12,7 @@ namespace PetShelter.Model
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    
+
     public partial class Caretaker : DbEntity
     {
         private int passNum;
@@ -30,7 +30,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("PassNum");
             }
         }
-        public string Shift {
+        public string Shift
+        {
             get { return shift; }
             set
             {
@@ -38,7 +39,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("Shift");
             }
         }
-        public string MajorAnimalKind {
+        public string MajorAnimalKind
+        {
             get { return majorAnimalKind; }
             set
             {
@@ -46,7 +48,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("MajorAnimalKind");
             }
         }
-        public string MedicalEducation {
+        public string MedicalEducation
+        {
             get { return medicalEducation; }
             set
             {
@@ -54,7 +57,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("MedicalEducation");
             }
         }
-        public Nullable<int> RoomID {
+        public Nullable<int> RoomID
+        {
             get { return roomID; }
             set
             {

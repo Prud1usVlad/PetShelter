@@ -12,7 +12,7 @@ namespace PetShelter.Model
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    
+
     public partial class Producer : DbEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,10 +22,10 @@ namespace PetShelter.Model
         }
 
         private int producerID;
-        private string title ;
-        private string adress ;
-        private string phone ;
-        private string email ;
+        private string title;
+        private string adress;
+        private string phone;
+        private string email;
 
         public int ProducerID
         {
@@ -36,7 +36,7 @@ namespace PetShelter.Model
                 OnPropertyChanged("ProducerID");
             }
         }
-        public string Title  
+        public string Title
         {
             get { return title; }
             set
@@ -45,7 +45,7 @@ namespace PetShelter.Model
                 OnPropertyChanged("Title");
             }
         }
-        public string Adress  
+        public string Adress
         {
             get { return adress; }
             set
@@ -54,7 +54,7 @@ namespace PetShelter.Model
                 OnPropertyChanged("Adress");
             }
         }
-        public string Phone  
+        public string Phone
         {
             get { return phone; }
             set
@@ -63,7 +63,7 @@ namespace PetShelter.Model
                 OnPropertyChanged("Phone");
             }
         }
-        public string Email  
+        public string Email
         {
             get { return email; }
             set
@@ -80,7 +80,7 @@ namespace PetShelter.Model
         {
             var res = new List<DbEntity>();
 
-            foreach(Vaccine item in Vaccines)
+            foreach (Vaccine item in Vaccines)
             {
                 res.Add(item);
             }

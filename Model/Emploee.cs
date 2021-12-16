@@ -12,7 +12,7 @@ namespace PetShelter.Model
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    
+
     public partial class Emploee : DbEntity
     {
         private int passNum;
@@ -33,7 +33,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("PassNum");
             }
         }
-        public string IDCardNum {
+        public string IDCardNum
+        {
             get { return iDCardNum; }
             set
             {
@@ -41,7 +42,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("IDCardNum");
             }
         }
-        public string IDCardSeries {
+        public string IDCardSeries
+        {
             get { return iDCardSeries; }
             set
             {
@@ -49,7 +51,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("IDCardSeries");
             }
         }
-        public string SecondName {
+        public string SecondName
+        {
             get { return secondName; }
             set
             {
@@ -57,7 +60,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("SecondName");
             }
         }
-        public string FirstName {
+        public string FirstName
+        {
             get { return firstName; }
             set
             {
@@ -65,7 +69,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("FirstName");
             }
         }
-        public string ThirdName {
+        public string ThirdName
+        {
             get { return thirdName; }
             set
             {
@@ -73,7 +78,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("ThirdName");
             }
         }
-        public Nullable<System.DateTime> EntryDate {
+        public Nullable<System.DateTime> EntryDate
+        {
             get { return entryDate; }
             set
             {
@@ -81,7 +87,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("EntryDate");
             }
         }
-        public string Profession {
+        public string Profession
+        {
             get { return profession; }
             set
             {

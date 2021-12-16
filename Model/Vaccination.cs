@@ -12,7 +12,7 @@ namespace PetShelter.Model
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    
+
     public partial class Vaccination : DbEntity
     {
         private int vaccineID;
@@ -28,7 +28,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("VaccineID");
             }
         }
-        public int AnimalID {
+        public int AnimalID
+        {
             get { return animalID; }
             set
             {
@@ -36,7 +37,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("AnimalID");
             }
         }
-        public System.DateTime VaccinationDate {
+        public System.DateTime VaccinationDate
+        {
             get { return vaccinationDate; }
             set
             {
