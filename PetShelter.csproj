@@ -94,6 +94,12 @@
     <Compile Include="View\FiltreWindows\StateValue_filtre.xaml.cs">
       <DependentUpon>StateValue_filtre.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\HelpingWindows\Autorisation.xaml.cs">
+      <DependentUpon>Autorisation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\HelpingWindows\DocumentWindow.xaml.cs">
+      <DependentUpon>DocumentWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Statistics.xaml.cs">
       <DependentUpon>Statistics.xaml</DependentUpon>
     </Compile>
@@ -122,6 +128,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\FiltreWindows\StateValue_filtre.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\HelpingWindows\Autorisation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\HelpingWindows\DocumentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

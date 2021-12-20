@@ -19,6 +19,7 @@ namespace PetShelter.ViewModel.EditWindowsVM
     {
         private DataContext db;
         private int sex;
+        private int kindIndex;
         private RelayCommand addStateValueCommand;
         private RelayCommand saveStateValues;
 
@@ -37,6 +38,15 @@ namespace PetShelter.ViewModel.EditWindowsVM
                 Animal.Sex = value == 0 ? "Жіноча" : "Чоловіча";
             }
         }
+        public int KindIndex
+        {
+            get { return kindIndex; }
+            set
+            {
+                kindIndex = value;
+            }
+        }
+
         public List<StateValue> NewStateValues { get; set; }
 
         public RelayCommand AddStateValueCommand
@@ -86,6 +96,31 @@ namespace PetShelter.ViewModel.EditWindowsVM
             Rooms = db.Rooms.Local.ToBindingList();
 
             sex = Animal.Sex == "Жіноча" ? 0 : Animal.Sex == "Чоловіча" ? 1 : -1;
+
+            switch(Animal.AnimalKind)
+            {
+                case "Кіт":
+                    kindIndex = 0;
+                    break;
+                case "Собака":
+                    kindIndex = 1;
+                    break;
+                case "Птах":
+                    kindIndex = 2;
+                    break;
+                case "Плазун":
+                    kindIndex = 3;
+                    break;
+                case "Свійська тварина":
+                    kindIndex = 4;
+                    break;
+                case "Інший":
+                    kindIndex = 5;
+                    break;
+                default:
+                    kindIndex = -1;
+                    break;
+            }
 
             NewStateValues = new List<StateValue>();
         }

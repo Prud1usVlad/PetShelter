@@ -15,9 +15,11 @@ using System.Windows.Shapes;
 using PetShelter.Model;
 using PetShelter.ViewModel;
 using PetShelter.ViewModel.Settings;
+using PetShelter.View.HelpingWindows;
 using System.Data.Entity;
 using System.Collections;
 using System.Reflection;
+
 
 namespace PetShelter.View
 {
@@ -30,8 +32,16 @@ namespace PetShelter.View
 
         public MainWindow()
         {
-            InitializeComponent();
             ViewModel = new Main_VM();
+            //var wind = new Autorisation(ViewModel.Users);
+
+            //if (wind.ShowDialog() == false)
+            //{
+            //    Close();
+            //}
+
+
+            InitializeComponent();
             DataContext = ViewModel;
         }
 
@@ -55,7 +65,7 @@ namespace PetShelter.View
 
                 foreach (string innerKey in details[key].Keys)
                 {
-                    text.Text += innerKey + ":  " + details[key][innerKey] + "\n";
+                    text.Text += Main_VM.Dictionary[innerKey] + ":  " + details[key][innerKey] + "\n";
                 }
 
                 exp.Content = text;
@@ -78,6 +88,7 @@ namespace PetShelter.View
             {
                 case "Тварини":
                     ViewModel.ItemSource = ViewModel.Animals;
+
                     break;
                 case "Кімнати":
                     ViewModel.ItemSource = ViewModel.Rooms;
@@ -155,10 +166,13 @@ namespace PetShelter.View
                 var d = new DocumentsCreation();
                 var c = MainGrid.SelectedItem as Contract;
 
-                d.GenerateContract(c, ViewModel.Animals.Where(a => a.AnimalID == c.AnimalID).First(),
+                string path = d.GenerateContract(c, ViewModel.Animals.Where(a => a.AnimalID == c.AnimalID).First(),
                     ViewModel.Clients.Where(cl => cl.ClientID == c.ClientID).First(),
                     ViewModel.InfoDepEmploees.Where(em => em.PassNum == c.PassNum).First(),
                     ViewModel.Emploees.Where(emp => emp.PassNum == c.PassNum).First());
+
+                //var wind = new DocumentWindow(path);
+                //wind.Show();
             }
             else
             {
@@ -185,6 +199,11 @@ namespace PetShelter.View
         {
             var wind = new Statistics();
             wind.ShowDialog();
+        }
+
+        private void MainGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            e.Column.Header = Main_VM.Dictionary[e.PropertyName];
         }
     }
 }

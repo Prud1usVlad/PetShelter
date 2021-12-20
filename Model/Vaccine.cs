@@ -103,9 +103,9 @@ namespace PetShelter.Model
             }
         }
 
-        public virtual Producer Producer { get; set; }
+        internal virtual Producer Producer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Vaccination> Vaccinations { get; set; }
+        internal virtual ICollection<Vaccination> Vaccinations { get; set; }
 
         public override List<DbEntity> GetForegnEntities()
         {

@@ -94,11 +94,19 @@
             <ComboBoxItem>Жіноча</ComboBoxItem>
             <ComboBoxItem>Чоловіча</ComboBoxItem>
         </ComboBox>
-        <TextBox Text="{Binding Animal.AnimalKind}"
-                   Grid.Column="1"
-                   Grid.Row="2"
-                   Height="25"
-                   Margin="10,0"></TextBox>
+        <ComboBox Grid.Column="1"
+                  Grid.Row="2"
+                  Height="25"
+                  Margin="10,0"
+                  SelectedIndex="{Binding KindIndex}"
+                  Name="KindCombo">
+            <ComboBoxItem>Кіт</ComboBoxItem>
+            <ComboBoxItem>Собака</ComboBoxItem>
+            <ComboBoxItem>Птах</ComboBoxItem>
+            <ComboBoxItem>Плазун</ComboBoxItem>
+            <ComboBoxItem>Свійська тварина</ComboBoxItem>
+            <ComboBoxItem>Інший</ComboBoxItem>
+        </ComboBox>
         <TextBox Text="{Binding Animal.Height}"
                    Grid.Column="3"
                    Grid.Row="2"

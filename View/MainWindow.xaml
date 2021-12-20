@@ -78,7 +78,8 @@
                       ItemsSource="{Binding DataGridSource}"
                       SelectionChanged="MainGrid_SelectionChanged" 
                       MouseDown="MainGrid_MouseDown"
-                      Grid.Row="1"/>
+                      Grid.Row="1" AutoGeneratingColumn="MainGrid_AutoGeneratingColumn"
+                      ></DataGrid>
             <Grid Grid.Row="2"
                   Background="#FFE5DDD3">
                 <Grid.ColumnDefinitions>

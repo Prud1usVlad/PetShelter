@@ -12,7 +12,7 @@ namespace PetShelter.ViewModel
 {
     class DocumentsCreation
     {
-        public void GenerateContract(Contract contract, Animal animal, Client client, InfoDepEmploee emploee, Emploee empData)
+        public string GenerateContract(Contract contract, Animal animal, Client client, InfoDepEmploee emploee, Emploee empData)
         {
             Word._Application word = new Word.ApplicationClass();
 
@@ -76,26 +76,17 @@ namespace PetShelter.ViewModel
             rng = document.Paragraphs[21].Range;
             rng.Text = $"Підпис:                                                                    Підпис: ";
 
-            object save_changes = false;
-            try
-            {
-                object filename = AppDomain.CurrentDomain.BaseDirectory +
-                $"contract№{contract.ContractNum}.doc";
-                document.SaveAs(ref filename, ref missing, ref missing,
-                    ref missing, ref missing, ref missing, ref missing,
-                    ref missing, ref missing, ref missing, ref missing,
-                    ref missing, ref missing, ref missing, ref missing,
-                    ref missing);
-            }
-            catch
-            {
-                document.Close(ref save_changes, ref missing, ref missing);
-                word.Quit(ref save_changes, ref missing, ref missing);
-            }
 
-            MessageBox.Show("Saved");
-            document.Close(ref save_changes, ref missing, ref missing);
-            word.Quit(ref save_changes, ref missing, ref missing);
+            document.Activate();
+            word.Visible = true;
+
+            object save_changes = false;
+            object filename = null;
+
+            
+            
+
+            return filename == null ? "" : filename.ToString();
         }
 
         public void GenerateInfoCard(Animal animal)
@@ -160,26 +151,8 @@ namespace PetShelter.ViewModel
                 rng.Text = "Значення: " + sv.Value;
             }
 
-            object save_changes = false;
-            try
-            {
-                object filename = AppDomain.CurrentDomain.BaseDirectory +
-                $"Animal{animal.AnimalID}InfoCard.doc";
-                document.SaveAs(ref filename, ref missing, ref missing,
-                    ref missing, ref missing, ref missing, ref missing,
-                    ref missing, ref missing, ref missing, ref missing,
-                    ref missing, ref missing, ref missing, ref missing,
-                    ref missing);
-            }
-            catch
-            {
-                document.Close(ref save_changes, ref missing, ref missing);
-                word.Quit(ref save_changes, ref missing, ref missing);
-            }
-
-            MessageBox.Show("Saved");
-            document.Close(ref save_changes, ref missing, ref missing);
-            word.Quit(ref save_changes, ref missing, ref missing);
+            document.Activate();
+            word.Visible = true;
         }
 
     }

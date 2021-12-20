@@ -17,6 +17,66 @@ namespace PetShelter.ViewModel
 {
     public partial class Main_VM : StandartViewModel
     {
+        public static Dictionary<string, string> Dictionary = new Dictionary<string, string>
+        {
+            {"AnimalID", "№ Паспорту тварини" },
+            {"Name" , "Назва" },
+            {"Sex", "Стать" },
+            {"AnimalKind", "Вид тварини" },
+            {"Height", "Висота" },
+            {"Weight", "Вага" },
+            {"Color", "Окрас" },
+            {"BirthDate", "Дата народження" },
+            {"RegistrationDate", "Дата регістрації" },
+            {"QuarantineDays", "Днів у карантині" },
+            {"RoomID", "Номер кімнати" },
+            {"GroupID", "Номер групи" },
+            {"PassNum", "Номер перепустки" },
+            {"Shift", "Зміна" },
+            {"MajorAnimalKind", "Основний вид тварин" },
+            {"MedicalEducation", "Медична освіта" },
+            {"ClientID", "Номер клієнта" },
+            {"IDCardNum", "Номер паспорта" },
+            {"IDCardSeries", "Серія паспорта" },
+            {"FirstName", "Ім'я" },
+            {"SecondName", "Фамілія" },
+            {"ThirdName", "Прізвище" },
+            {"DateOfAdding", "Дата регістрації" },
+            {"Region", "Область" },
+            {"City", "Місто" },
+            {"Street", "Вулиця" },
+            {"BuildingNum", "Номер будинку" },
+            {"FlatNum", "Номер квартири" },
+            {"Phone", "Номер телефону" },
+            {"Email", "Електронна пошта" },
+            {"ContractNum", "Номер договору" },
+            {"SigningDate", "Дата підписання" },
+            {"TerminationDate", "Дата розторгнення" },
+            {"EntryDate", "Дата зарахування" },
+            {"Profession", "Професія" },
+            {"Priority", "Приорітет" },
+            {"Readiness", "Готовність" },
+            {"AdditionalCare", "Додатковий догляд" },
+            {"Description", "Описання" },
+            {"ProducerID", "НомерВиробника" },
+            {"Title", "Назва виробника" },
+            {"Adress", "Адреса" },
+            {"MaxAnimalAmount", "Максимальна кількість тварин" },
+            {"StateValueID", "Номер значення стану" },
+            {"StateID", "Номер стану" },
+            {"Value", "Значення" },
+            {"VaccinationDate", "Дата вакцинації" },
+            {"VaccineID", "Номер вакцини" },
+            {"VaccineName", "Назва вакцини" },
+            {"ActiveSubstanceName", "Активна речовина" },
+            {"ActiveSubstanceLatinName", "Активна речовина латинню" },
+            {"RevaccinationDogs", "Ревакцинація - собаки" },
+            {"RevaccinationRodents", "Ревакцинація - гризуни" },
+            {"RevaccinationMeatEaters", "Ревакцинація - м'ясоїди" },
+            {"Producer", "Виробник"},
+            {"Employment", "Зайнятість"}
+        };
+
         private DataContext db;
         private RelayCommand addCommand;
         private RelayCommand editCommand;
@@ -38,7 +98,7 @@ namespace PetShelter.ViewModel
             set
             {
                 itemSource = value;
-                SourceProperties = value.First().GetProperies().Keys.ToList();
+                SourceProperties = value.First().GetProperies().Keys.Select(i => Dictionary[i]).ToList();
                 DataGridSource = value;
                 OnPropertyChanged("ItemSource");
             }
@@ -264,6 +324,7 @@ namespace PetShelter.ViewModel
             db.Producers.Load();
             db.Vaccinations.Load();
             db.Vaccines.Load();
+            db.Users.Load();
 
             Animals = db.Animals.Local.ToBindingList();
             Rooms = db.Rooms.Local.ToBindingList();
@@ -278,13 +339,11 @@ namespace PetShelter.ViewModel
             Producers = db.Producers.Local.ToBindingList();
             Vaccinations = db.Vaccinations.Local.ToBindingList();
             Vaccines = db.Vaccines.Local.ToBindingList();
-
-
+            Users = db.Users.Local.ToBindingList();
 
             ChosenItemDetails = null;
             ItemSource = Animals;
         }
-
 
         private Type GetEntityType(IEnumerable list)
         {

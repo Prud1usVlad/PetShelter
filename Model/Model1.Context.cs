@@ -53,6 +53,7 @@ namespace PetShelter.Model
         public virtual DbSet<StateValue> StateValues { get; set; }
         public virtual DbSet<Vaccination> Vaccinations { get; set; }
         public virtual DbSet<Vaccine> Vaccines { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
         public DbSet GetDBSet(DbEntity item)
         {

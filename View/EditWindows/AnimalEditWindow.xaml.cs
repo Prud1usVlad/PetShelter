@@ -47,8 +47,22 @@ namespace PetShelter.View.EditWindows
             var animal = Entity as Animal;
             var r = RoomsComboBox.SelectedItem as Room;
             var s = SexCheckbox.SelectedItem as ComboBoxItem;
-            animal.RoomID = r == null ? 300001 : r.RoomID;
-            animal.Sex = s == null ? "Не вибрано" : s.Content.ToString();
+            var k = KindCombo.SelectedItem as ComboBoxItem;
+
+            int room = r == null ? 300001 : r.RoomID;
+            string sex = s == null ? "Не вказано" : s.Content.ToString();
+            string kind = k == null ? "Не вказано" : k.Content.ToString();
+
+            if (((kind == "Кіт" || kind == "Собака") && room != 300001) || (kind == "Птах" && room != 300002) || (kind == "Плазун" && room != 300003))
+            {
+                MessageBox.Show("Даний вид тварин не може перебувати в обраній кімнаті, оберіть кімнату яка б підійшла тварині", "Не правильно обрана кімната");
+                return;
+            }
+
+            animal.Sex = sex;
+            animal.RoomID = room;
+            animal.AnimalKind = kind;
+            
 
             ViewModel.SaveStateValues.Execute(null);
 
