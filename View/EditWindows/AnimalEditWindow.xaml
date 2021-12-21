@@ -8,7 +8,7 @@
         Title="AnimalEditWindow" 
         Height="450"
         Width="700">
-    <Grid>
+    <Grid Background="#FFE5DDD3">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="2*"/>

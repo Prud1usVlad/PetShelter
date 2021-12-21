@@ -9,7 +9,7 @@
         Height="450" 
         Width="800"
         DataContext="{Binding ViewModel}">
-    <Grid>
+    <Grid Background="#FFE5DDD3">
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
             <RowDefinition />
@@ -113,7 +113,8 @@
             <MenuItem Header="Файл">
                 <MenuItem Header="Вийти"></MenuItem>
             </MenuItem>
-            <MenuItem Header="Дані">
+            <MenuItem Header="Дані"
+                      Name="Menue1">
                 <MenuItem Header="Тварини" 
                           Click="MenuItem_Click"></MenuItem>
                 <MenuItem Header="Кімнати" 
@@ -125,6 +126,8 @@
                 <MenuItem Header="Групи" 
                           Click="MenuItem_Click"></MenuItem>
                 <MenuItem Header="Договори" 
+                          Click="MenuItem_Click"></MenuItem>
+                <MenuItem Header="Готовність тварин" 
                           Click="MenuItem_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="Документи">

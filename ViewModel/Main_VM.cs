@@ -20,7 +20,7 @@ namespace PetShelter.ViewModel
         public static Dictionary<string, string> Dictionary = new Dictionary<string, string>
         {
             {"AnimalID", "№ Паспорту тварини" },
-            {"Name" , "Назва" },
+            {"Name" , "Ім'я" },
             {"Sex", "Стать" },
             {"AnimalKind", "Вид тварини" },
             {"Height", "Висота" },
@@ -74,8 +74,12 @@ namespace PetShelter.ViewModel
             {"RevaccinationRodents", "Ревакцинація - гризуни" },
             {"RevaccinationMeatEaters", "Ревакцинація - м'ясоїди" },
             {"Producer", "Виробник"},
-            {"Employment", "Зайнятість"}
+            {"Employment", "Зайнятість"},
+            {"InShelter", "В притулку"}
         };
+
+        private IEnumerable<AnimalInfo> animalInfos;
+        private IEnumerable<Animal> animals;
 
         private DataContext db;
         private RelayCommand addCommand;
@@ -91,6 +95,32 @@ namespace PetShelter.ViewModel
         private IEnumerable<DbEntity> itemSource;
         private IEnumerable<DbEntity> dataGridSource;
         private List<string> sourceProperties;
+
+        public IEnumerable<AnimalInfo> AnimalInfos
+        {
+            get { return animalInfos; }
+            set
+            {
+                animalInfos = value;
+                OnPropertyChanged("AnimalInfos");
+            }
+        }
+        public new IEnumerable<Animal> Animals
+        {
+            get { return animals; }
+            set
+            {
+                animals = value;
+                OnPropertyChanged("Animals");
+                var res = new BindingList<AnimalInfo>();
+                foreach (Animal a in value)
+                {
+                    res.Add(new AnimalInfo(a));
+                }
+
+                AnimalInfos = res;
+            }
+        }
 
         public IEnumerable<DbEntity> ItemSource 
         { 
@@ -137,7 +167,14 @@ namespace PetShelter.ViewModel
                         if (entity is Animal)
                         {
                             StateValues = db.StateValues.Local.ToBindingList();
+                            ChooseGroup(entity as Animal);
                         }
+                        else if (entity is StateValue)
+                        {
+                            ChooseGroup((entity as StateValue).Animal);
+                        }
+
+
                     }));
             }
         }
@@ -247,7 +284,7 @@ namespace PetShelter.ViewModel
                     {
                         var sett = settings as SortSettings;
 
-                        PropertyInfo prop = itemSource.First().GetType().GetProperty(sett.Criterion);
+                        PropertyInfo prop = itemSource.First().GetType().GetProperty(Dictionary.Where(v => v.Value == sett.Criterion).First().Key);
 
                         if (sett.SortAsc == true)
                         {
@@ -365,11 +402,17 @@ namespace PetShelter.ViewModel
 
                 string key = foregnItem.ToString();
                 int count = 1;
-                while (details.Keys.Contains(key + " №" + count))
+                if (details.Keys.Contains(key))
                 {
-                    count++;
+                    count = 2;
+                    while (details.Keys.Contains(key + " №" + count))
+                    {
+                        count++;
+                    }
                 }
-                key += " №" + count;
+
+                
+                key += (count == 1) ? "" : " №" + count;
 
                 details.Add(key, foregnItem.GetProperies());
             }
@@ -393,6 +436,9 @@ namespace PetShelter.ViewModel
                     break;
                 case "StateValue":
                     DataGridSource = newItemSource.Select(e => e as StateValue);
+                    break;
+                case "AnimalInfo":
+                    DataGridSource = newItemSource.Select(e => e as AnimalInfo);
                     break;
             }
         }

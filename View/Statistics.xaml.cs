@@ -30,5 +30,10 @@ namespace PetShelter.View
 
             DataContext = ViewModel;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.FillDatatable2();
+        }
     }
 }

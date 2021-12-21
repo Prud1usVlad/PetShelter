@@ -112,6 +112,44 @@ namespace PetShelter.ViewModel
                         ViewModel.SetNewDataGridSource(filtrated);
                     }
                     break;
+                case "AnimalInfo":
+                    var wind3 = new AnimalInfo_filtre(ViewModel);
+
+                    if (wind3.ShowDialog() == true)
+                    {
+                        IEnumerable<AnimalInfo> filtrated;
+                        // StateValue state
+                        if (wind3.SelectedValues[0].Count > 0)
+                        {
+                            filtrated = ViewModel.AnimalInfos.Where(i => wind3.SelectedValues[0].Contains(i.Priority.ToString()));
+                        }
+                        else
+                        {
+                            filtrated = ViewModel.AnimalInfos;
+                        }
+
+                        //StateValue animal
+                        if (wind3.SelectedValues[1].Count > 0)
+                        {
+                            filtrated = filtrated.Where(i => wind3.SelectedValues[1].Contains(i.Readiness));
+                        }
+
+                        if (wind3.InShelterVal == true && wind3.OutaShelterVal == true ||
+                            wind3.InShelterVal != true && wind3.OutaShelterVal != true)
+                        {
+
+                        }
+                        else if (wind3.InShelterVal == true)
+                            filtrated = filtrated.Where(i => i.InShelter == true);
+                        else if (wind3.OutaShelterVal == true)
+                            filtrated = filtrated.Where(i => i.InShelter == false);
+
+                        filtrated = filtrated.Where(i => i.RegistrationDate <= wind3.ToDate && i.RegistrationDate >= wind3.FromDate );
+
+                        ViewModel.SetNewDataGridSource(filtrated);
+                    }
+
+                    break;
 
 
             }

@@ -105,6 +105,9 @@ namespace PetShelter.View
                 case "Договори":
                     ViewModel.ItemSource = ViewModel.Contracts;
                     break;
+                case "Готовність тварин":
+                    ViewModel.ItemSource = ViewModel.AnimalInfos;
+                    break;
             }
 
             if (header == "Тварини" || header == "Стани тварин")
@@ -114,7 +117,7 @@ namespace PetShelter.View
                 EditButton.IsEnabled = true;
                 FiltreButton.IsEnabled = true;
             } 
-            else if (header == "Групи")
+            else if (header == "Групи" || header == "Готовність тварин")
             {
                 AddButton.IsEnabled = false;
                 DeleteButton.IsEnabled = false;
@@ -171,8 +174,6 @@ namespace PetShelter.View
                     ViewModel.InfoDepEmploees.Where(em => em.PassNum == c.PassNum).First(),
                     ViewModel.Emploees.Where(emp => emp.PassNum == c.PassNum).First());
 
-                //var wind = new DocumentWindow(path);
-                //wind.Show();
             }
             else
             {

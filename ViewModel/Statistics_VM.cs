@@ -19,11 +19,43 @@ namespace PetShelter.ViewModel
     public class Statistics_VM : StandartViewModel
     {
         private DataContext db;
+        private DateTime to;
+        private DateTime from;
+        private DataTable table2;
 
         public DataTable FirstStat { get; set; }
-        public DataTable SecondStat { get; set; }
+        public DataTable SecondStat 
+        { 
+            get { return table2; } 
+            set 
+            { 
+                table2 = value;
+                OnPropertyChanged("SecondStat");
+            }
+        }
         public DataTable ThirdStat { get; set; }
         public DataTable FourthStat { get; set; }
+
+        public DateTime FromDate
+        {
+            get { return from; }
+            set 
+            { 
+                from = value;
+                OnPropertyChanged("FromDate");
+            }
+        }
+
+        public DateTime ToDate
+        {
+            get { return to; }
+            set 
+            { 
+                to = value;
+                OnPropertyChanged("ToDate");
+            }
+        } 
+        
 
         public Statistics_VM()
         {
@@ -57,6 +89,9 @@ namespace PetShelter.ViewModel
             StateValues = db.StateValues.Local.ToBindingList();
             Emploees = db.Emploees.Local.ToBindingList();
 
+            ToDate = DateTime.Now.Date;
+            FromDate = new DateTime(2010, 1, 1);
+
             FillDatatable1();
             FillDatatable2();
             FillDatatable3();
@@ -64,7 +99,7 @@ namespace PetShelter.ViewModel
            
         }
 
-        private void FillDatatable1()
+        public void FillDatatable1()
         {
             var table = new DataTable("firstStat");
 
@@ -86,8 +121,10 @@ namespace PetShelter.ViewModel
             FirstStat = table;
         }
 
-        private void FillDatatable2()
+        public void FillDatatable2()
         {
+            if (!CheckDate()) return;
+
             var table = new DataTable("secondStat");
 
             DataColumn col = new DataColumn("Ім'я тварини");
@@ -107,15 +144,18 @@ namespace PetShelter.ViewModel
 
             foreach (Vaccination v in Vaccinations)
             {
-                var c = Emploees.Where(e => e.PassNum == v.Animal.Room.Caretakers.First().PassNum).First();
-                table.Rows.Add(new object[] { v.Animal.Name, c.FirstName + " " + c.SecondName, 
+                if (v.VaccinationDate <= ToDate && v.VaccinationDate >= FromDate)
+                {
+                    var c = Emploees.Where(e => e.PassNum == v.Animal.Room.Caretakers.First().PassNum).First();
+                    table.Rows.Add(new object[] { v.Animal.Name, c.FirstName + " " + c.SecondName,
                     v.VaccinationDate, v.Vaccine.VaccineName, v.Vaccine.Producer.Title });
+                }
             }
 
             SecondStat = table;
         }
 
-        private void FillDatatable3()
+        public void FillDatatable3()
         {
             var table = new DataTable("thirdStat");
 
@@ -146,7 +186,7 @@ namespace PetShelter.ViewModel
             ThirdStat = table;
         }
 
-        private void FillDatatable4()
+        public void FillDatatable4()
         {
             var table = new DataTable("fourthStat");
 
@@ -167,5 +207,21 @@ namespace PetShelter.ViewModel
 
             FourthStat = table;
         }
+
+        private bool CheckDate()
+        {
+            var d = new DateTime(2000, 1, 1);
+
+            if (ToDate < d || ToDate > DateTime.Now
+                || FromDate < d || FromDate > DateTime.Now)
+            {
+                MessageBox.Show("Введені дати виходять за рамки дозволених, перевірте правильність введення.", "Помилка введення дати");
+                return false;
+            }
+
+            return true;
+        }
+
+        
     }
 }
