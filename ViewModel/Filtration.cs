@@ -148,6 +148,33 @@ namespace PetShelter.ViewModel
 
                         ViewModel.SetNewDataGridSource(filtrated);
                     }
+                    break;
+                case "Client":
+                    var wind4 = new Client_Filtre(ViewModel);
+
+                    if (wind4.ShowDialog() == true)
+                    {
+                        IEnumerable<Client> filtrated;
+                        // Client City
+                        if (wind4.SelectedValues[0].Count > 0)
+                        {
+                            filtrated = ViewModel.Clients.Where(i => wind4.SelectedValues[0].Contains(i.Region));
+                        }
+                        else
+                        {
+                            filtrated = ViewModel.Clients;
+                        }
+
+                        // Client Region
+                        if (wind4.SelectedValues[1].Count > 0)
+                        {
+                            filtrated = filtrated.Where(i => wind4.SelectedValues[1].Contains(i.City));
+                        }
+
+                        filtrated = filtrated.Where(i => i.DateOfAdding <= wind4.ToDate && i.DateOfAdding >= wind4.FromDate);
+
+                        ViewModel.SetNewDataGridSource(filtrated);
+                    }
 
                     break;
 

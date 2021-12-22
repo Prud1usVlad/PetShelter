@@ -38,9 +38,9 @@ namespace PetShelter.ViewModel
             {"ClientID", "Номер клієнта" },
             {"IDCardNum", "Номер паспорта" },
             {"IDCardSeries", "Серія паспорта" },
-            {"FirstName", "Ім'я" },
+            {"FirstName", "Ім'я людини" },
             {"SecondName", "Фамілія" },
-            {"ThirdName", "Прізвище" },
+            {"ThirdName", "По батькові" },
             {"DateOfAdding", "Дата регістрації" },
             {"Region", "Область" },
             {"City", "Місто" },
@@ -155,7 +155,7 @@ namespace PetShelter.ViewModel
                     {
                         ConstructorInfo[] constructors = GetEntityType(dataSource as IEnumerable).GetConstructors();
                         DbEntity entity = constructors[0].Invoke(null) as DbEntity;
-                        IEditWindow window = entity.WindowType.GetConstructors()[1].Invoke(new[] { entity }) as IEditWindow;
+                        IEditWindow window = entity.WindowType.GetConstructors()[1].Invoke(new object[] { entity, ("Додавання ", "Додати") }) as IEditWindow;
 
                         if ((window as Window).ShowDialog() == true)
                         {
@@ -190,7 +190,7 @@ namespace PetShelter.ViewModel
                             return;
 
                         DbEntity entity = selected as DbEntity;
-                        IEditWindow window = entity.WindowType.GetConstructors()[1].Invoke(new[] { Copy(entity) }) as IEditWindow;
+                        IEditWindow window = entity.WindowType.GetConstructors()[1].Invoke(new object[] { Copy(entity), ("Редагування ", "Редагувати дані") }) as IEditWindow;
 
                         if ((window as Window).ShowDialog() == true)
                         {
@@ -440,11 +440,38 @@ namespace PetShelter.ViewModel
                 case "AnimalInfo":
                     DataGridSource = newItemSource.Select(e => e as AnimalInfo);
                     break;
+                case "Client":
+                    DataGridSource = newItemSource.Select(e => e as Client);
+                    break;
+                case "Vaccine":
+                    DataGridSource = newItemSource.Select(e => e as Vaccine);
+                    break;
+                case "Vaccination":
+                    DataGridSource = newItemSource.Select(e => e as Vaccination);
+                    break;
+                case "Producer":
+                    DataGridSource = newItemSource.Select(e => e as Producer);
+                    break;
+                case "Contract":
+                    DataGridSource = newItemSource.Select(e => e as Contract);
+                    break;
+                case "Emploee":
+                    DataGridSource = newItemSource.Select(e => e as Emploee);
+                    break;
+                case "InfoDepEmploee":
+                    DataGridSource = newItemSource.Select(e => e as InfoDepEmploee);
+                    break;
+                case "Caretaker":
+                    DataGridSource = newItemSource.Select(e => e as Caretaker);
+                    break;
             }
         }
 
         private void ChooseGroup(Animal animal)
         {
+            if (animal == null)
+                return;
+
             IEnumerable<StateValue> stateValues = animal.StateValues;
 
             int phisycalPoints = stateValues.Where(sv => sv.StateID == 2).Count();

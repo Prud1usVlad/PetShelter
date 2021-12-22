@@ -88,7 +88,6 @@ namespace PetShelter.View
             {
                 case "Тварини":
                     ViewModel.ItemSource = ViewModel.Animals;
-
                     break;
                 case "Кімнати":
                     ViewModel.ItemSource = ViewModel.Rooms;
@@ -108,21 +107,52 @@ namespace PetShelter.View
                 case "Готовність тварин":
                     ViewModel.ItemSource = ViewModel.AnimalInfos;
                     break;
+                case "Клієнти":
+                    ViewModel.ItemSource = ViewModel.Clients;
+                    break;
+                case "Працівники ВІ":
+                    ViewModel.ItemSource = ViewModel.InfoDepEmploees;
+                    break;
+                case "Доглядачі":
+                    ViewModel.ItemSource = ViewModel.Caretakers;
+                    break;
+                case "Особиста інформація працівників":
+                    ViewModel.ItemSource = ViewModel.Emploees;
+                    break;
+                case "Вакцинація":
+                    ViewModel.ItemSource = ViewModel.Vaccinations;
+                    break;
+                case "Вакцини":
+                    ViewModel.ItemSource = ViewModel.Vaccines;
+                    break;
+                case "Виробники":
+                    ViewModel.ItemSource = ViewModel.Producers;
+                    break;
             }
 
-            if (header == "Тварини" || header == "Стани тварин")
+            if (header == "Тварини" || header == "Стани тварин" 
+                || header == "Договори" || header == "Вакцинація"
+                || header == "Клієнти")
             {
                 AddButton.IsEnabled = true;
                 DeleteButton.IsEnabled = true;
                 EditButton.IsEnabled = true;
                 FiltreButton.IsEnabled = true;
             } 
-            else if (header == "Групи" || header == "Готовність тварин")
+            else if (header == "Групи" || header == "Готовність тварин" 
+                || header == "Вакцини" || header == "Особиста інформація працівників")
             {
                 AddButton.IsEnabled = false;
                 DeleteButton.IsEnabled = false;
                 EditButton.IsEnabled = false;
                 FiltreButton.IsEnabled = true;
+            }
+            else if (header == "Стани")
+            {
+                AddButton.IsEnabled = true;
+                DeleteButton.IsEnabled = true;
+                EditButton.IsEnabled = true;
+                FiltreButton.IsEnabled = false;
             }
             else
             {

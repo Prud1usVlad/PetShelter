@@ -59,7 +59,7 @@ namespace PetShelter.ViewModel.EditWindowsVM
                         var newItem = new StateValue();
                         newItem.AnimalID = Animal.AnimalID;
 
-                        var window = new StateValueEditWindow(newItem);
+                        var window = new StateValueEditWindow(newItem, ("Редагування ", "Редагувати дані"));
 
                         if (window.ShowDialog() == true)
                         {

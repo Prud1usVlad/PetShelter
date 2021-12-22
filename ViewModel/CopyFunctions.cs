@@ -21,7 +21,7 @@ namespace PetShelter.ViewModel
                 case "StateValue":
                     return CopyStateValue(toCopy);
                 default:
-                    return new DbEntity();
+                    return toCopy;
             }
 
 

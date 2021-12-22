@@ -114,7 +114,6 @@ namespace PetShelter.Model
             foreach (Vaccination item in Vaccinations)
             {
                 res.Add(item);
-                res.Add(item.Animal);
             }
 
             return res;

@@ -67,8 +67,8 @@ namespace PetShelter.Model
             }
         }
 
-        public virtual Emploee Emploee { get; set; }
-        public virtual Room Room { get; set; }
+        internal virtual Emploee Emploee { get; set; }
+        internal virtual Room Room { get; set; }
 
         public override List<DbEntity> GetForegnEntities()
         {

@@ -12,6 +12,7 @@ namespace PetShelter.Model
     using System;
     using System.Collections.Generic;
     using System.Reflection;
+    using PetShelter.View.EditWindows;
 
     public partial class Client : DbEntity
     {
@@ -162,6 +163,8 @@ namespace PetShelter.Model
                 OnPropertyChanged("Email");
             }
         }
+
+        internal override Type WindowType => typeof(ClientEditWindow);
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         internal virtual ICollection<Contract> Contracts { get; set; }

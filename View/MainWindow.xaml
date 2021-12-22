@@ -129,6 +129,20 @@
                           Click="MenuItem_Click"></MenuItem>
                 <MenuItem Header="Готовність тварин" 
                           Click="MenuItem_Click"></MenuItem>
+                <MenuItem Header="Клієнти" 
+                          Click="MenuItem_Click"></MenuItem>
+                <MenuItem Header="Працівники ВІ" 
+                          Click="MenuItem_Click"></MenuItem>
+                <MenuItem Header="Доглядачі" 
+                          Click="MenuItem_Click"></MenuItem>
+                <MenuItem Header="Особиста інформація працівників" 
+                          Click="MenuItem_Click"></MenuItem>
+                <MenuItem Header="Вакцинація" 
+                          Click="MenuItem_Click"></MenuItem>
+                <MenuItem Header="Вакцини" 
+                          Click="MenuItem_Click"></MenuItem>
+                <MenuItem Header="Виробники" 
+                          Click="MenuItem_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="Документи">
                 <MenuItem Header="Договір"

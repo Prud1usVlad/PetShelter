@@ -1,0 +1,54 @@
+﻿<Window x:Class="PetShelter.View.EditWindows.StateEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PetShelter.View.EditWindows"
+        mc:Ignorable="d"
+        Title="StateEditWindow" Height="350" Width="500">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.ColumnSpan="4"
+               FontSize="22"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"
+                   Name="MainLabel"> даних про значення стану</TextBlock>
+        <TextBlock Grid.Row="1"
+                   Grid.ColumnSpan="2"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Margin="0,0,0,80">Назва</TextBlock>
+        <TextBox Grid.Row="1"
+                 Grid.ColumnSpan="2"
+                 Width="200"
+                 Height="60"
+                 TextWrapping="Wrap"
+                 Text="{Binding State.Name}"
+                 Name="NameInput"></TextBox>
+        <Button Content="Підтвердити зміни" 
+                Name="Accept"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                Grid.Row="6"
+                Width="200" 
+                Height="50"
+                Click="Accept_Click"/>
+        <Button Content="Відміна" 
+                Name="Exit"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                Grid.Column="1"
+                Grid.Row="6"
+                Width="200" 
+                Height="50"
+                Click="Exit_Click"/>
+    </Grid>
+</Window>

@@ -38,6 +38,16 @@ namespace PetShelter.Model
                 .HasOptional(s => s.State)
                 .WithMany(s => s.StateValues)
                 .HasForeignKey(s => s.StateID);
+
+            modelBuilder.Entity<Emploee>()
+                .HasOptional(i => i.Caretaker)
+                .WithRequired(i => i.Emploee)
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Emploee>()
+                .HasOptional(i => i.InfoDepEmploee)
+                .WithRequired(i => i.Emploee)
+                .WillCascadeOnDelete(true);
         }
 
         public virtual DbSet<Animal> Animals { get; set; }
@@ -57,7 +67,9 @@ namespace PetShelter.Model
 
         public DbSet GetDBSet(DbEntity item)
         {
-            switch (item.GetType().Name)
+            var c = item.GetType().Name;
+
+            switch (c)
             {
                 case "Animal":
                     return Animals;

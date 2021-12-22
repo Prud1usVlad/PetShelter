@@ -12,6 +12,7 @@ namespace PetShelter.Model
     using System;
     using System.Collections.Generic;
     using System.Reflection;
+    using PetShelter.View.EditWindows;
 
     public partial class State : DbEntity
     {
@@ -43,6 +44,7 @@ namespace PetShelter.Model
             }
         }
 
+        internal override Type WindowType => typeof(StateEditWindow);
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         internal virtual ICollection<StateValue> StateValues { get; set; }
 

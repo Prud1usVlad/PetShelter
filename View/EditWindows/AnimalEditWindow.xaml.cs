@@ -30,10 +30,13 @@ namespace PetShelter.View.EditWindows
             InitializeComponent();
         }
 
-        public AnimalEditWindow(DbEntity entity)
+        public AnimalEditWindow(DbEntity entity, (string Label, string ButtonLabel) labels)
         {
             InitializeComponent();
             ViewModel = new AnimalEdit_VM(entity as Animal);
+
+            Accept.Content = labels.ButtonLabel;
+            MainLabel.Text = labels.Label + MainLabel.Text;
 
             if (ViewModel.Animal.AnimalID == 0)
             {

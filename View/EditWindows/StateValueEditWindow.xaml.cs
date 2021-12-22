@@ -29,11 +29,12 @@ namespace PetShelter.View.EditWindows
             InitializeComponent();
         }
 
-        public StateValueEditWindow(DbEntity stateValue)
+        public StateValueEditWindow(DbEntity stateValue, (string Label, string ButtonLabel) labels)
         {
             InitializeComponent();
             ViewModel = new StateValue_VM(stateValue as StateValue);
-
+            Accept.Content = labels.ButtonLabel;
+            MainLabel.Text = labels.Label + MainLabel.Text;
             DataContext = ViewModel;
         }
 
