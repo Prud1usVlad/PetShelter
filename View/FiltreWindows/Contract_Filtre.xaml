@@ -1,4 +1,4 @@
-﻿<Window x:Class="PetShelter.View.FiltreWindows.Animal_filtre"
+﻿<Window x:Class="PetShelter.View.FiltreWindows.Contract_Filtre"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -20,40 +20,48 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <Label Name="ColumnLabel1"
-                   Content="Вид тварини"
+                   Content="Робітник"
                    FontSize="20"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"></Label>
             <Label Name="ColumnLabel2"
-                   Content="Група"
+                   Content="Клієнт"
                    FontSize="20"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    Grid.Column="1"></Label>
             <Label Name="ColumnLabel3"
-                   Content="Кімната"
+                   Content="Тварина"
                    FontSize="20"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    Grid.Column="2"></Label>
             <Label Name="ColumnLabel4"
-                   Content="Дата зарахуваня"
+                   Content="Дата підписання"
                    FontSize="20"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    Grid.Column="3"></Label>
-            <StackPanel Name="StackPanel1"
-                        Grid.Row="1"
-                        Grid.Column="0"></StackPanel>
+            <ScrollViewer Grid.Row="1"
+                          Grid.Column="0"
+                          HorizontalScrollBarVisibility="Auto"
+                          VerticalScrollBarVisibility="Disabled">
+                <StackPanel Name="StackPanel1"></StackPanel>
+            </ScrollViewer>
             <ScrollViewer Grid.Row="1"
                           Grid.Column="1"
-                          VerticalScrollBarVisibility="Disabled"
-                          HorizontalScrollBarVisibility="Auto">
-                <StackPanel Name="StackPanel2"></StackPanel>
+                          HorizontalScrollBarVisibility="Auto"
+                          VerticalScrollBarVisibility="Disabled">
+                <StackPanel Name="StackPanel2"
+                        ></StackPanel>
             </ScrollViewer>
-            <StackPanel Name="StackPanel3"
-                        Grid.Row="1"
-                        Grid.Column="2"></StackPanel>
+            <ScrollViewer Grid.Row="1"
+                          Grid.Column="2"
+                          HorizontalScrollBarVisibility="Auto"
+                          VerticalScrollBarVisibility="Disabled">
+                <StackPanel Name="StackPanel3"
+                        ></StackPanel>
+            </ScrollViewer>
             <StackPanel Name="StackPanel4"
                         Grid.Row="1"
                         Grid.Column="3">
@@ -71,7 +79,8 @@
                     Grid.Row="2"
                     Width="200"
                     Height="40"
-                    Margin="60, 20" Click="FiltreButton_Click">Фільтрувати</Button>
+                    Click="FiltreButton_Click"
+                    Margin="0,20,0,20">Фільтрувати</Button>
         </Grid>
     </ScrollViewer>
 </Window>

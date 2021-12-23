@@ -34,6 +34,12 @@ namespace PetShelter.Model
                 .WithMany(r => r.Animals)
                 .HasForeignKey(a => a.RoomID);
 
+            modelBuilder.Entity<Animal>()
+                .HasMany(i => i.Contracts)
+                .WithRequired(i => i.Animal)
+                .HasForeignKey(i => i.AnimalID)
+                .WillCascadeOnDelete(true);
+
             modelBuilder.Entity<StateValue>()
                 .HasOptional(s => s.State)
                 .WithMany(s => s.StateValues)
@@ -48,6 +54,16 @@ namespace PetShelter.Model
                 .HasOptional(i => i.InfoDepEmploee)
                 .WithRequired(i => i.Emploee)
                 .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Vaccination>()
+                .HasRequired(i => i.Animal)
+                .WithMany(i => i.Vaccinations)
+                .HasForeignKey(i => i.AnimalID);
+
+            modelBuilder.Entity<Vaccination>()
+                .HasRequired(i => i.Vaccine)
+                .WithMany(i => i.Vaccinations)
+                .HasForeignKey(i => i.VaccineID);
         }
 
         public virtual DbSet<Animal> Animals { get; set; }

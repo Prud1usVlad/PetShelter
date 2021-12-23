@@ -82,13 +82,21 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\EditWindowsVM\ClientEdit_VM.cs" />
+    <Compile Include="ViewModel\EditWindowsVM\ContractEdit_VM.cs" />
+    <Compile Include="ViewModel\EditWindowsVM\VaccinationEdit_VM.cs" />
     <Compile Include="ViewModel\Filtration.cs" />
     <Compile Include="ViewModel\Statistics_VM.cs" />
     <Compile Include="View\EditWindows\ClientEditWindow.xaml.cs">
       <DependentUpon>ClientEditWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\EditWindows\ContractEditWindow.xaml.cs">
+      <DependentUpon>ContractEditWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EditWindows\StateEditWindow.xaml.cs">
       <DependentUpon>StateEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditWindows\VaccinationEditWindow.xaml.cs">
+      <DependentUpon>VaccinationEditWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FiltreWindows\AnimalInfo_filtre.xaml.cs">
       <DependentUpon>AnimalInfo_filtre.xaml</DependentUpon>
@@ -99,11 +107,23 @@
     <Compile Include="View\FiltreWindows\Client_Filtre.xaml.cs">
       <DependentUpon>Client_Filtre.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\FiltreWindows\Contract_Filtre.xaml.cs">
+      <DependentUpon>Contract_Filtre.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FiltreWindows\Emploee_Filtre.xaml.cs">
+      <DependentUpon>Emploee_Filtre.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\FiltreWindows\Group_filtre.xaml.cs">
       <DependentUpon>Group_filtre.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FiltreWindows\StateValue_filtre.xaml.cs">
       <DependentUpon>StateValue_filtre.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FiltreWindows\Vaccination_Filtre.xaml.cs">
+      <DependentUpon>Vaccination_Filtre.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FiltreWindows\Vaccine_Filtre.xaml.cs">
+      <DependentUpon>Vaccine_Filtre.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\HelpingWindows\Autorisation.xaml.cs">
       <DependentUpon>Autorisation.xaml</DependentUpon>
@@ -122,11 +142,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\EditWindows\ContractEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\EditWindows\StateEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\EditWindows\StateValueEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditWindows\VaccinationEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -146,11 +174,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\FiltreWindows\Contract_Filtre.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FiltreWindows\Emploee_Filtre.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\FiltreWindows\Group_filtre.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\FiltreWindows\StateValue_filtre.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FiltreWindows\Vaccination_Filtre.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FiltreWindows\Vaccine_Filtre.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

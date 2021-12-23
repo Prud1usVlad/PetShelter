@@ -41,10 +41,7 @@ namespace PetShelter.View.EditWindows
 
         private void Accept_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckDate(ViewModel.Client.DateOfAdding))
-
-
-            DialogResult = true;
+            if (CheckDate(ViewModel.Client.DateOfAdding)) DialogResult = true;
         }
         private void Exit_Click(object sender, RoutedEventArgs e)
         {

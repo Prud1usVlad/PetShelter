@@ -164,6 +164,12 @@ namespace PetShelter.Model
             }
         }
 
+        internal string GetFullName
+        {
+            get { return SecondName + " " + FirstName; }
+            set { }
+        }
+
         internal override Type WindowType => typeof(ClientEditWindow);
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

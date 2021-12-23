@@ -47,6 +47,9 @@ namespace PetShelter.View.EditWindows
 
         private void Accept_Click(object sender, RoutedEventArgs e)
         {
+            if (!CheckDate(ViewModel.Animal.BirthDate) && !CheckDate(ViewModel.Animal.RegistrationDate))
+                return;
+
             var animal = Entity as Animal;
             var r = RoomsComboBox.SelectedItem as Room;
             var s = SexCheckbox.SelectedItem as ComboBoxItem;
@@ -75,6 +78,17 @@ namespace PetShelter.View.EditWindows
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
+        }
+
+        private bool CheckDate(DateTime? date)
+        {
+            if (date < new DateTime(2010, 1, 1) || date > DateTime.Now)
+            {
+                MessageBox.Show("Введені дати виходять за рамки дозволених, перевірте правильність введення.", "Помилка введення дати");
+                return false;
+            }
+
+            return true;
         }
     }
 }

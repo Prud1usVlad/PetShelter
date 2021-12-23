@@ -29,19 +29,31 @@ namespace PetShelter.View
     public partial class MainWindow : Window
     {
         public Main_VM ViewModel { get; set; }
+        private User User { get; set; }
 
         public MainWindow()
         {
             ViewModel = new Main_VM();
-            //var wind = new Autorisation(ViewModel.Users);
+            var wind = new Autorisation(ViewModel.Users);
 
-            //if (wind.ShowDialog() == false)
-            //{
-            //    Close();
-            //}
+            if (wind.ShowDialog() == false)
+            {
+                Close();
+            }
 
+            User = wind.AuthorisedUser;
 
             InitializeComponent();
+
+            if (User.Role == "CE")
+            {
+                PersonalDataMenue.Visibility = Visibility.Collapsed;
+            }
+            else if (User.Role == "IDE")
+            {
+                TechnicalDataMenu.Visibility = Visibility.Collapsed;
+            }
+
             DataContext = ViewModel;
         }
 
@@ -131,8 +143,7 @@ namespace PetShelter.View
             }
 
             if (header == "Тварини" || header == "Стани тварин" 
-                || header == "Договори" || header == "Вакцинація"
-                || header == "Клієнти")
+                || header == "Договори" || header == "Клієнти")
             {
                 AddButton.IsEnabled = true;
                 DeleteButton.IsEnabled = true;
@@ -153,6 +164,13 @@ namespace PetShelter.View
                 DeleteButton.IsEnabled = true;
                 EditButton.IsEnabled = true;
                 FiltreButton.IsEnabled = false;
+            }
+            else if (header == "Вакцинація")
+            {
+                AddButton.IsEnabled = true;
+                DeleteButton.IsEnabled = true;
+                EditButton.IsEnabled = false;
+                FiltreButton.IsEnabled = true;
             }
             else
             {

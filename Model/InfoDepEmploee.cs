@@ -63,6 +63,12 @@ namespace PetShelter.Model
             }
         }
 
+        public string SecondName
+        {
+            get { return Emploee.SecondName; }
+            set { }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         internal virtual ICollection<Contract> Contracts { get; set; }
         internal virtual Emploee Emploee { get; set; }
@@ -108,7 +114,7 @@ namespace PetShelter.Model
 
         public override string GetSearchString()
         {
-            return $"{PassNum} {Email} {Phone}";
+            return $"{PassNum} {Email} {Phone} {SecondName}";
         }
 
     }

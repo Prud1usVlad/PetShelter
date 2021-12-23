@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PetShelter.View.EditWindows"
         mc:Ignorable="d"
-        Title="StateEditWindow" Height="350" Width="500">
-    <Grid>
+        Title="Редагування даних" Height="350" Width="500">
+    <Grid Background="#FFE5DDD3">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>

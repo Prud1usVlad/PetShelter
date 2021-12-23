@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PetShelter.View.FiltreWindows"
         mc:Ignorable="d"
         Title="Фільтрація" Height="400" Width="800">
-    <ScrollViewer>
+    <ScrollViewer Background="#FFE5DDD3">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>

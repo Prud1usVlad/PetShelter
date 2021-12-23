@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PetShelter.View.EditWindows"
         mc:Ignorable="d"
-        Title="AnimalEditWindow" 
+        Title="Редагування даних" 
         Height="450"
         Width="700">
     <Grid Background="#FFE5DDD3">

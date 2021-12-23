@@ -166,6 +166,7 @@ namespace PetShelter.ViewModel
 
                         if (entity is Animal)
                         {
+                            db.StateValues.Load();
                             StateValues = db.StateValues.Local.ToBindingList();
                             ChooseGroup(entity as Animal);
                         }
@@ -173,7 +174,7 @@ namespace PetShelter.ViewModel
                         {
                             ChooseGroup((entity as StateValue).Animal);
                         }
-
+                        db.SaveChanges();
 
                     }));
             }
@@ -194,8 +195,17 @@ namespace PetShelter.ViewModel
 
                         if ((window as Window).ShowDialog() == true)
                         {
+                            Animal anim = (selected is StateValue) ? (selected as StateValue).Animal : null;
+
                             entity.CopyProperties(window.Entity);
                             db.Entry(entity).State = EntityState.Modified;
+
+                            if (entity is StateValue)
+                            {
+                                db.StateValues.Load();
+                                StateValues = db.StateValues.Local.ToBindingList();
+                                ChooseGroup(anim);
+                            }
                         }
 
                         if (entity is Animal)
@@ -203,6 +213,13 @@ namespace PetShelter.ViewModel
                             db.StateValues.Load();
                             StateValues = db.StateValues.Local.ToBindingList();
                             ChooseGroup(entity as Animal);
+                        }
+
+                        if (entity is StateValue)
+                        {
+                            db.StateValues.Load();
+                            StateValues = db.StateValues.Local.ToBindingList();
+                            ChooseGroup((entity as StateValue).Animal);
                         }
 
                         db.SaveChanges();
@@ -224,14 +241,21 @@ namespace PetShelter.ViewModel
                         if (result == MessageBoxResult.No)
                             return;
 
+                        Animal anim = (selected is StateValue) ? (selected as StateValue).Animal : null;
+
+
                         DbEntity item = selected as DbEntity;
-                        //if (item is Animal)
-                        //{
-                        //    var a = item as Animal;
-                        //    while(a.StateValues.Count > 0)
-                        //        db.StateValues.Remove(a.StateValues.First());
-                        //}
+
                         db.GetDBSet(item).Remove(item);
+                        db.SaveChanges();
+
+                        if (item is StateValue)
+                        {
+                            db.StateValues.Load();
+                            StateValues = db.StateValues.Local.ToBindingList();
+                            ChooseGroup(anim);
+                        }
+
                         db.SaveChanges();
                     }));
             }

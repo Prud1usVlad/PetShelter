@@ -131,8 +131,8 @@ namespace PetShelter.Model
             Name = a.Name;
             inShelter = (a.Contracts.Count > 0) ? false : true;
             RegistrationDate = a.RegistrationDate;
-            readiness = a.Group.Readiness;
-            priority = a.Group.Priority;
+            readiness = (a.Group == null) ? "-1" : a.Group.Readiness;
+            priority = (a.Group == null) ? -1 : a.Group.Priority;
         }
     }
 }

@@ -12,6 +12,7 @@ namespace PetShelter.Model
     using System;
     using System.Collections.Generic;
     using System.Reflection;
+    using PetShelter.View.EditWindows;
 
     public partial class Vaccination : DbEntity
     {
@@ -47,6 +48,7 @@ namespace PetShelter.Model
             }
         }
 
+        internal override Type WindowType => typeof(VaccinationEditWindow);
         internal virtual Animal Animal { get; set; }
         internal virtual Vaccine Vaccine { get; set; }
 

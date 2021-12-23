@@ -12,6 +12,7 @@ namespace PetShelter.Model
     using System;
     using System.Collections.Generic;
     using System.Reflection;
+    using PetShelter.View.EditWindows;
 
     public partial class Contract : DbEntity
     {
@@ -90,10 +91,11 @@ namespace PetShelter.Model
         internal virtual Animal Animal { get; set; }
         internal virtual Client Client { get; set; }
         internal virtual InfoDepEmploee InfoDepEmploee { get; set; }
+        internal override Type WindowType => typeof(ContractEditWindow);
 
         public override List<DbEntity> GetForegnEntities()
         {
-            return new List<DbEntity> { Animal, Client, InfoDepEmploee };
+            return new List<DbEntity> { Animal, Client, InfoDepEmploee, InfoDepEmploee.Emploee };
         }
 
         public override Dictionary<string, string> GetProperies()

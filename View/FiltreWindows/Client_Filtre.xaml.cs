@@ -114,7 +114,7 @@ namespace PetShelter.View.FiltreWindows
 
         private bool CheckDate()
         {
-            var d = new DateTime(2000, 1, 1);
+            var d = new DateTime(2010, 1, 1);
 
             if (ToDate < d || ToDate > DateTime.Now
                 || FromDate < d || FromDate > DateTime.Now)

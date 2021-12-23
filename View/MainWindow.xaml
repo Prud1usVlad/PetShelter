@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PetShelter.View"
         mc:Ignorable="d"
-        Title="MainWindow" 
+        Title="ІС 'Притулок для тварин'" 
         Height="450" 
         Width="800"
         DataContext="{Binding ViewModel}">
@@ -113,11 +113,11 @@
             <MenuItem Header="Файл">
                 <MenuItem Header="Вийти"></MenuItem>
             </MenuItem>
-            <MenuItem Header="Дані"
-                      Name="Menue1">
+            <MenuItem Header="Дані тварин"
+                      Name="AnimalDataMenue">
                 <MenuItem Header="Тварини" 
                           Click="MenuItem_Click"></MenuItem>
-                <MenuItem Header="Кімнати" 
+                <MenuItem Header="Готовність тварин" 
                           Click="MenuItem_Click"></MenuItem>
                 <MenuItem Header="Стани" 
                           Click="MenuItem_Click"></MenuItem>
@@ -127,7 +127,12 @@
                           Click="MenuItem_Click"></MenuItem>
                 <MenuItem Header="Договори" 
                           Click="MenuItem_Click"></MenuItem>
-                <MenuItem Header="Готовність тварин" 
+                <MenuItem Header="Вакцинація" 
+                          Click="MenuItem_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Особисті дані"
+                      Name="PersonalDataMenue">
+                <MenuItem Header="Договори" 
                           Click="MenuItem_Click"></MenuItem>
                 <MenuItem Header="Клієнти" 
                           Click="MenuItem_Click"></MenuItem>
@@ -137,7 +142,10 @@
                           Click="MenuItem_Click"></MenuItem>
                 <MenuItem Header="Особиста інформація працівників" 
                           Click="MenuItem_Click"></MenuItem>
-                <MenuItem Header="Вакцинація" 
+            </MenuItem>
+            <MenuItem Header="Технічні дані"
+                      Name="TechnicalDataMenu">
+                <MenuItem Header="Кімнати" 
                           Click="MenuItem_Click"></MenuItem>
                 <MenuItem Header="Вакцини" 
                           Click="MenuItem_Click"></MenuItem>

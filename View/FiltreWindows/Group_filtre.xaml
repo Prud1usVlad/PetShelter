@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PetShelter.View.FiltreWindows"
         mc:Ignorable="d"
-        Title="Group_filtre" Height="450" Width="600">
-    <ScrollViewer>
+        Title="Фільтрація" Height="450" Width="600">
+    <ScrollViewer Background="#FFE5DDD3">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>

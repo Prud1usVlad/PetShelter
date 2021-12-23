@@ -58,9 +58,10 @@ namespace PetShelter.ViewModel
                             filtrated = filtrated.Where(a => wind.SelectedValues[2].Contains(a.Room.Name));
                         }
 
+                        filtrated = filtrated.Where(i => i.RegistrationDate <= wind.ToDate && i.RegistrationDate >= wind.FromDate);
+
                         ViewModel.SetNewDataGridSource(filtrated);
                     }
-
                     break;
                 case "Group":
                     var wind1 = new Group_filtre(ViewModel);
@@ -177,8 +178,109 @@ namespace PetShelter.ViewModel
                     }
 
                     break;
+                case "Emploee":
+                    var wind5 = new Emploee_Filtre(ViewModel);
 
+                    if (wind5.ShowDialog() == true)
+                    {
+                        IEnumerable<Emploee> filtrated;
+                        // Emploee profession
+                        if (wind5.SelectedValues[0].Count > 0)
+                        {
+                            filtrated = ViewModel.Emploees.Where(i => wind5.SelectedValues[0].Contains(i.Profession));
+                        }
+                        else
+                        {
+                            filtrated = ViewModel.Emploees;
+                        }
 
+                        filtrated = filtrated.Where(i => i.EntryDate <= wind5.ToDate && i.EntryDate >= wind5.FromDate);
+
+                        ViewModel.SetNewDataGridSource(filtrated);
+                    }
+                    break;
+                case "Vaccine":
+                    var wind6 = new Vaccine_Filtre(ViewModel);
+
+                    if (wind6.ShowDialog() == true)
+                    {
+                        IEnumerable<Vaccine> filtrated;
+                        // Vaccine producer
+                        if (wind6.SelectedValues[0].Count > 0)
+                        {
+                            filtrated = ViewModel.Vaccines.Where(a => wind6.SelectedValues[0].Contains(a.Producer.Title));
+                        }
+                        else
+                        {
+                            filtrated = ViewModel.Vaccines;
+                        }
+
+                        ViewModel.SetNewDataGridSource(filtrated);
+                    }
+
+                    break;
+                case "Vaccination":
+                    var wind7 = new Vaccination_Filtre(ViewModel);
+
+                    if (wind7.ShowDialog() == true)
+                    {
+                        IEnumerable<Vaccination> filtrated;
+                        // Vaccination vaccine
+                        if (wind7.SelectedValues[0].Count > 0)
+                        {
+                            filtrated = ViewModel.Vaccinations.Where(i => wind7.SelectedValues[0].Contains(i.Vaccine.VaccineName));
+                        }
+                        else
+                        {
+                            filtrated = ViewModel.Vaccinations;
+                        }
+
+                        // Vaccination animal
+                        if (wind7.SelectedValues[1].Count > 0)
+                        {
+                            filtrated = filtrated.Where(i => wind7.SelectedValues[1].Contains(i.Animal.AnimalID + " " + i.Animal.Name));
+                        }
+
+                        filtrated = filtrated.Where(i => i.VaccinationDate <= wind7.ToDate && i.VaccinationDate >= wind7.FromDate);
+
+                        ViewModel.SetNewDataGridSource(filtrated);
+                    }
+
+                    break;
+                case "Contract":
+                    var wind8 = new Contract_Filtre(ViewModel);
+
+                    if (wind8.ShowDialog() == true)
+                    {
+                        IEnumerable<Contract> filtrated;
+                        // Contract infoDepEmploee
+                        if (wind8.SelectedValues[0].Count > 0)
+                        {
+                            filtrated = ViewModel.Contracts.Where(i => wind8.SelectedValues[0].Contains(i.InfoDepEmploee.Emploee.SecondName + 
+                                " " + i.InfoDepEmploee.Emploee.FirstName + " " + i.InfoDepEmploee.Emploee.ThirdName + ": " + i.PassNum));
+                        }
+                        else
+                        {
+                            filtrated = ViewModel.Contracts;
+                        }
+
+                        // Contract client
+                        if (wind8.SelectedValues[1].Count > 0)
+                        {
+                            filtrated = filtrated.Where(i => wind8.SelectedValues[1].Contains(i.Client.SecondName 
+                                + " " + i.Client.FirstName + " " + i.Client.ThirdName + ": " + i.Client.ClientID));
+                        }
+
+                        if (wind8.SelectedValues[2].Count > 0)
+                        {
+                            filtrated = filtrated.Where(i => wind8.SelectedValues[2].Contains(i.Animal.Name + ": " + i.Animal.AnimalID));
+                        }
+
+                        filtrated = filtrated.Where(i => i.SigningDate <= wind8.ToDate && i.SigningDate >= wind8.FromDate);
+
+                        ViewModel.SetNewDataGridSource(filtrated);
+                    }
+                    break;
             }
         }
     }

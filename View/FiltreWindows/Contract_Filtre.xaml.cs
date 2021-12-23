@@ -19,9 +19,9 @@ using System.Runtime.CompilerServices;
 namespace PetShelter.View.FiltreWindows
 {
     /// <summary>
-    /// Логика взаимодействия для Animal_filtre.xaml
+    /// Логика взаимодействия для Contract_Filtre.xaml
     /// </summary>
-    public partial class Animal_filtre : Window, INotifyPropertyChanged
+    public partial class Contract_Filtre : Window
     {
         private DateTime to;
         private DateTime from;
@@ -47,7 +47,7 @@ namespace PetShelter.View.FiltreWindows
         public Main_VM ViewModel { get; set; }
         public List<List<string>> SelectedValues { get; set; }
 
-        public Animal_filtre(Main_VM vm)
+        public Contract_Filtre(Main_VM vm)
         {
             InitializeComponent();
             ViewModel = vm;
@@ -61,28 +61,28 @@ namespace PetShelter.View.FiltreWindows
 
         public void FillStackPannels()
         {
-            IEnumerable<string> kinds = ViewModel.Animals.GroupBy(a => a.AnimalKind).Select(a => a.First().AnimalKind);
-
-            foreach (string str in kinds)
+            foreach (InfoDepEmploee item in ViewModel.InfoDepEmploees)
             {
                 var temp = new CheckBox();
-                temp.Content = str;
+                temp.Content = item.Emploee.SecondName + " " + item.Emploee.FirstName + 
+                    " " + item.Emploee.ThirdName + ": " + item.PassNum;
                 temp.Margin = new Thickness(20, 20, 0, 0);
                 StackPanel1.Children.Add(temp);
             }
 
-            foreach (Group group in ViewModel.Groups)
+            foreach (Client item in ViewModel.Clients)
             {
                 var temp = new CheckBox();
-                temp.Content = group.Description;
+                temp.Content = item.SecondName + " " + item.FirstName +
+                    " " + item.ThirdName + ": " + item.ClientID;
                 temp.Margin = new Thickness(20, 20, 0, 0);
                 StackPanel2.Children.Add(temp);
             }
 
-            foreach (Room room in ViewModel.Rooms)
+            foreach (Animal item in ViewModel.Animals)
             {
                 var temp = new CheckBox();
-                temp.Content = room.Name;
+                temp.Content = item.Name + ": " + item.AnimalID;
                 temp.Margin = new Thickness(20, 20, 0, 0);
                 StackPanel3.Children.Add(temp);
             }
@@ -99,7 +99,8 @@ namespace PetShelter.View.FiltreWindows
             for (int i = 0; i < 3; i++)
             {
                 var res = new List<string>();
-                UIElementCollection boxes = i == 0 ? StackPanel1.Children : i == 1 ? StackPanel2.Children : StackPanel3.Children;
+                UIElementCollection boxes = i == 0 ? StackPanel1.Children : i == 1 ? 
+                    StackPanel2.Children : StackPanel3.Children;
 
                 foreach (CheckBox ch in boxes)
                 {
@@ -133,6 +134,5 @@ namespace PetShelter.View.FiltreWindows
 
             return true;
         }
-
     }
 }
