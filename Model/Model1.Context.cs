@@ -12,7 +12,7 @@ namespace PetShelter.Model
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Data.Entity.ModelConfiguration;
+    using System.Reflection;
 
     public partial class DataContext : DbContext
     {
@@ -20,25 +20,102 @@ namespace PetShelter.Model
             : base("name=PetShelterEntities")
         {
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Animal>()
+               .HasMany(a => a.StateValues)
+               .WithOptional(s => s.Animal)
+               .HasForeignKey(s => s.AnimalID)
+               .WillCascadeOnDelete(true);
 
-            modelBuilder.Entity<Animals>()
-                .HasMany(a => a.StateValues)
+            modelBuilder.Entity<Animal>()
+                .HasOptional(a => a.Room)
+                .WithMany(r => r.Animals)
+                .HasForeignKey(a => a.RoomID);
+
+            modelBuilder.Entity<Animal>()
+                .HasMany(i => i.Contracts)
+                .WithRequired(i => i.Animal)
+                .HasForeignKey(i => i.AnimalID)
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<StateValue>()
+                .HasOptional(s => s.State)
+                .WithMany(s => s.StateValues)
+                .HasForeignKey(s => s.StateID);
+
+            modelBuilder.Entity<Emploee>()
+                .HasOptional(i => i.Caretaker)
+                .WithRequired(i => i.Emploee)
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Emploee>()
+                .HasOptional(i => i.InfoDepEmploee)
+                .WithRequired(i => i.Emploee)
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Vaccination>()
+                .HasRequired(i => i.Animal)
+                .WithMany(i => i.Vaccinations)
+                .HasForeignKey(i => i.AnimalID);
+
+            modelBuilder.Entity<Vaccination>()
+                .HasRequired(i => i.Vaccine)
+                .WithMany(i => i.Vaccinations)
+                .HasForeignKey(i => i.VaccineID);
         }
 
-        public virtual DbSet<Animals> Animals { get; set; }
-        public virtual DbSet<Caretakers> Caretakers { get; set; }
-        public virtual DbSet<Clients> Clients { get; set; }
-        public virtual DbSet<Contracts> Contracts { get; set; }
-        public virtual DbSet<Groups> Groups { get; set; }
-        public virtual DbSet<InfoDepEmploees> InfoDepEmploees { get; set; }
-        public virtual DbSet<Producers> Producers { get; set; }
-        public virtual DbSet<Rooms> Rooms { get; set; }
-        public virtual DbSet<States> States { get; set; }
-        public virtual DbSet<StateValues> StateValues { get; set; }
-        public virtual DbSet<Vaccinations> Vaccinations { get; set; }
-        public virtual DbSet<Vaccines> Vaccines { get; set; }
+        public virtual DbSet<Animal> Animals { get; set; }
+        public virtual DbSet<Caretaker> Caretakers { get; set; }
+        public virtual DbSet<Client> Clients { get; set; }
+        public virtual DbSet<Contract> Contracts { get; set; }
+        public virtual DbSet<Emploee> Emploees { get; set; }
+        public virtual DbSet<Group> Groups { get; set; }
+        public virtual DbSet<InfoDepEmploee> InfoDepEmploees { get; set; }
+        public virtual DbSet<Producer> Producers { get; set; }
+        public virtual DbSet<Room> Rooms { get; set; }
+        public virtual DbSet<State> States { get; set; }
+        public virtual DbSet<StateValue> StateValues { get; set; }
+        public virtual DbSet<Vaccination> Vaccinations { get; set; }
+        public virtual DbSet<Vaccine> Vaccines { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+
+        public DbSet GetDBSet(DbEntity item)
+        {
+            var c = item.GetType().Name;
+
+            switch (c)
+            {
+                case "Animal":
+                    return Animals;
+                case "Caretaker":
+                    return Caretakers;
+                case "Client":
+                    return Clients;
+                case "Contract":
+                    return Contracts;
+                case "Emploee":
+                    return Emploees;
+                case "Group":
+                    return Groups;
+                case "InfoDepEmploee":
+                    return InfoDepEmploees;
+                case "Producer":
+                    return Producers;
+                case "Room":
+                    return Rooms;
+                case "State":
+                    return States;
+                case "StateValue":
+                    return StateValues;
+                case "Vaccination":
+                    return Vaccinations;
+                case "Vaccine":
+                    return Vaccines;
+            }
+
+            return null;
+        }
     }
 }

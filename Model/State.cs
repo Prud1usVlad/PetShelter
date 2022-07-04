@@ -12,13 +12,14 @@ namespace PetShelter.Model
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    
-    public partial class States : DbEntity
+    using PetShelter.View.EditWindows;
+
+    public partial class State : DbEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public States()
+        public State()
         {
-            this.StateValues = new HashSet<StateValues>();
+            this.StateValues = new HashSet<StateValue>();
         }
 
         private int stateID;
@@ -43,8 +44,14 @@ namespace PetShelter.Model
             }
         }
 
+        internal override Type WindowType => typeof(StateEditWindow);
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StateValues> StateValues { get; set; }
+        internal virtual ICollection<StateValue> StateValues { get; set; }
+
+        public override List<DbEntity> GetForegnEntities()
+        {
+            return null;
+        }
 
         public override Dictionary<string, string> GetProperies()
         {
@@ -60,7 +67,12 @@ namespace PetShelter.Model
 
         public override string ToString()
         {
-            return "Animal";
+            return "Стан";
+        }
+
+        public override string GetSearchString()
+        {
+            return $"{StateID} {Name}";
         }
     }
 }

@@ -14,9 +14,12 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PetShelter.Model;
 using PetShelter.ViewModel;
+using PetShelter.ViewModel.Settings;
+using PetShelter.View.HelpingWindows;
 using System.Data.Entity;
 using System.Collections;
 using System.Reflection;
+
 
 namespace PetShelter.View
 {
@@ -25,12 +28,32 @@ namespace PetShelter.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainViewModel ViewModel { get; set; }
+        public Main_VM ViewModel { get; set; }
+        private User User { get; set; }
 
         public MainWindow()
         {
+            ViewModel = new Main_VM();
+            var wind = new Autorisation(ViewModel.Users);
+
+            if (wind.ShowDialog() == false)
+            {
+                Close();
+            }
+
+            User = wind.AuthorisedUser;
+
             InitializeComponent();
-            ViewModel = new MainViewModel();
+
+            if (User.Role == "CE")
+            {
+                PersonalDataMenue.Visibility = Visibility.Collapsed;
+            }
+            else if (User.Role == "IDE")
+            {
+                TechnicalDataMenu.Visibility = Visibility.Collapsed;
+            }
+
             DataContext = ViewModel;
         }
 
@@ -54,7 +77,7 @@ namespace PetShelter.View
 
                 foreach (string innerKey in details[key].Keys)
                 {
-                    text.Text += innerKey + ":  " + details[key][innerKey] + "\n";
+                    text.Text += Main_VM.Dictionary[innerKey] + ":  " + details[key][innerKey] + "\n";
                 }
 
                 exp.Content = text;
@@ -62,16 +85,174 @@ namespace PetShelter.View
             }
         }
 
-        private void MainGrid_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            
-        }
-
         private void MainGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ViewModel.ShowDetailsCommand.Execute(MainGrid.SelectedItem);
 
             ShowDetails();
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            string header = (sender as MenuItem).Header.ToString();
+
+            switch (header)
+            {
+                case "Тварини":
+                    ViewModel.ItemSource = ViewModel.Animals;
+                    break;
+                case "Кімнати":
+                    ViewModel.ItemSource = ViewModel.Rooms;
+                    break;
+                case "Стани":
+                    ViewModel.ItemSource = ViewModel.States;
+                    break;
+                case "Стани тварин":
+                    ViewModel.ItemSource = ViewModel.StateValues;
+                    break;
+                case "Групи":
+                    ViewModel.ItemSource = ViewModel.Groups;
+                    break;
+                case "Договори":
+                    ViewModel.ItemSource = ViewModel.Contracts;
+                    break;
+                case "Готовність тварин":
+                    ViewModel.ItemSource = ViewModel.AnimalInfos;
+                    break;
+                case "Клієнти":
+                    ViewModel.ItemSource = ViewModel.Clients;
+                    break;
+                case "Працівники ВІ":
+                    ViewModel.ItemSource = ViewModel.InfoDepEmploees;
+                    break;
+                case "Доглядачі":
+                    ViewModel.ItemSource = ViewModel.Caretakers;
+                    break;
+                case "Особиста інформація працівників":
+                    ViewModel.ItemSource = ViewModel.Emploees;
+                    break;
+                case "Вакцинація":
+                    ViewModel.ItemSource = ViewModel.Vaccinations;
+                    break;
+                case "Вакцини":
+                    ViewModel.ItemSource = ViewModel.Vaccines;
+                    break;
+                case "Виробники":
+                    ViewModel.ItemSource = ViewModel.Producers;
+                    break;
+            }
+
+            if (header == "Тварини" || header == "Стани тварин" 
+                || header == "Договори" || header == "Клієнти")
+            {
+                AddButton.IsEnabled = true;
+                DeleteButton.IsEnabled = true;
+                EditButton.IsEnabled = true;
+                FiltreButton.IsEnabled = true;
+            } 
+            else if (header == "Групи" || header == "Готовність тварин" 
+                || header == "Вакцини" || header == "Особиста інформація працівників")
+            {
+                AddButton.IsEnabled = false;
+                DeleteButton.IsEnabled = false;
+                EditButton.IsEnabled = false;
+                FiltreButton.IsEnabled = true;
+            }
+            else if (header == "Стани")
+            {
+                AddButton.IsEnabled = true;
+                DeleteButton.IsEnabled = true;
+                EditButton.IsEnabled = true;
+                FiltreButton.IsEnabled = false;
+            }
+            else if (header == "Вакцинація")
+            {
+                AddButton.IsEnabled = true;
+                DeleteButton.IsEnabled = true;
+                EditButton.IsEnabled = false;
+                FiltreButton.IsEnabled = true;
+            }
+            else
+            {
+                AddButton.IsEnabled = false;
+                DeleteButton.IsEnabled = false;
+                EditButton.IsEnabled = false;
+                FiltreButton.IsEnabled = false;
+            }
+
+        }
+
+        private void MainGrid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void SortButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SortCriteria.SelectedItem == null)
+            {
+                MessageBox.Show("Для сортування оберіть критерій сортування", "Неповнота данних");
+                return;
+            }
+
+            ViewModel.SortCommand.Execute(new SortSettings(SortCriteria.SelectedItem.ToString(),
+                SortCriteria.SelectedIndex , SortTypeCheckBox.IsChecked));
+        }
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.SearchCommand.Execute(SearchInput.Text);
+        }
+
+        private void FiltreButton_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.FiltreCommand.Execute(null);
+
+        }
+
+        private void ContractClick(object sender, RoutedEventArgs e)
+        {
+            if (MainGrid.SelectedItem is Contract)
+            {
+                var d = new DocumentsCreation();
+                var c = MainGrid.SelectedItem as Contract;
+
+                string path = d.GenerateContract(c, ViewModel.Animals.Where(a => a.AnimalID == c.AnimalID).First(),
+                    ViewModel.Clients.Where(cl => cl.ClientID == c.ClientID).First(),
+                    ViewModel.InfoDepEmploees.Where(em => em.PassNum == c.PassNum).First(),
+                    ViewModel.Emploees.Where(emp => emp.PassNum == c.PassNum).First());
+
+            }
+            else
+            {
+                MessageBox.Show("Для формування договогу перейдіть до таблиці договорів та оберіть потрібний", "Підказка");
+            }
+        }
+
+        private void InfoCardClick(object sender, RoutedEventArgs e)
+        {
+            if (MainGrid.SelectedItem is Animal)
+            {
+                var d = new DocumentsCreation();
+                var a = MainGrid.SelectedItem as Animal;
+
+                d.GenerateInfoCard(a);
+            }
+            else
+            {
+                MessageBox.Show("Для формування інформаційної картки перейдіть до таблиці тварин та оберіть потрібну", "Підказка");
+            }
+        }
+
+        private void StatClick(object sender, RoutedEventArgs e)
+        {
+            var wind = new Statistics();
+            wind.ShowDialog();
+        }
+
+        private void MainGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            e.Column.Header = Main_VM.Dictionary[e.PropertyName];
         }
     }
 }

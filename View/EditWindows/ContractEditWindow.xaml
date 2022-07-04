@@ -1,0 +1,115 @@
+﻿<Window x:Class="PetShelter.View.EditWindows.ContractEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PetShelter.View.EditWindows"
+        mc:Ignorable="d"
+        Title="Редагування даних" Height="450" Width="700">
+    <Grid Background="#FFE5DDD3">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.ColumnSpan="4"
+               FontSize="22"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"
+               Name="MainLabel">даних про договір</TextBlock>
+        <TextBlock Grid.Row ="1"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   TextWrapping="Wrap">Робітник</TextBlock>
+        <TextBlock Grid.Column ="2"
+                   Grid.Row="1"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   TextWrapping="Wrap">Клієнт</TextBlock>
+        <TextBlock Grid.Row ="2"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   TextWrapping="Wrap">Тварина</TextBlock>
+        <TextBlock Grid.Row ="2"
+                   Grid.Column="2"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   TextWrapping="Wrap">Дата підписання</TextBlock>
+        <TextBlock Grid.Row ="3"
+                   Grid.Column="0"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   TextWrapping="Wrap">Дата припинення дії</TextBlock>
+        <ComboBox Grid.Column="1" 
+                  HorizontalAlignment="Stretch" 
+                  Height="25"
+                  Margin="10,0" 
+                  Grid.Row="1" 
+                  VerticalAlignment="Center"
+                  ItemsSource="{Binding InfoDepEmploees}"
+                  DisplayMemberPath="SecondName"
+                  SelectedIndex="{Binding EmploeeIndex}"
+                  Name="EmploeeCombo">
+        </ComboBox>
+        <ComboBox Grid.Column="3" 
+                  HorizontalAlignment="Stretch" 
+                  Height="25"
+                  Margin="10,0" 
+                  Grid.Row="1" 
+                  VerticalAlignment="Center"
+                  ItemsSource="{Binding Clients}"
+                  DisplayMemberPath="SecondName"
+                  SelectedIndex="{Binding ClientIndex}"
+                  Name="ClientCombo">
+        </ComboBox>
+        <ComboBox Grid.Column="1"
+                  Grid.Row="2"
+                  Height="25"
+                  Margin="10,0"
+                  ItemsSource="{Binding ChoosableAnimals}"
+                  SelectedIndex="{Binding AnimalIndex}"
+                  DisplayMemberPath="Name"
+                  Name="AnimalCombo">
+        </ComboBox>
+        <DatePicker SelectedDate="{Binding Contract.SigningDate}"
+                    Grid.Row="2"
+                    Grid.Column="3"
+                    Height="25"
+                    Margin="10,0"></DatePicker>
+        <DatePicker SelectedDate="{Binding Contract.TerminationDate}"
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Height="25"
+                    Margin="10,0"></DatePicker>
+        <Grid Grid.Row="6"
+              Grid.ColumnSpan="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Підтвердити зміни" 
+                Name="Accept"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                Width="200" 
+                Height="50"
+                Click="Accept_Click"/>
+            <Button Content="Відміна" 
+                Name="Exit"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                Grid.Column="2"
+                Width="200" 
+                Height="50"
+                Click="Exit_Click"/>
+        </Grid>
+    </Grid>
+</Window>

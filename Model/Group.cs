@@ -12,25 +12,21 @@ namespace PetShelter.Model
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
 
-    public partial class Groups : DbEntity
+    public partial class Group : DbEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Groups()
+        public Group()
         {
-            this.Animals = new HashSet<Animals>();
+            this.Animals = new HashSet<Animal>();
         }
 
         private int groupID;
         private int priority;
         private string readiness;
         private string additionalCare;
-        private string descriotion;
+        private string description;
 
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int GroupID
         {
             get { return groupID; }
@@ -40,7 +36,7 @@ namespace PetShelter.Model
                 OnPropertyChanged("GroupID");
             }
         }
-        public int Priority 
+        public int Priority
         {
             get { return priority; }
             set
@@ -49,7 +45,7 @@ namespace PetShelter.Model
                 OnPropertyChanged("Priority");
             }
         }
-        public string Readiness 
+        public string Readiness
         {
             get { return readiness; }
             set
@@ -58,27 +54,27 @@ namespace PetShelter.Model
                 OnPropertyChanged("Readiness");
             }
         }
-        public string AdditionalCare 
+        public string AdditionalCare
         {
             get { return additionalCare; }
             set
             {
                 additionalCare = value;
-                OnPropertyChanged("AdditionalCare ");
+                OnPropertyChanged("AdditionalCare");
             }
         }
-        public string Descriotion 
+        public string Description
         {
-            get { return descriotion; }
+            get { return description; }
             set
             {
-                descriotion = value;
-                OnPropertyChanged("Descriotion");
+                description = value;
+                OnPropertyChanged("Description");
             }
         }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Animals> Animals { get; set; }
+        internal virtual ICollection<Animal> Animals { get; set; }
 
         public override Dictionary<string, string> GetProperies()
         {
@@ -92,9 +88,26 @@ namespace PetShelter.Model
             return res;
         }
 
+        public override List<DbEntity> GetForegnEntities()
+        {
+            var res = new List<DbEntity>();
+
+            foreach (Animal animal in Animals)
+            {
+                res.Add(animal);
+            }
+
+            return res;
+        }
+
         public override string ToString()
         {
-            return "Group";
+            return "Група";
+        }
+
+        public override string GetSearchString()
+        {
+            return $"{GroupID} {Description} {AdditionalCare}";
         }
     }
 }

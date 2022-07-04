@@ -5,43 +5,165 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PetShelter.View"
         mc:Ignorable="d"
-        Title="MainWindow" 
+        Title="ІС 'Притулок для тварин'" 
         Height="450" 
         Width="800"
         DataContext="{Binding ViewModel}">
-    <Grid>
+    <Grid Background="#FFE5DDD3">
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="7*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
-        <DataGrid Name="MainGrid" 
-                  AutoGenerateColumns="True"
-                  Grid.Row="1"
-                  ItemsSource="{Binding Animals}" 
-                  MouseDown="MainGrid_MouseDown" SelectionChanged="MainGrid_SelectionChanged">
-        </DataGrid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition />
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+            <Grid Background="#FFE5DDD3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75*"/>
+                    <ColumnDefinition Width="36*"/>
+                    <ColumnDefinition Width="111*"/>
+                    <ColumnDefinition Width="110*"/>
+                    <ColumnDefinition Width="111*"/>
+                    <ColumnDefinition Width="111*"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Name="SortCriteria"
+                          Margin="25,5,25.4,35"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="3"
+                          Height="20"
+                          ItemsSource="{Binding SourceProperties}"></ComboBox>
+                <CheckBox Name="SortTypeCheckBox"
+                             Grid.Column="2" 
+                             HorizontalAlignment="Right"
+                             Margin="0,35,24.4,10">
+                    <CheckBox.ToolTip>
+                        <ToolTip Placement="Relative"
+                                 Background="White"
+                                 Foreground="Black"
+                                 VerticalOffset="10"
+                                 HorizontalOffset="10">
+                            <TextBox>Сортувати за зростанням</TextBox>
+                        </ToolTip>
+                    </CheckBox.ToolTip>
+                </CheckBox>
+                <Button Height="20"
+                        Grid.ColumnSpan="3"
+                        Margin="25,32,45.4,8" 
+                        Click="SortButton_Click">Сортувати</Button>
+                <Button Name="FiltreButton"
+                        Grid.Column="3"
+                        Margin="11.6,12,11.8,12" 
+                        Click="FiltreButton_Click">Фільтрація</Button>
+                <TextBox Name="SearchInput"
+                         Height="20"
+                         Grid.Column="4"
+                         Grid.ColumnSpan="2"
+                         Margin="25.2,5,24.2,35"></TextBox>
+                <Button Height="20"
+                        Grid.Column="4"
+                        Grid.ColumnSpan="2"
+                        Margin="25.2,32,25.2,8" Click="SearchButton_Click">Пошук</Button>
+
+            </Grid>
+            <DataGrid Name="MainGrid" 
+                      AutoGenerateColumns="True"
+                      ItemsSource="{Binding DataGridSource}"
+                      SelectionChanged="MainGrid_SelectionChanged" 
+                      MouseDown="MainGrid_MouseDown"
+                      Grid.Row="1" AutoGeneratingColumn="MainGrid_AutoGeneratingColumn"
+                      ></DataGrid>
+            <Grid Grid.Row="2"
+                  Background="#FFE5DDD3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Content="Додати"
+                        Width="100"
+                        Height="30"
+                        Command="{Binding AddCommand}"
+                        CommandParameter="{Binding ElementName=MainGrid, Path=ItemsSource}"
+                        Name="AddButton"/>
+                <Button Content="Редагувати"
+                        Width="100"
+                        Height="30"
+                        Grid.Column="1"
+                        Command="{Binding EditCommand}"
+                        CommandParameter="{Binding ElementName=MainGrid, Path=SelectedItem}"
+                        Name="EditButton"/>
+                <Button Content="Видалити"
+                        Width="100"
+                        Height="30"
+                        Grid.Column="2"
+                        Command="{Binding DeleteCommand}"
+                        CommandParameter="{Binding ElementName=MainGrid, Path=SelectedItem}"
+                        Name="DeleteButton" />
+            </Grid>
+        </Grid>
         <Menu HorizontalAlignment="Left" VerticalAlignment="Top">
             <MenuItem Header="Файл">
                 <MenuItem Header="Вийти"></MenuItem>
             </MenuItem>
-            <MenuItem Header="Дані">
-                <MenuItem Header="Тварини"></MenuItem>
-                <MenuItem Header="Клієнти"></MenuItem>
-                <MenuItem Header="Договори"></MenuItem>
-                <MenuItem Header="Щеплення"></MenuItem>
-                <MenuItem Header="Вакцини"></MenuItem>
-                <MenuItem Header="Групи"></MenuItem>
-                <MenuItem Header="Доглядачі"></MenuItem>
+            <MenuItem Header="Дані тварин"
+                      Name="AnimalDataMenue">
+                <MenuItem Header="Тварини" 
+                          Click="MenuItem_Click"></MenuItem>
+                <MenuItem Header="Готовність тварин" 
+                          Click="MenuItem_Click"></MenuItem>
+                <MenuItem Header="Стани" 
+                          Click="MenuItem_Click"></MenuItem>
+                <MenuItem Header="Стани тварин" 
+                          Click="MenuItem_Click"></MenuItem>
+                <MenuItem Header="Групи" 
+                          Click="MenuItem_Click"></MenuItem>
+                <MenuItem Header="Договори" 
+                          Click="MenuItem_Click"></MenuItem>
+                <MenuItem Header="Вакцинація" 
+                          Click="MenuItem_Click"></MenuItem>
             </MenuItem>
+            <MenuItem Header="Особисті дані"
+                      Name="PersonalDataMenue">
+                <MenuItem Header="Договори" 
+                          Click="MenuItem_Click"></MenuItem>
+                <MenuItem Header="Клієнти" 
+                          Click="MenuItem_Click"></MenuItem>
+                <MenuItem Header="Працівники ВІ" 
+                          Click="MenuItem_Click"></MenuItem>
+                <MenuItem Header="Доглядачі" 
+                          Click="MenuItem_Click"></MenuItem>
+                <MenuItem Header="Особиста інформація працівників" 
+                          Click="MenuItem_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Технічні дані"
+                      Name="TechnicalDataMenu">
+                <MenuItem Header="Кімнати" 
+                          Click="MenuItem_Click"></MenuItem>
+                <MenuItem Header="Вакцини" 
+                          Click="MenuItem_Click"></MenuItem>
+                <MenuItem Header="Виробники" 
+                          Click="MenuItem_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Документи">
+                <MenuItem Header="Договір"
+                          Click="ContractClick"></MenuItem>
+                <MenuItem Header="Інформаційна картка"
+                          Click="InfoCardClick"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Статистика" Click="StatClick"></MenuItem>
         </Menu>
         <ScrollViewer Grid.Column="1"
                       Grid.Row="1">
-            <StackPanel x:Name="DetailsPanel"></StackPanel>
+            <StackPanel x:Name="DetailsPanel"
+                        Background="#FFE5DDD3"></StackPanel>
         </ScrollViewer>
     </Grid>
 </Window>

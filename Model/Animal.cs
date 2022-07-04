@@ -11,20 +11,19 @@ namespace PetShelter.Model
 {
     using System;
     using System.Collections.Generic;
+    using System.Reflection;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity;
-    using System.Windows;
-    using System.Reflection;
+    using PetShelter.View.EditWindows;
 
-    public partial class Animals : DbEntity
+    public partial class Animal : DbEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Animals()
+        public Animal()
         {
-            this.Contracts = new HashSet<Contracts>();
-            this.StateValues = new HashSet<StateValues>();
-            this.Vaccinations = new HashSet<Vaccinations>();
+            this.Contracts = new HashSet<Contract>();
+            this.StateValues = new HashSet<StateValue>();
+            this.Vaccinations = new HashSet<Vaccination>();
         }
 
         private int animalID;
@@ -51,7 +50,7 @@ namespace PetShelter.Model
                 OnPropertyChanged("AnimalID");
             }
         }
-        public string Name 
+        public string Name
         {
             get { return name; }
             set
@@ -60,7 +59,7 @@ namespace PetShelter.Model
                 OnPropertyChanged("Name");
             }
         }
-        public string Sex 
+        public string Sex
         {
             get { return sex; }
             set
@@ -69,7 +68,7 @@ namespace PetShelter.Model
                 OnPropertyChanged("Sex");
             }
         }
-        public string AnimalKind 
+        public string AnimalKind
         {
             get { return animalKind; }
             set
@@ -78,7 +77,7 @@ namespace PetShelter.Model
                 OnPropertyChanged("AnimalKind");
             }
         }
-        public Nullable<int> Height 
+        public Nullable<int> Height
         {
             get { return height; }
             set
@@ -87,7 +86,7 @@ namespace PetShelter.Model
                 OnPropertyChanged("Height");
             }
         }
-        public Nullable<double> Weight 
+        public Nullable<double> Weight
         {
             get { return weight; }
             set
@@ -96,7 +95,7 @@ namespace PetShelter.Model
                 OnPropertyChanged("Weight");
             }
         }
-        public string Color 
+        public string Color
         {
             get { return color; }
             set
@@ -105,7 +104,7 @@ namespace PetShelter.Model
                 OnPropertyChanged("Color");
             }
         }
-        public Nullable<System.DateTime> BirthDate 
+        public Nullable<System.DateTime> BirthDate
         {
             get { return birthDate; }
             set
@@ -114,7 +113,7 @@ namespace PetShelter.Model
                 OnPropertyChanged("PassNum");
             }
         }
-        public Nullable<System.DateTime> RegistrationDate 
+        public Nullable<System.DateTime> RegistrationDate
         {
             get { return registrationDate; }
             set
@@ -123,7 +122,7 @@ namespace PetShelter.Model
                 OnPropertyChanged("RegistrationDate");
             }
         }
-        public Nullable<int> QuarantineDays 
+        public Nullable<int> QuarantineDays
         {
             get { return quarantineDays; }
             set
@@ -132,7 +131,7 @@ namespace PetShelter.Model
                 OnPropertyChanged("QuarantineDays");
             }
         }
-        public Nullable<int> RoomID 
+        public Nullable<int> RoomID
         {
             get { return roomID; }
             set
@@ -141,7 +140,7 @@ namespace PetShelter.Model
                 OnPropertyChanged("RoomID");
             }
         }
-        public Nullable<int> GroupID 
+        public Nullable<int> GroupID
         {
             get { return groupID; }
             set
@@ -150,19 +149,44 @@ namespace PetShelter.Model
                 OnPropertyChanged("GroupID");
             }
         }
-    
-        internal virtual Groups Groups { get; set; }
-        internal virtual Rooms Rooms { get; set; }
+
+        internal override int Identifier => animalID;
+        internal override Type WindowType => typeof(AnimalEditWindow);
+
+        internal virtual Group Group { get; set; }
+        internal virtual Room Room { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        internal virtual ICollection<Contracts> Contracts { get; set; }
+        internal virtual ICollection<Contract> Contracts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        internal virtual ICollection<StateValues> StateValues { get; set; }
+        internal virtual ICollection<StateValue> StateValues { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        internal virtual ICollection<Vaccinations> Vaccinations { get; set; }
+        internal virtual ICollection<Vaccination> Vaccinations { get; set; }
 
         public override List<DbEntity> GetForegnEntities()
         {
-            return new List<DbEntity> { Groups, Rooms};
+            var res = new List<DbEntity>();
+
+            foreach (StateValue val in StateValues)
+            {
+                res.Add(val);
+            }
+
+            res.Add(Group);
+            res.Add(Room);
+
+            foreach (Vaccination val in Vaccinations)
+            {
+                res.Add(val);
+                res.Add(val.Vaccine);
+            }
+
+            foreach (Contract val in Contracts)
+            {
+                res.Add(val);
+            }
+
+
+            return res;
         }
 
         public override Dictionary<string, string> GetProperies()
@@ -179,7 +203,27 @@ namespace PetShelter.Model
 
         public override string ToString()
         {
-            return "Animal";
+            return $"{AnimalKind} {Name}";
+        }
+
+        public override void CopyProperties(DbEntity toCopy)
+        {
+            var animal = toCopy as Animal;
+
+            foreach (PropertyInfo prop in GetType().GetProperties())
+            {
+                prop.SetValue(this, prop.GetValue(animal));
+            }
+        }
+
+        public override string GetSearchString()
+        {
+            return Name + " " + animalID;
+        }
+
+        public override List<string> GetFilterableProperties()
+        {
+            return new List<string> { "AnimalKind", "GroupID", "RoomID" };
         }
     }
 }

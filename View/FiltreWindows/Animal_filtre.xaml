@@ -1,0 +1,77 @@
+﻿<Window x:Class="PetShelter.View.FiltreWindows.Animal_filtre"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PetShelter.View.FiltreWindows"
+        mc:Ignorable="d"
+        Title="Фільтрація" Height="400" Width="1000">
+    <ScrollViewer Background="#FFE5DDD3">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Label Name="ColumnLabel1"
+                   Content="Вид тварини"
+                   FontSize="20"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"></Label>
+            <Label Name="ColumnLabel2"
+                   Content="Група"
+                   FontSize="20"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Grid.Column="1"></Label>
+            <Label Name="ColumnLabel3"
+                   Content="Кімната"
+                   FontSize="20"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Grid.Column="2"></Label>
+            <Label Name="ColumnLabel4"
+                   Content="Дата зарахуваня"
+                   FontSize="20"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Grid.Column="3"></Label>
+            <StackPanel Name="StackPanel1"
+                        Grid.Row="1"
+                        Grid.Column="0"></StackPanel>
+            <ScrollViewer Grid.Row="1"
+                          Grid.Column="1"
+                          VerticalScrollBarVisibility="Disabled"
+                          HorizontalScrollBarVisibility="Auto">
+                <StackPanel Name="StackPanel2"></StackPanel>
+            </ScrollViewer>
+            <StackPanel Name="StackPanel3"
+                        Grid.Row="1"
+                        Grid.Column="2"></StackPanel>
+            <StackPanel Name="StackPanel4"
+                        Grid.Row="1"
+                        Grid.Column="3">
+                <Label Margin="20, 20, 0, 0">Від:</Label>
+                <DatePicker Margin="20, 0"
+                            Name="From"
+                            SelectedDate="{Binding FromDate}"></DatePicker>
+                <Label Margin="20, 20, 0, 0">До:</Label>
+                <DatePicker Margin="20, 0"
+                            Name="To"
+                            SelectedDate="{Binding ToDate}"></DatePicker>
+            </StackPanel>
+            <Button Name="FiltreButton"
+                    Grid.ColumnSpan="4"
+                    Grid.Row="2"
+                    Width="200"
+                    Height="40"
+                    Margin="60, 20" Click="FiltreButton_Click">Фільтрувати</Button>
+        </Grid>
+    </ScrollViewer>
+</Window>

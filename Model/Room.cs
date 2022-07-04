@@ -11,22 +11,20 @@ namespace PetShelter.Model
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
     using System.Reflection;
 
-    public partial class Rooms : DbEntity
+    public partial class Room : DbEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Rooms()
+        public Room()
         {
-            this.Animals = new HashSet<Animals>();
-            this.Caretakers = new HashSet<Caretakers>();
+            this.Animals = new HashSet<Animal>();
+            this.Caretakers = new HashSet<Caretaker>();
         }
 
-        private int roomID;
         private string name;
         private Nullable<int> maxAnimalAmount;
+        private int roomID;
 
         public int RoomID
         {
@@ -57,9 +55,9 @@ namespace PetShelter.Model
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Animals> Animals { get; set; }
+        internal virtual ICollection<Animal> Animals { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Caretakers> Caretakers { get; set; }
+        internal virtual ICollection<Caretaker> Caretakers { get; set; }
 
         public override Dictionary<string, string> GetProperies()
         {
@@ -73,9 +71,31 @@ namespace PetShelter.Model
             return res;
         }
 
+        public override List<DbEntity> GetForegnEntities()
+        {
+            var res = new List<DbEntity>();
+
+            foreach (Animal entity in Animals)
+            {
+                res.Add(entity);
+            }
+
+            return res;
+        }
+
         public override string ToString()
         {
-            return "Room";
+            return "Кімната";
+        }
+
+        public override string GetSearchString()
+        {
+            return $"{RoomID} {Name}";
+        }
+
+        public override List<string> GetFilterableProperties()
+        {
+            return new List<string> { "Name", "Null", "Null" };
         }
     }
 }
